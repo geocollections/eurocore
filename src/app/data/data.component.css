@@ -1,0 +1,6 @@
+.chart { 
+	z-index:-1;
+	position: absolute;
+	margin: -15px 0 0 270px;
+	background-color: #fff;
+}

@@ -1,0 +1,96 @@
+<p>
+  TODO: Search analytical data with parameters + results table
+  <button (click)="onClick()">DrawChart</button>
+</p>
+
+<!-- Top draggable textarea -->
+<div id="dataStr"><textarea id="Flog2DataStr" class="drag-target"></textarea><div id="drag-tab-parent" class="drag-container"><div id="drag-tab" draggable="true" class="drag-button"></div></div></div>
+<!-- Get screen mm etalon -->
+<div id="mm_etalon" style="height:1mm;display:hidden;"></div>
+
+
+<form class="flog2_form drag-target" id="flog2_form_test">
+    <div id="title" style="min-width:200px">FLOG2: Exploring geological section data</div>
+	<fieldset name="Flog2">
+		<!-- Data delimiter of used raw data -->
+        <!--
+		Delimiter: <br />
+			<input type="radio" name="dataDelimiter" value="\t" style="width:15px" checked="checked" /> tab 
+			<input type="radio" name="dataDelimiter" value="," style="width:15px" /> comma
+			<input type="radio" name="dataDelimiter" value=";" style="width:15px" /> semicolon
+		<br /> 
+        -->
+		<br />Chart title: <input type="text" name="title" style="width: 100%" />
+		<br />Depth, top (m): <input type="number" name="minDepth" value="0.0" step="0.01" />
+		<br />Depth, bottom (m): <input type="number" name="maxDepth" value="0.0" step="0.01" />
+		<!--
+		<br />Container height (px): <input type="number" name="outerHeight" value="0" step="1" />
+		<br />Chart area height (px): <input type="number" name="chartHeight" value="0" />
+		-->
+		<br />Chart height (mm): <input type="number" name="chartHeightmm" value="0" step="1" class="autoscale" />
+		<br />Chart scale 1:<input name="chartScale" value="0" step="1" class="autoscale" />
+	</fieldset>
+
+    <fieldset name="axes" class="axes-selector">
+        <legend>Axes</legend>
+        <input type="checkbox" name="axis-visibility[]" value="AxisStratigraphy" /> Stratigraphy<br />
+        <input type="checkbox" name="axis-visibility[]" value="AxisDefault" /> Scale<br />
+        <input type="checkbox" name="axis-visibility[]" value="AxisDrillcoreBox" /> Drillcore boxes<br />
+        <input type="checkbox" name="axis-visibility[]" value="AxisSectionBox" /> Section box<br />
+        <input type="checkbox" name="axis-visibility[]" value="AxisSample" /> Samples<br />
+        <!--<div class="axes-selector"></div>-->
+    </fieldset>
+
+	<fieldset name="VerticalLineChart" style="text-align:left">
+		<legend>XY chart</legend>
+		<div class="data-column-selector">Select data columns</div>
+
+		<br />Width: <input type="number" name="width" />
+        <select name="pointType">
+			<option value="circle">Circle</option>
+			<option value="rect">Rectangle</option> 
+		</select>        
+	</fieldset>
+
+
+	<fieldset name="SingleOccurrenceChart" style="text-align:left">
+		<legend>Fossil range chart</legend>
+		<div class="data-column-selector">Select data columns</div>
+        <select name="pointType">
+			<option value="ellipse">Circle</option>
+			<option value="rect">Rectangle</option>
+		</select>
+        <br /> 
+        spacing: <input type="number" name="spacingmm" style="width:40px" />mm
+        <br />quant: <input type="checkbox" name="pointSizeVaries" style="width:20px" />
+        max.width: <input type="number" name="maxWidthmm" style="width:40px" />mm
+        <br />
+        width: <input type="number" name="pointWidthmm" step="0.01" style="width:40px" />mm
+        height: <input type="number" name="pointHeightmm" step="0.01" style="width:40px" />mm
+	</fieldset>
+
+	<br />
+	<input type="button" name="refresh" value="Refresh" />
+	<input type="button" name="download" value="Download as SVG" style="width:150px"/>
+
+<p><a href="http://geokogud.info/flog2/examples/blank" target="_blank">Use sample application with copy-paste option</a>.</p>
+</form>
+
+<div class="flog2_form_collapser">
+	<div class="flog2_form_collapser_floater"></div>
+	<div class="flog2_form_collapser_btn"></div>
+</div>
+
+	<!-- Chart container div -->
+<div class="chart" style="height:100%"></div>
+
+<!-- Hidden <FORM> to submit the SVG data to the server, which will convert it to SVG/PDF/PNG downloadable file.
+     The form is populated and submitted by the JavaScript below. 
+	form to save svg from http://d3export.housegordon.org --> 
+<form id="svgform" method="post" action="assets/download.pl"> 
+	<input type="hidden" id="output_format" name="output_format" value="" />
+	<input type="hidden" id="data" name="data" value="" />
+</form>
+
+
+

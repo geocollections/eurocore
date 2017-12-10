@@ -1,0 +1,8 @@
+.ol-dragbox {
+    background-color: rgba(255,255,255,0.5);
+    border-color: rgba(83, 170, 0,1);
+  }
+
+  .map {
+    height: 550px;
+  }

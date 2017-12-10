@@ -1,0 +1,76 @@
+<div *ngIf="analysis">
+  <h3>Analysis ID: {{analysis.id}}</h3>
+
+  <table class="table">
+    <colgroup>
+      <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+    </colgroup>
+    <tr>
+      <td>ID</td>
+      <td>{{analysis.id}}</td>
+    </tr>
+    <tr>
+      <td>Drillcore</td>
+      <td>{{analysis.sample__drillcore__name}}</td>
+    </tr>
+    <tr>
+      <td>Sample</td>
+      <td>{{analysis.sample__id}}</td>
+    </tr>
+    <tr>
+      <td>Depth from, m</td>
+      <td>{{analysis.start_depth}}</td>
+    </tr>
+    <tr>
+      <td>Depth to, m</td>
+      <td>{{analysis.end_depth}}</td>
+    </tr>
+    <tr>
+      <td>Method</td>
+      <td>{{analysis.analysis_method__method}}</td>
+    </tr>
+    <tr>
+      <td>Lab</td>
+      <td>{{analysis.lab__lab}}</td>
+    </tr>
+    <tr>
+      <td>Instrument</td>
+      <td>{{analysis.instrument__instrument}}</td>
+    </tr>
+    <tr>
+      <td>Analyzed by</td>
+      <td>{{analysis.agent__name}}</td>
+    </tr>
+    <tr>
+      <td>Date</td>
+      <td>{{analysis.date}}</td>
+    </tr>
+  </table>
+
+  <h4>Analysis results</h4>
+  <table class="table table-striped table-sm table-responsive">
+    <thead class="thead-dark">
+      <tr>
+        <th>Parameter</th>
+        <th>Unit</th>
+        <th>Value</th>
+        <th>Error</th>
+        <th>LOD</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let analysisResult of analysisResults">
+      <td>{{analysisResult.parameter__parameter}}</td>
+      <td>{{analysisResult.unit__unit}}</td>
+      <td>{{analysisResult.value}} {{analysisResult.value_txt}}</td>
+      <td>{{analysisResult.value_error}}</td>
+      <td>{{analysisResult.lower_limit}}</td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+
+
+

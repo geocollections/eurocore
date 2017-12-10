@@ -1,0 +1,195 @@
+<h3>
+  Drillcore details</h3>
+<div class="row ">
+  <div *ngIf="site" class="col">
+    <table class="table">
+      <colgroup>
+        <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+      </colgroup>
+      <tr>
+        <td>Name</td>
+        <td>{{site.name}}</td>
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>{{site.id}}</td>
+      </tr>
+      <tr>
+        <td>Deposit</td>
+        <td>{{site.deposit__name}}</td>
+      </tr>
+      <tr>
+        <td>Latitude</td>
+        <td>{{site.latitude}}</td>
+      </tr>
+      <tr>
+        <td>Longitude</td>
+        <td>{{site.longitude}}</td>
+      </tr>
+      <tr>
+        <td>Length</td>
+        <td>{{site.hole_length}} m</td>
+      </tr>
+      <tr>
+        <td>Dip</td>
+        <td>{{site.hole_dip}}</td>
+      </tr>
+      <tr>
+        <td>Azimuth</td>
+        <td>{{site.hole_azimuth}}</td>
+      </tr>
+      <tr>
+        <td>Drilling year</td>
+        <td>{{site.drilling_year}}</td>
+      </tr>
+      <tr>
+        <td>Drilling company</td>
+        <td>{{site.drilling_agent__name}}</td>
+      </tr>
+      <tr>
+        <td>Number of boxes</td>
+        <td>{{site.number_boxes}}</td>
+      </tr>
+      <tr>
+        <td>Deposited by </td>
+        <td>{{site.core_depositor__name}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="col">
+    <div class="row ">
+      <div id="map" class="map"></div>
+    </div>
+    <br>
+    <div class="row">
+      <img src="https://www.sgu.se/globalassets/mineralnaring/skanning/optisk-627.png" width="100%" height="225px" onClick='window.open("/#/drillcore/5/coreboxes","","width=600, height=600","")'>
+    </div>
+    <br>
+  </div>
+</div>
+
+
+<div class="row ">
+  <div class="col">
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#lithologyData" data-toggle="tab">Lithology data</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#otherData" data-toggle="tab">Other data</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#someOtherData" data-toggle="tab">Some other data</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#newData" data-toggle="tab">New data</a>
+      </li>
+    </ul>
+
+    <div class="tab-content ">
+      <div class="tab-pane fade show active" id="lithologyData">
+        <h3>Lithology table</h3>
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Depth from (m)</th>
+              <th>Depth to (m)</th>
+              <th>Rock class</th>
+              <th>Rock name</th>
+              <th>Field name</th>
+              <th>Color</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tr *ngFor="let lithology of lithologies">
+            <td>{{lithology.start_depth}}</td>
+            <td>{{lithology.end_depth}}</td>
+            <td>{{lithology.rock_class__name}}</td>
+            <td>{{lithology.rock_name__name}}</td>
+            <td>{{lithology.field_name}}</td>
+            <td>{{lithology.color_attribute__attribute}} {{lithology.color__color}}</td>
+            <td>{{lithology.remarks}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="otherData">
+        <h3>Other data</h3>
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Depth from (m)</th>
+              <th>Depth to (m)</th>
+              <th>Rock class</th>
+              <th>Rock name</th>
+              <th>Field name</th>
+              <th>Color</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tr >
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcdeeeeeeeeeeeeeeeeeeeeeee</td>
+            <td>dfgffggf</td>
+            <td>------------------</td>
+            <td>sfdffdffd</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="someOtherData">
+        <h3>Some other data</h3>
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Depth from (m)</th>
+              <th>Depth to (m)</th>
+              <th>Rock class</th>
+              <th>Rock name</th>
+              <th>Field name</th>
+              <th>Color</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tr >
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+            <td>dfgffggf</td>
+            <td>------------------</td>
+            <td>sfdffdffd</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="newData">
+        <h3>New data</h3>
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Depth from (m)</th>
+              <th>Depth to (m)</th>
+              <th>Rock class</th>
+              <th>Rock name</th>
+              <th>Field name</th>
+              <th>Color</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tr >
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+            <td>dfgffggf</td>
+            <td>----------------------------------------------------------</td>
+            <td>sfdffdffd</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
