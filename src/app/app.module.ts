@@ -13,8 +13,6 @@ import { SiteService } from './services/site.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { OresComponent } from './ores/ores.component';
 import { DataComponent } from './data/data.component';
-import { MessagesComponent } from './messages/messages.component';
-import { MessageService } from './services/message.service';
 import { SiteSearchComponent } from './site-search/site-search.component';
 import { DepositDetailsComponent } from './deposit-details/deposit-details.component';
 import { MapComponent } from './map/map.component';
@@ -36,7 +34,6 @@ import { DrillcoreBoxesComponent } from './drillcore-boxes/drillcore-boxes.compo
     SiteDetailsComponent,
     OresComponent,
     DataComponent,
-    MessagesComponent,
     SiteSearchComponent,
     DepositDetailsComponent,
     MapComponent,
@@ -52,7 +49,7 @@ import { DrillcoreBoxesComponent } from './drillcore-boxes/drillcore-boxes.compo
     JsonpModule,
     HttpClientJsonpModule
   ],
-  providers: [SiteService, MessageService, MapService, LithologyService, DepositService, SampleService, AnalysisService],
+  providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
