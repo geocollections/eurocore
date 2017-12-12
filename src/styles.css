@@ -1,2 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');*/
+
+
+.export-geojson {
+    position: absolute;
+    top: 65px;
+    left: 8px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    padding: 2px;
+  }
+
+  .ol-touch .export-geojson {
+    top: 80px;
+  }
+
+  .export-geojson a {
+    display: block;
+    color: white;
+    font-size: 16px;
+    font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin: 1px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 2px;
+    height: 22px;
+    width: 22px;
+    background: rgba(0, 60, 136, 0.5);
+  }
+
+  .ol-touch .export-geojson a {
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    line-height: 26px;
+  }
+
+  .export-geojson a:hover {
+    background: rgba(0, 60, 136, 0.7);
+  }

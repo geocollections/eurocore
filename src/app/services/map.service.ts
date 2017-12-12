@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Site } from '../site';
 import { SiteSearchComponent } from '../site-search/site-search.component';
 declare var ol: any;
-//mport * as ol from "openlayers";
+//import * as ol from "openlayers"; 
 
 
 @Injectable()
@@ -15,7 +15,7 @@ export class MapService {
 
   drawMap(siteSearch?: SiteSearchComponent): void {
     var siteNames: string[];
-
+      
     siteNames = [];
     var vectorSource = new ol.source.Vector({
     });
@@ -24,7 +24,7 @@ export class MapService {
     var vectorLayer = new ol.layer.Vector({
       source: this.vectorSource
     });
-
+    
     this.map = new ol.Map({
       target: 'map',
       layers: [
@@ -55,8 +55,6 @@ export class MapService {
           e.deselected[0].getStyle().getText().setScale(0)
         }
       });
-
-
 
 
       var select = new ol.interaction.Select();

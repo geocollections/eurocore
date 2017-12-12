@@ -15,6 +15,7 @@ import TileLayer from 'ol/layer/tile';
 import XYZ from 'ol/source/xyz';
 import ol from 'ol';*/
 
+
 @Component({
   selector: 'app-analysis-details',
   templateUrl: './analysis-details.component.html',
@@ -32,7 +33,7 @@ export class AnalysisDetailsComponent implements OnInit {
     this.getAnalysisById(this.route.snapshot.paramMap.get('id'));
     this.getAnalysisResultsByAnalysisId(this.route.snapshot.paramMap.get('id'));
     
-
+    
     /*
     new Map({
       target: 'map',

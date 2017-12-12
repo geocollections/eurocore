@@ -79,13 +79,14 @@
           <th>Id</th>
           <th>Name</th>
           <th>Deposit</th>
-          <th>Drilling year</th>
-          <th>Drillhole length</th>
+          <th>Year</th>          
           <th>Latitude</th>
           <th>Longitude</th>
-          <th>Drillhole dip</th>
-          <th>Drillhole azimuth</th>
-          <th>Show data</th>
+          <th>Elevation</th>
+          <th>Length</th>
+          <th>Dip</th>
+          <th>Azimuth</th>
+          <th></th>
         </tr>
       </thead>
       <tr *ngFor="let site of sites">
@@ -96,14 +97,15 @@
         <td>
           <a routerLink="/deposit/{{site.deposit__id}}">{{site.deposit__name}}</a>
         </td>
-        <td>{{site.drilling_year}}</td>
-        <td>{{site.hole_length}}</td>
+        <td>{{site.drilling_year}}</td>      
         <td>{{site.latitude}}</td>
         <td>{{site.longitude}}</td>
+        <td> </td>
+        <td>{{site.hole_length}}</td>
         <td>{{site.hole_dip}}</td>
         <td>{{site.hole_azimuth}}</td>
         <td>
-          <a routerLink="/ores">Drillcore numeric data</a>
+          <a routerLink="/ores">Show data</a>
         </td>
       </tr>
       <!--  </li>-->

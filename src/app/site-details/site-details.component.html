@@ -1,7 +1,8 @@
-<h3>
-  Drillcore details</h3>
 <div class="row ">
   <div *ngIf="site" class="col">
+    <h3>
+      {{site.name}} details
+    </h3>
     <table class="table">
       <colgroup>
         <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
@@ -25,6 +26,10 @@
       <tr>
         <td>Longitude</td>
         <td>{{site.longitude}}</td>
+      </tr>
+      <tr>
+        <td>Elevation</td>
+        <td></td>
       </tr>
       <tr>
         <td>Length</td>
@@ -57,14 +62,10 @@
     </table>
   </div>
   <div class="col">
+    <br>
     <div class="row ">
       <div id="map" class="map"></div>
     </div>
-    <br>
-    <div class="row">
-      <img src="https://www.sgu.se/globalassets/mineralnaring/skanning/optisk-627.png" width="100%" height="225px" onClick='window.open("/#/drillcore/5/coreboxes","","width=600, height=600","")'>
-    </div>
-    <br>
   </div>
 </div>
 
@@ -74,22 +75,39 @@
 
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" href="#lithologyData" data-toggle="tab">Lithology data</a>
+        <a class="nav-link" href="#dipAzimuth" data-toggle="tab">Dip/azimuth</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#otherData" data-toggle="tab">Other data</a>
+        <a class="nav-link active" href="#lithology" data-toggle="tab">Lithology</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#someOtherData" data-toggle="tab">Some other data</a>
+        <a class="nav-link" href="#RQD" data-toggle="tab">RQD</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#newData" data-toggle="tab">New data</a>
+        <a class="nav-link" href="#structures" data-toggle="tab">Structures</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#stratigraphy" data-toggle="tab">Stratigraphy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#images" data-toggle="tab">Images</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#samples" data-toggle="tab">Samples</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#analyses" data-toggle="tab">Analyses</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#linkedFiles" data-toggle="tab">Linked files</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#references" data-toggle="tab">Referencess</a>
       </li>
     </ul>
 
     <div class="tab-content ">
-      <div class="tab-pane fade show active" id="lithologyData">
-        <h3>Lithology table</h3>
+      <div class="tab-pane fade show active" id="lithology">
         <table class="table table-striped table-sm table-responsive">
           <thead class="thead-dark">
             <tr>
@@ -113,78 +131,187 @@
           </tr>
         </table>
       </div>
-      <div class="tab-pane fade" id="otherData">
-        <h3>Other data</h3>
+      <div class="tab-pane fade" id="dipAzimuth">
         <table class="table table-striped table-sm table-responsive">
           <thead class="thead-dark">
             <tr>
-              <th>Depth from (m)</th>
-              <th>Depth to (m)</th>
-              <th>Rock class</th>
-              <th>Rock name</th>
-              <th>Field name</th>
-              <th>Color</th>
-              <th>Description</th>
+              <th>Depth (m)</th>
+              <th>Dip</th>
+              <th>Azimuth</th>
             </tr>
           </thead>
-          <tr >
+          <tr>
             <td>123</td>
             <td>223</td>
-            <td>Name</td>
-            <td>Abcdeeeeeeeeeeeeeeeeeeeeeee</td>
-            <td>dfgffggf</td>
-            <td>------------------</td>
-            <td>sfdffdffd</td>
+            <td>----</td>
           </tr>
         </table>
       </div>
-      <div class="tab-pane fade" id="someOtherData">
-        <h3>Some other data</h3>
+      <div class="tab-pane fade" id="RQD">
         <table class="table table-striped table-sm table-responsive">
           <thead class="thead-dark">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth to (m)</th>
-              <th>Rock class</th>
-              <th>Rock name</th>
-              <th>Field name</th>
-              <th>Color</th>
-              <th>Description</th>
+              <th>Core loss</th>
+              <th>RQD</th>
+              <th>Person/Institution</th>
+              <th>Date</th>
             </tr>
           </thead>
-          <tr >
+          <tr>
             <td>123</td>
             <td>223</td>
             <td>Name</td>
             <td>Abcde</td>
             <td>dfgffggf</td>
             <td>------------------</td>
-            <td>sfdffdffd</td>
           </tr>
         </table>
       </div>
-      <div class="tab-pane fade" id="newData">
-        <h3>New data</h3>
+      <div class="tab-pane fade" id="structures">
         <table class="table table-striped table-sm table-responsive">
           <thead class="thead-dark">
             <tr>
               <th>Depth from (m)</th>
-              <th>Depth to (m)</th>
-              <th>Rock class</th>
-              <th>Rock name</th>
-              <th>Field name</th>
-              <th>Color</th>
+              <th>Depth (m, interval)</th>
+              <th>Structure</th>
+              <th>Dip</th>
+              <th>Dip direction</th>
               <th>Description</th>
+              <th>Person/Institution</th>
+              <th>Date</th>
             </tr>
           </thead>
-          <tr >
+          <tr>
             <td>123</td>
             <td>223</td>
             <td>Name</td>
             <td>Abcde</td>
-            <td>dfgffggf</td>
-            <td>----------------------------------------------------------</td>
-            <td>sfdffdffd</td>
+            <td>.......</td>
+            <td>-------</td>
+            <td>......</td>
+            <td>.....</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="stratigraphy">
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Depth from (m)</th>
+              <th>Depth (m)</th>
+              <th>Strat. top</th>
+              <th>Strat. base</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="images">
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Depth from (m)</th>
+              <th>Depth (m)</th>
+              <th>Image name</th>
+              <th>Author</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+            <td>Abcde</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="samples">
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Depth from (m)</th>
+              <th>Depth (m, interval)</th>
+              <th>Sample ID</th>
+              <th>Sample number</th>
+              <th>Purpose</th>
+              <th>Person/Institution</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="analyses">
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Depth from (m)</th>
+              <th>Depth (m, interval)</th>
+              <th>Analyse ID</th>
+              <th>Analyse number</th>
+              <th>Person/Institution</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+            <td>Name</td>
+            <td>Abcde</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="linkedFiles">
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Type</th>
+              <th>Format</th>
+              <th>Description</th>
+              <th>Author</th>
+              <th>Date</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+            <td>Name</td>
+            <td>Abcde</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="references">
+        <table class="table table-striped table-sm table-responsive">
+          <thead class="thead-dark">
+            <tr>
+              <th>Reference</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>123</td>
+            <td>remarks....</td>
           </tr>
         </table>
       </div>
