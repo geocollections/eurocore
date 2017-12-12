@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Site } from '../site';
 import { SiteSearchComponent } from '../site-search/site-search.component';
-declare var ol: any;
-//import * as ol from "openlayers"; 
+import * as ol from "openlayers";
 
 
 @Injectable()
@@ -10,13 +9,11 @@ export class MapService {
   vectorSource: any;
   map: any;
 
-
   constructor() { }
 
   drawMap(siteSearch?: SiteSearchComponent): void {
-    var siteNames: string[];
-      
-    siteNames = [];
+
+
     var vectorSource = new ol.source.Vector({
     });
     this.vectorSource = vectorSource;
@@ -24,7 +21,7 @@ export class MapService {
     var vectorLayer = new ol.layer.Vector({
       source: this.vectorSource
     });
-    
+
     this.map = new ol.Map({
       target: 'map',
       layers: [
@@ -41,71 +38,7 @@ export class MapService {
 
     if (siteSearch) {
 
-
-      var selectPointerMove = new ol.interaction.Select({
-        condition: ol.events.condition.pointerMove
-      });
-      this.map.addInteraction(selectPointerMove);
-
-      selectPointerMove.on('select', function (e) {
-        if (e.selected.length != 0) {
-          e.selected[0].getStyle().getText().setScale(1.4);
-        }
-        if (e.deselected.length != 0) {
-          e.deselected[0].getStyle().getText().setScale(0)
-        }
-      });
-
-
-      var select = new ol.interaction.Select();
-      this.map.addInteraction(select);
-
-      var selectedFeatures = select.getFeatures();
-
-      var dragBox = new ol.interaction.DragBox({
-        condition: ol.events.condition.platformModifierKeyOnly
-      });
-
-      this.map.addInteraction(dragBox);
-
-      dragBox.on('boxend', function () {
-        // features that intersect the box are added to the collection of
-        // selected features
-        var extent = dragBox.getGeometry().getExtent();
-        vectorSource.forEachFeatureIntersectingExtent(extent, function (feature) {
-          siteNames.push(feature.getStyle().getText().getText());
-          selectedFeatures.push(feature);
-        });
-        siteSearch.searchSitesByNames(siteNames);
-        siteNames = [];
-
-      });
-
-      // clear selection when drawing a new box and when clicking on the map
-      dragBox.on('boxstart', function () {
-        selectedFeatures.clear();
-      });
-
-      selectedFeatures.on(['add'], function () {
-
-        var names = selectedFeatures.getArray().map(function (feature) {
-
-          if (siteNames.length == 0) {
-            siteSearch.searchSites(feature.getStyle().getText().getText(), '', '', '', '', 1);
-          }
-        });
-
-      });
-
-      selectedFeatures.on(['remove'], function () {
-        var names = selectedFeatures.getArray().map(function (feature) {
-
-        });
-
-        if (selectedFeatures.getArray().length == 0) {
-          siteSearch.searchSites('', '', '', '', '', 1);
-        }
-      });
+      this.addMapInteraction(siteSearch, vectorSource);
     }
 
   }
@@ -186,6 +119,75 @@ export class MapService {
   }
 
 
+  addMapInteraction(siteSearch: SiteSearchComponent, vectorSource: ol.source.Vector): void {
+    var siteNames: string[];
+    siteNames = [];
+
+    var selectPointerMove = new ol.interaction.Select({
+      condition: ol.events.condition.pointerMove
+    });
+    this.map.addInteraction(selectPointerMove);
+
+    selectPointerMove.on('select', function (e) {
+      if (e.selected.length != 0) {
+        e.selected[0].getStyle().getText().setScale(1.4);
+      }
+      if (e.deselected.length != 0) {
+        e.deselected[0].getStyle().getText().setScale(0)
+      }
+    });
+
+    var select = new ol.interaction.Select();
+    this.map.addInteraction(select);
+
+    var selectedFeatures = select.getFeatures();
+
+    var dragBox = new ol.interaction.DragBox({
+      condition: ol.events.condition.platformModifierKeyOnly
+    });
+
+    this.map.addInteraction(dragBox);
+
+    dragBox.on('boxend', function () {
+      // features that intersect the box are added to the collection of
+      // selected features
+      var extent = dragBox.getGeometry().getExtent();
+      vectorSource.forEachFeatureIntersectingExtent(extent, function (feature) {
+        siteNames.push(feature.getStyle()['ta']['ta']);
+        selectedFeatures.push(feature);
+      });
+      siteSearch.searchSitesByNames(siteNames);
+      siteNames = [];
+
+    });
+
+    // clear selection when drawing a new box and when clicking on the map
+    dragBox.on('boxstart', function () {
+      selectedFeatures.clear();
+    });
+
+    selectedFeatures.on(['add'], function () {
+
+      var names = selectedFeatures.getArray().map(function (feature) {
+
+        if (siteNames.length == 0) {
+          siteSearch.searchSites(feature.getStyle()['ta']['ta'], '', '', '', '', 1);
+        }
+      });
+
+    });
+
+    selectedFeatures.on(['remove'], function () {
+      var names = selectedFeatures.getArray().map(function (feature) {
+
+      });
+
+      if (selectedFeatures.getArray().length == 0) {
+        siteSearch.searchSites('', '', '', '', '', 1);
+      }
+    });
+
+  }
 
 
 }

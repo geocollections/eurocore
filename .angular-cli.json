@@ -20,13 +20,11 @@
       "prefix": "app",
       "styles": [ 
         "styles.css",
-        "./assets/ol.css",
         "./assets/flog2.css",
         "./assets/flog2_form.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css"  
       ],
       "scripts": [ 
-        "./assets/ol.js", 
         "./assets/d3.js",
         "./assets/flog2.js",
         "./assets/flog2_form.js",
