@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'deposit/:id', component: DepositDetailsComponent },
   { path: 'sample/:id', component: SampleDetailsComponent },
   { path: 'analysis/:id', component: AnalysisDetailsComponent },
-  { path: 'drillcore/:id/coreboxes', component: DrillcoreBoxesComponent },
+  { path: 'drillcore/corebox/:id', component: DrillcoreBoxesComponent },
   { path: '', component: FrontpageComponent },
 ];  
 

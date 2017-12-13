@@ -88,7 +88,7 @@
         <a class="nav-link" href="#stratigraphy" data-toggle="tab">Stratigraphy</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#images" data-toggle="tab">Core boxes</a>
+        <a class="nav-link" href="#images" data-toggle="tab" (click)="getDrillcoreBoxesByDrillcoreId(site.id)">Core boxes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#samples" data-toggle="tab">Samples</a>
@@ -218,53 +218,31 @@
         </table>
       </div>
       <div class="tab-pane fade" id="images">
-        <div class="row">
+        <div *ngFor="let drillcoreBox of drillcoreBoxes" class="row">
         <div class="col-4">
-            <a routerLink="/drillcore/3/coreboxes"><h5>Box L-1</h5> </a>
+            <a routerLink="/drillcore/corebox/{{drillcoreBox.id}}"><h5>{{drillcoreBox.number}}</h5> </a>
         <table class="table">
             <colgroup>
               <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
             </colgroup>
           <tr>
             <td>Depth from (m)</td>
-            <td>223</td>
+            <td>{{drillcoreBox.start_depth}}</td>
           </tr>
           <tr>
               <td>Depth (m)</td>
-              <td>223</td>
+              <td>{{drillcoreBox.end_depth}}</td>
             </tr>
         </table>
         </div>
         <div class="col">
-          <a routerLink="/drillcore/3/coreboxes"><img src="http://eurocore.rocks/files/53e20a8e-2bfc-4bc1-b2b4-bed900c8625c.jpg" width="600" height="200"></a>
+          <a routerLink="/drillcore/corebox/{{drillcoreBox.id}}"><img src="http://www.eurocore.rocks{{drillcoreBox.attachmentlink__attachment__url}}" width="600" height="200"></a>
+          
         </div>
+        
       </div>
       <br>
-      <div class="row">
-          <div class="col-4">
-              <a routerLink="/drillcore/3/coreboxes"><h5>Box L-1</h5> </a>
-          <table class="table">
-              <colgroup>
-                <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
-              </colgroup>
-            <tr>
-              <td>Depth from (m)</td>
-              <td>223</td>
-            </tr>
-            <tr>
-                <td>Depth (m)</td>
-                <td>223</td>
-              </tr>
-          </table>
-          </div>
-          <div class="col">
-              <a routerLink="/drillcore/3/coreboxes"><img src="http://eurocore.rocks/files/53e20a8e-2bfc-4bc1-b2b4-bed900c8625c.jpg" width="600" height="200"></a>
-          </div>
-        </div>
-
-
-
-
+      
       </div>
       <div class="tab-pane fade" id="samples">
         <table class="table table-striped table-sm table-responsive">
@@ -289,6 +267,7 @@
             <td>Abcde</td>
           </tr>
         </table>
+
       </div>
       <div class="tab-pane fade" id="analyses">
         <table class="table table-striped table-sm table-responsive">

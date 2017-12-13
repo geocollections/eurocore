@@ -5,7 +5,7 @@ import { HttpClientModule, HttpClientJsonpModule }    from '@angular/common/http
 import {JsonpModule, Jsonp, Response} from '@angular/http';
 
 
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AppComponent } from './app.component';
 import { SitesComponent } from './sites/sites.component';
 import { SiteDetailsComponent } from './site-details/site-details.component';
@@ -25,8 +25,9 @@ import { SampleService } from './services/sample.service';
 import { AnalysisService } from './services/analysis.service';
 import { DrillcoreBoxesComponent } from './drillcore-boxes/drillcore-boxes.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
+import { DrillcoreBoxService } from './services/drillcore-box.service';
 
-
+ 
 
 @NgModule({
   declarations: [
@@ -49,9 +50,10 @@ import { FrontpageComponent } from './frontpage/frontpage.component';
     AppRoutingModule,
     HttpClientModule,
     JsonpModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    InfiniteScrollModule, 
   ],
-  providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService],
+  providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
