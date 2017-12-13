@@ -1,0 +1,10 @@
+#footer-logos > a > img {
+    height: 47px;
+    margin-right: 12.5px;
+    margin-left: 12.5px;
+    border: 0;
+}
+
+img {
+    vertical-align: middle;
+}

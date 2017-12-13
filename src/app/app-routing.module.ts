@@ -9,6 +9,7 @@ import { DepositDetailsComponent }   from './deposit-details/deposit-details.com
 import { SampleDetailsComponent }   from './sample-details/sample-details.component';
 import { AnalysisDetailsComponent }   from './analysis-details/analysis-details.component';
 import { DrillcoreBoxesComponent} from "./drillcore-boxes/drillcore-boxes.component";
+import { FrontpageComponent} from "./frontpage/frontpage.component";
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'sample/:id', component: SampleDetailsComponent },
   { path: 'analysis/:id', component: AnalysisDetailsComponent },
   { path: 'drillcore/:id/coreboxes', component: DrillcoreBoxesComponent },
+  { path: '', component: FrontpageComponent },
 ];  
 
 @NgModule({
