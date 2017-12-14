@@ -3,11 +3,8 @@ import { Observable } from 'rxjs/Rx';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Jsonp, JsonpModule } from '@angular/http';
-declare var ol:any;
 
 import { Site } from '../site';
-//import { SITES } from './mock-sites';
-//import { MessageService } from './message.service';
 
 @Injectable()
 export class SiteService { 
@@ -89,11 +86,31 @@ export class SiteService {
         if(names.length-i>1)
         this.searchCriteria+=";";
       }
-
     }
     console.log(this.searchCriteria);
     return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&'+this.searchCriteria,"callback").pipe();
     //return null; 
+  }
+
+  searchMapSites(name: string, deposit: string, oreType: string, commodity: string, coreDepositorName: string): Observable<Site[]> {
+    this.searchCriteria="";
+    if(name!=""){
+      this.searchCriteria+='&name__icontains='+name;
+    }
+    if(deposit!=""){
+      this.searchCriteria+='&multi_search=value:'+deposit+';fields:deposit__name,deposit__alternative_names;lookuptype:icontains';
+    }
+    if(oreType!=""){
+      this.searchCriteria+='&deposit__genetic_type__name__icontains='+oreType;
+    }
+    if(commodity!=""){
+      this.searchCriteria+='&multi_search=value:'+commodity+';fields:deposit__main_commodity,deposit__other_commodities;lookuptype:icontains';
+    }
+    if(coreDepositorName!=""){
+      this.searchCriteria+='&core_depositor__name__icontains='+coreDepositorName;
+    }
+    
+    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp'+this.searchCriteria+'&fields=name,longitude,latitude',"callback").pipe();
   }
 
 

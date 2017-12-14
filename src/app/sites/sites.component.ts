@@ -20,7 +20,7 @@ export class SitesComponent implements OnInit {
   constructor(private siteService: SiteService) { }
 
   ngOnInit() {
-    this.getSites();
+    //this.getSites();
 
   }
 

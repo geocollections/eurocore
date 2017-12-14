@@ -19,16 +19,16 @@ export class SiteDetailsComponent implements OnInit {
 
   @Input() site: Site;
   lithologies: Lithology[];
-  drillcoreBoxes: DrillcoreBox[];
-  //array = [];
+  drillcoreBoxes: DrillcoreBox[]=[];
+  pageNr: number = 1;
+  paginateBy = 5;
+  pageCount: number;
 
   constructor(private route: ActivatedRoute, private siteService: SiteService, private mapService: MapService,
     private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService) { }
 
   ngOnInit() {
-    //console.log(this.route.snapshot.paramMap.get('id'));
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
-    //this.getDrillcoreBoxesByDrillcoreId(this.route.snapshot.paramMap.get('id'));
     this.mapService.drawMap();
   }
 
@@ -38,13 +38,30 @@ export class SiteDetailsComponent implements OnInit {
   }
 
   getDrillcoreBoxesByDrillcoreId(id: string): void {
-    if(this.drillcoreBoxes==undefined)
-    this.drillcoreBoxService.getDrillcoreBoxesByDrillcoreId(id).subscribe(drillcoreBoxes => { this.drillcoreBoxes = drillcoreBoxes['results']; console.log(this.drillcoreBoxes) });
+    
+    if (this.pageNr <= this.pageCount || this.pageCount == undefined) {
+      this.drillcoreBoxService.getDrillcoreBoxesByDrillcoreId(id, this.paginateBy, this.pageNr).subscribe(drillcoreBoxes => {
+        if(drillcoreBoxes['results']){
+        for (let i = 0; i < drillcoreBoxes['results'].length; i++) {
+          this.drillcoreBoxes.push(drillcoreBoxes['results'][i]);
+          console.log("boxespush" + drillcoreBoxes['results'][i].number)
+        }
+        if (drillcoreBoxes['page'])
+          this.pageCount = Number(String(drillcoreBoxes['page']).split("of ")[1])
+        else
+          this.pageCount = 1;
+
+        console.log(this.pageCount);
+        console.log(this.pageNr);
+        this.pageNr++;
+      }
+    }
+      );
+    }
   }
 
-  onScroll () {
-    console.log('scrolled!!');
-    //this.array.push("1");
+  onScroll() {
+    this.getDrillcoreBoxesByDrillcoreId(this.route.snapshot.paramMap.get("id"));
   }
 
 }

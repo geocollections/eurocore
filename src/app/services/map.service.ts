@@ -130,7 +130,8 @@ export class MapService {
 
     selectPointerMove.on('select', function (e) {
       if (e.selected.length != 0) {
-        e.selected[0].getStyle().getText().setScale(1.4);
+        
+        e.selected[0].getStyle().getText().setScale(1.4);        
       }
       if (e.deselected.length != 0) {
         e.deselected[0].getStyle().getText().setScale(0)
@@ -171,7 +172,19 @@ export class MapService {
       var names = selectedFeatures.getArray().map(function (feature) {
 
         if (siteNames.length == 0) {
+          console.log(feature.getStyle());
           siteSearch.searchSites(feature.getStyle()['ta']['ta'], '', '', '', '', 1);
+          /*
+          feature.setStyle(new ol.style.Style({
+            image: new ol.style.Icon(/** @type {olx.style.IconOptions} *//*({
+              color: 'red',
+              crossOrigin: 'anonymous',
+              src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
+            }))
+          
+          }));*/
+          //console.log(feature.getStyle()['ta']['ta']);
+          
         }
       });
 
@@ -180,10 +193,20 @@ export class MapService {
     selectedFeatures.on(['remove'], function () {
       var names = selectedFeatures.getArray().map(function (feature) {
 
+        feature.setStyle(new ol.style.Style({
+          image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
+            color: '#8959A8',
+            crossOrigin: 'anonymous',
+            src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
+          }))
+        
+        }));
       });
 
       if (selectedFeatures.getArray().length == 0) {
+
         siteSearch.searchSites('', '', '', '', '', 1);
+        //siteSearch.getMapSites();
       }
     });
 
