@@ -1,51 +1,50 @@
 <div id="search-component">
   <div class="row">
     <div class="col">
-        <h3>Drillcore search</h3>
+      <h3>Drillcore search</h3>
     </div>
   </div>
   <div class="row align-items-center">
     <div class="col">
-      <form>
-        <div class="form-group">
-          <label for="name">Drillcore name</label>
-          <input #searchDrillcoreName id="drillcoreName" list="drillcoreList" class="form-control" (input)="searchDrillcoreByName(searchDrillcoreName.value)"
-            placeholder="Drillcore name" />
-          <datalist *ngIf="drillcoreAutocompleteValues" id='drillcoreList'>
-            <option *ngFor="let drillcoreValue of drillcoreAutocompleteValues" value='{{drillcoreValue.name}}'>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label for="name">Deposit name</label>
-          <input #searchDepositName id="depositName" list="depositList" class="form-control" (input)="searchDepositByName(searchDepositName.value)"
-            placeholder="Deposit name" />
-          <datalist *ngIf="depositAutocompleteValues" id='depositList'>
-            <option *ngFor="let depositValue of depositAutocompleteValues" value='{{depositValue}}'>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label for="name">Ore type</label>
-          <input #searchOreType id="OreType" list="oreTypeList" class="form-control" (input)="searchOreTypeByName(searchOreType.value)"
-            placeholder="Ore type" />
-          <datalist *ngIf="oreTypeAutocompleteValues" id='oreTypeList'>
-            <option *ngFor="let oreTypeValue of oreTypeAutocompleteValues" value='{{oreTypeValue.name}}'>
-          </datalist>
-        </div>
-        <div class="form-group">
-          <label for="name">Commodity</label>
-          <input #searchCommodity id="commodity" class="form-control" placeholder="Commodity" />
-        </div>
-        <div class="form-group">
-          <label for="name">Core depositor</label>
-          <input #searchInstitution id="coreDepositorName" list="coreDepositorList" class="form-control" (input)="searchCoreDepositorByName(searchInstitution.value)"
-            placeholder="Institution" />
-          <datalist *ngIf="coreDepositorAutocompleteValues" id="coreDepositorList">
-            <option *ngFor="let coreDepositorValue of coreDepositorAutocompleteValues" value='{{coreDepositorValue.core_depositor__name}}'>
-          </datalist>
-        </div>
-        <button (click)="searchSites(searchDrillcoreName.value,searchDepositName.value,searchOreType.value, searchCommodity.value, searchInstitution.value)"
-          class="btn btn-primary btn-lg">Search drillcores</button>
-      </form>
+
+      <div class="form-group">
+        <label for="name">Drillcore name</label>
+        <input [(ngModel)]="searchDrillcoreName" id="drillcoreName" list="drillcoreList" class="form-control" (input)="searchDrillcoreByName(searchDrillcoreName)"
+          placeholder="Drillcore name" data-role="tagsinput" value="Amsterdam,Washington,Sydney,Beijing,Cairo" />
+        <datalist *ngIf="drillcoreAutocompleteValues" id='drillcoreList'>
+          <option *ngFor="let drillcoreValue of drillcoreAutocompleteValues" value='{{drillcoreValue.name}}'>
+        </datalist>
+      </div>
+      <div class="form-group">
+        <label for="name">Deposit name</label>
+        <input [(ngModel)]="searchDepositName" id="depositName" list="depositList" class="form-control" (input)="searchDepositByName(searchDepositName)"
+          placeholder="Deposit name" />
+        <datalist *ngIf="depositAutocompleteValues" id='depositList'>
+          <option *ngFor="let depositValue of depositAutocompleteValues" value='{{depositValue}}'>
+        </datalist>
+      </div>
+      <div class="form-group">
+        <label for="name">Ore type</label>
+        <input [(ngModel)]="searchOreType" id="OreType" list="oreTypeList" class="form-control" (input)="searchOreTypeByName(searchOreType)"
+          placeholder="Ore type" />
+        <datalist *ngIf="oreTypeAutocompleteValues" id='oreTypeList'>
+          <option *ngFor="let oreTypeValue of oreTypeAutocompleteValues" value='{{oreTypeValue.name}}'>
+        </datalist>
+      </div>
+      <div class="form-group">
+        <label for="name">Commodity</label>
+        <input [(ngModel)]="searchCommodity" id="commodity" class="form-control" placeholder="Commodity" />
+      </div>
+      <div class="form-group">
+        <label for="name">Core depositor</label>
+        <input [(ngModel)]="searchInstitution" id="coreDepositorName" list="coreDepositorList" class="form-control" (input)="searchCoreDepositorByName(searchInstitution)"
+          placeholder="Institution" />
+        <datalist *ngIf="coreDepositorAutocompleteValues" id="coreDepositorList">
+          <option *ngFor="let coreDepositorValue of coreDepositorAutocompleteValues" value='{{coreDepositorValue.core_depositor__name}}'>
+        </datalist>
+      </div>
+      <button (click)="searchSites()" class="btn btn-primary btn-lg">Search drillcores</button>
+
     </div>
     <div class="col">
       <div id="map" class="map"></div>
@@ -60,14 +59,14 @@
     <nav aria-label="Page navigation example">
       <ul class="pagination ">
         <li class="page-item" [ngClass]="{'disabled': pageNumber==1}">
-          <a class="page-link" (click)="searchSites(searchDrillcoreName.value,searchDepositName.value,searchOreType.value, searchCommodity.value, searchInstitution.value, pageNumber-1)">Previous</a>
+          <a class="page-link" (click)="searchSites( pageNumber-1)">Previous</a>
         </li>
 
         <li *ngFor="let page of pageCount; let index = index" class="page-item" [ngClass]="{'active': pageNumber== index + 1 }">
-          <a class="page-link" (click)="searchSites(searchDrillcoreName.value,searchDepositName.value,searchOreType.value, searchCommodity.value, searchInstitution.value, index + 1 )">{{ index + 1 }}</a>
+          <a class="page-link" (click)="searchSites( index + 1 )">{{ index + 1 }}</a>
         </li>
         <li class="page-item" [ngClass]="{'disabled': pageNumber==pageCount.length}">
-          <a class="page-link" (click)="searchSites(searchDrillcoreName.value,searchDepositName.value,searchOreType.value, searchCommodity.value, searchInstitution.value, pageNumber+1)">Next</a>
+          <a class="page-link" (click)="searchSites( pageNumber+1)">Next</a>
         </li>
       </ul>
     </nav>
@@ -83,7 +82,7 @@
           <th>Id</th>
           <th>Name</th>
           <th>Deposit</th>
-          <th>Year</th>          
+          <th>Year</th>
           <th>Latitude</th>
           <th>Longitude</th>
           <th>Elevation</th>
@@ -101,12 +100,14 @@
         <td>
           <a routerLink="/deposit/{{site.deposit__id}}">{{site.deposit__name}}</a>
         </td>
-        <td>{{site.drilling_year}}</td>      
+        <td>{{site.drilling_year}}</td>
         <td>{{site.latitude}}</td>
         <td>{{site.longitude}}</td>
         <td> </td>
         <td>{{site.hole_length}}</td>
-        <td><a routerLink="/">{{site.hole_dip}}</a></td>
+        <td>
+          <a routerLink="/">{{site.hole_dip}}</a>
+        </td>
         <td>{{site.hole_azimuth}}</td>
         <td>
           <a routerLink="/ores">Show data</a>

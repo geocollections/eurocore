@@ -45,11 +45,11 @@ export class MapService {
 
 
 
-  addPointWithName(site: Site): void {
+  addPointWithName(name:string, longitude:number, latitude:number): void {
     this.vectorSource.clear();
-    if (site.longitude != undefined) {
+    if (longitude != undefined) {
       var pointWithName = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([site.longitude, site.latitude]))
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([longitude, latitude]))
       });
       pointWithName.setStyle(new ol.style.Style({
         image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
@@ -59,7 +59,7 @@ export class MapService {
         })),
         text: new ol.style.Text({
           scale: 1.4,
-          text: site.name,
+          text: name,
           offsetY: -25,
           fill: new ol.style.Fill({
             color: 'black'
@@ -79,7 +79,6 @@ export class MapService {
 
 
   addPoints(sites: Site[]): void {
-    //console.log("--------" +Object.keys(this.sites).length);
 
     var point;
     if (sites) {
@@ -114,7 +113,7 @@ export class MapService {
       }
     }
 
-    this.map.getView().setZoom(4);
+    //this.map.getView().setZoom(4);
 
   }
 
@@ -130,8 +129,8 @@ export class MapService {
 
     selectPointerMove.on('select', function (e) {
       if (e.selected.length != 0) {
-        
-        e.selected[0].getStyle().getText().setScale(1.4);        
+
+        e.selected[0].getStyle().getText().setScale(1.4);
       }
       if (e.deselected.length != 0) {
         e.deselected[0].getStyle().getText().setScale(0)
@@ -157,9 +156,9 @@ export class MapService {
         siteNames.push(feature.getStyle()['ta']['ta']);
         selectedFeatures.push(feature);
       });
-      siteSearch.searchSitesByNames(siteNames);
+      siteSearch.searchDrillcoreName = siteNames.toString();
+      siteSearch.searchSites();
       siteNames = [];
-
     });
 
     // clear selection when drawing a new box and when clicking on the map
@@ -172,19 +171,20 @@ export class MapService {
       var names = selectedFeatures.getArray().map(function (feature) {
 
         if (siteNames.length == 0) {
-          console.log(feature.getStyle());
-          siteSearch.searchSites(feature.getStyle()['ta']['ta'], '', '', '', '', 1);
+          console.log("add");
+          siteSearch.searchDrillcoreName = feature.getStyle()['ta']['ta'];
+          siteSearch.searchSites();
           /*
           feature.setStyle(new ol.style.Style({
             image: new ol.style.Icon(/** @type {olx.style.IconOptions} *//*({
-              color: 'red',
-              crossOrigin: 'anonymous',
-              src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
-            }))
-          
-          }));*/
+            color: 'red',
+            crossOrigin: 'anonymous',
+            src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
+          }))
+        
+        }));*/
           //console.log(feature.getStyle()['ta']['ta']);
-          
+
         }
       });
 
@@ -199,13 +199,13 @@ export class MapService {
             crossOrigin: 'anonymous',
             src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
           }))
-        
+
         }));
       });
 
       if (selectedFeatures.getArray().length == 0) {
-
-        siteSearch.searchSites('', '', '', '', '', 1);
+        siteSearch.searchDrillcoreName = "";
+        siteSearch.searchSites();
         //siteSearch.getMapSites();
       }
     });

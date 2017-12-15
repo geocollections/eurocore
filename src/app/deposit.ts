@@ -10,6 +10,6 @@ export class Deposit {
     metal_group__id: number;
     metal_subgroup__id: number;
     metal_subgroup__name: string;
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
   }

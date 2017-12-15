@@ -21,20 +21,29 @@ export class SiteSearchComponent implements OnInit {
   coreDepositorAutocompleteValues: String[];
   pageNumber: number = 1;
   pageCount;
+
+  searchDrillcoreName: string = "";
+  searchDepositName: string = "";
+  searchOreType: string = "";
+  searchCommodity: string = "";
+  searchInstitution: string = "";
+  drillcoreNameArray: string[];
+
+
   //name2: String;  
 
   constructor(private siteService: SiteService, private mapService: MapService) { }
 
   ngOnInit() {
-    this.searchSites("", "", "", "", "",1);
+    this.searchSites(1);
     this.mapService.drawMap(this);
     this.getMapSites();
   }
 
-  searchDrillcoreByName(name: string): void {
+  searchDrillcoreByName(): void {
 
-    if (name.length > 1)
-      this.siteService.searchDrillcoreByName(name).subscribe(drillcoreValues => { this.drillcoreAutocompleteValues = drillcoreValues['results']; });
+    if (this.searchDrillcoreName.length > 1)
+      this.siteService.searchDrillcoreByName(this.searchDrillcoreName).subscribe(drillcoreValues => { this.drillcoreAutocompleteValues = drillcoreValues['results']; });
     else
       this.drillcoreAutocompleteValues = [];
   }
@@ -74,33 +83,37 @@ export class SiteSearchComponent implements OnInit {
     }
   }
 
-  searchSites(drillcore: string, deposit: string, oreType: string, commodity: string, coreDepositorName: string, page: number = 1): void {
-    this.siteService.searchSites(drillcore, deposit, oreType, commodity, coreDepositorName, page).subscribe(sites => {
-    this.sites = sites['results']; this.siteCount = sites['count'];
+  searchSites(page: number = 1): void {
+    console.log(this.searchDrillcoreName + " -" + this.searchDepositName + " -" + this.searchOreType + " -" + this.searchCommodity + " -" + this.searchInstitution + " -" + this.pageNumber);
+
+    this.drillcoreNameArray = this.searchDrillcoreName.split(",");
+    console.log("1" + this.drillcoreNameArray);
+
+    this.siteService.searchSites(this.drillcoreNameArray, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution, page).subscribe(sites => {
+      this.sites = sites['results']; this.siteCount = sites['count'];
       if (sites['page'])
         this.pageCount = new Array(Number(String(sites['page']).split("of ")[1]))
       else
         this.pageCount = new Array(1);
-        
-      //this.mapService.addPoints(this.sites);
+
     });
-    this.siteService.searchMapSites(drillcore, deposit, oreType, commodity, coreDepositorName).subscribe(sites => {this.mapSites=sites['results']; this.mapService.addPoints(this.mapSites)});
+    this.siteService.searchMapSites(this.drillcoreNameArray, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites); console.log("mapsites" + this.mapSites); });
     this.selectedSite = undefined;
     this.setPageNumber(page);
   }
 
   onSelect(site: Site): void {
     this.selectedSite = site;
-    this.mapService.addPointWithName(site);
+    this.mapService.addPointWithName(site.name, site.longitude, site.latitude);
 
   }
 
   searchSitesByNames(names: string[]): void {
-    this.siteService.searchDrillcoresByNames(names).subscribe(sites => { this.sites = sites['results']; this.siteCount = sites['count']; /*this.mapService.addPoints(this.sites); */});
+    this.siteService.searchDrillcoresByNames(names).subscribe(sites => { this.sites = sites['results']; this.siteCount = sites['count']; /*this.mapService.addPoints(this.sites); */ });
   }
 
   getMapSites(): void {
-    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites)});
+    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites) });
     //console.log("getsites" + this.sites.length);
   }
 

@@ -33,7 +33,8 @@ export class AnalysisDetailsComponent implements OnInit {
   analysis: Analysis;
   analysisResults: AnalysisResult[];
 
-  constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService) { }
+  constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService) {
+   }
 
   ngOnInit() {
     this.getAnalysisById(this.route.snapshot.paramMap.get('id'));
@@ -68,6 +69,7 @@ export class AnalysisDetailsComponent implements OnInit {
 
   getAnalysisResultsByAnalysisId(id: string): void{
     this.analysisSerrivce.getAnalysisResultsByAnalysisId(id).subscribe(analysisResults=> {this.analysisResults=analysisResults['results']; console.log(this.analysisResults);});
+    
   }
 
 }

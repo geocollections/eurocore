@@ -28,7 +28,7 @@ export class DepositDetailsComponent implements OnInit {
   }
 
   getDepositById(id: string): void{
-      this.depositService.searchDepositById(id).subscribe(deposit =>{ this.deposit = deposit['results'][0]; console.log(this.deposit); });;
+      this.depositService.searchDepositById(id).subscribe(deposit =>{ this.deposit = deposit['results'][0]; console.log(this.deposit);this.mapService.addPointWithName(this.deposit.name,this.deposit.longitude,this.deposit.latitude) });;
   }
 
 }
