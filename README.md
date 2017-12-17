@@ -1,4 +1,7 @@
-# GI
+# EUROCORE data portal
+
+The project aims to create data portal for accessing data on and from drillcores for student training and research.
+The data are stored in PostgreSQL database and made accessible via RESTful API.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
