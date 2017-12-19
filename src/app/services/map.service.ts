@@ -11,7 +11,7 @@ export class MapService {
 
   constructor() { }
 
-  drawMap(siteSearch?: SiteSearchComponent): void {
+  drawDrillcoreSearchMap(siteSearch?: SiteSearchComponent): void {
     
       class SelectControl extends ol.control.Control {
         constructor(opt_options) {
@@ -35,10 +35,6 @@ export class MapService {
           var dragBox = new ol.interaction.DragBox({
             //condition: ol.events.condition.platformModifierKeyOnly
           });
-
-
-
-
 
           var siteIds: string[];
           siteIds = [];
@@ -159,7 +155,8 @@ export class MapService {
       ]),
       layers: [
         new ol.layer.Tile({
-          source: new ol.source.OSM()
+          source: new ol.source.XYZ({ 
+            url:'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'})
         }),
         vectorLayer
       ],
@@ -268,6 +265,9 @@ export class MapService {
 
       }
     }
+    else{
+      this.vectorSource.clear();
+    }
 
 
     //this.map.getView().setZoom(4);
@@ -275,104 +275,40 @@ export class MapService {
   }
 
 
-  addMapInteraction(siteSearch: SiteSearchComponent, vectorSource: ol.source.Vector): void {
+  drawDetailsViewMap(): void {
 
-    var siteNames: string[];
-    siteNames = [];
-    /*
-        var selectPointerMove = new ol.interaction.Select({
-          condition: ol.events.condition.pointerMove
-        });
-        this.map.addInteraction(selectPointerMove);
-    
-        selectPointerMove.on('select', function (e) {
-          if (e.selected.length != 0) {
-            console.log(e.selected[0].getStyle().getText());
-            e.selected[0].getStyle().getText().setScale(1.4);
-          }
-          if (e.deselected.length != 0) {
-            console.log(e.deselected[0].getStyle().getText());
-           e.deselected[0].getStyle().getText().setScale(0)
-          }
-        });
-    
-    /*
-        
-        var select = new ol.interaction.Select();
-        this.map.addInteraction(select);
-    
-        var selectedFeatures = select.getFeatures();
-    
-        var dragBox = new ol.interaction.DragBox({
-          condition: ol.events.condition.platformModifierKeyOnly
-        });
-    
-        this.map.addInteraction(dragBox);
-    
-        dragBox.on('boxend', function () {
-          // features that intersect the box are added to the collection of
-          // selected features
-          var extent = dragBox.getGeometry().getExtent();
-          vectorSource.forEachFeatureIntersectingExtent(extent, function (feature) {
-            siteNames.push(feature.getStyle()['ta']['ta']);
-            selectedFeatures.push(feature);
-          });
-          siteSearch.searchDrillcoreName = siteNames.toString();
-          siteSearch.searchSites();
-          siteNames = [];
-        });
-    
-        // clear selection when drawing a new box and when clicking on the map
-        dragBox.on('boxstart', function () {
-          selectedFeatures.clear();
-        });
-    
-        selectedFeatures.on(['add'], function () {
-    
-          var names = selectedFeatures.getArray().map(function (feature) {
-    
-            if (siteNames.length == 0) {
-              console.log("add");
-              siteSearch.searchDrillcoreName = feature.getStyle()['ta']['ta'];
-              siteSearch.searchSites();
-              
-              feature.setStyle(new ol.style.Style({
-                image: new ol.style.Icon(/** @type {olx.style.IconOptions} *//*({
-    color: 'red',
-    crossOrigin: 'anonymous',
-    src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
-  }))
- 
-}));
-  //console.log(feature.getStyle()['ta']['ta']);
+    var vectorSource = new ol.source.Vector({
+    });
+    this.vectorSource = vectorSource;
 
-}
-});
-
-});
-
-selectedFeatures.on(['remove'], function () {
-var names = selectedFeatures.getArray().map(function (feature) {
-
-feature.setStyle(new ol.style.Style({
-  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ /*({
-      color: '#8959A8',
-      crossOrigin: 'anonymous',
-      src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
-    }))
-
-  }));
-});
-
-if (selectedFeatures.getArray().length == 0) {
-  siteSearch.searchDrillcoreName = "";
-  siteSearch.searchSites();
-  //siteSearch.getMapSites();
-}
-});
-*/
+    var vectorLayer = new ol.layer.Vector({
+      source: this.vectorSource
+    }); 
+  
+    this.map = new ol.Map({
+      target: 'map',
+      controls: ol.control.defaults({
+        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+          collapsible: false
+        })
+      }).extend([
+        //new SelectControl("")
+      ]),
+      layers: [
+        new ol.layer.Tile({
+          //source: new ol.source.OSM()
+          source: new ol.source.XYZ({ 
+            url:'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'})
+                                                   
+        }),
+        vectorLayer
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([29.34424401655, 62.856645860855]),
+        zoom: 4
+      })
+    });
   }
-
 
 
 }

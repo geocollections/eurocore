@@ -29,7 +29,7 @@ export class SiteDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
-    this.mapService.drawMap();
+    this.mapService.drawDetailsViewMap();
   }
 
   getSiteById(id: string): void {

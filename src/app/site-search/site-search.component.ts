@@ -32,15 +32,13 @@ export class SiteSearchComponent implements OnInit {
   drillcoreIdArray: string[];
 
 
-  //name2: String;  
-
   constructor(private siteService: SiteService, private mapService: MapService) { }
 
   ngOnInit() {
     this.searchSites(1);
-    this.mapService.drawMap(this);
+    this.mapService.drawDrillcoreSearchMap(this);
     //this.getMapSites();
-  }
+  } 
 
   searchDrillcoreByName(): void {
 

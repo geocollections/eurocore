@@ -23,7 +23,7 @@ export class DepositDetailsComponent implements OnInit {
     //console.log(this.route.snapshot.paramMap.get('id'));
     //this.id=this.route.snapshot.paramMap.get('id');
     this.getDepositById(this.route.snapshot.paramMap.get('id'));
-    this.mapService.drawMap();
+    this.mapService.drawDetailsViewMap();
     
   }
 

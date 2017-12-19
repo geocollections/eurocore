@@ -2,6 +2,7 @@
 /*@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');*/
 .map {
   height: 450px;
+  min-width: 300px;
   width: 100%;
 }
  
@@ -69,4 +70,5 @@
     color: #333;
     opacity: 0.9;
     }
-    
+
+  

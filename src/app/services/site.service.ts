@@ -47,9 +47,8 @@ export class SiteService {
     return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&fields=core_depositor__name&core_depositor__name__icontains=' + name + '&group_by=core_depositor__name', "callback").pipe();
   }
 
-  searchSites(id: string[],names: string, deposit: string, oreType: string, commodity: string, coreDepositorName: string, page = 1): Observable<Site[]> {
+  searchSites(id: string[],name: string, deposit: string, oreType: string, commodity: string, coreDepositorName: string, page = 1): Observable<Site[]> {
     this.searchCriteria = "";
-    console.log("length"+id.length)
     if (id.length !=0 && id[0]!="") {
       this.searchCriteria += "&or_search=";
       for (var i = 0; i < id.length; i++) {
@@ -74,7 +73,7 @@ export class SiteService {
     if (coreDepositorName != "") {
       this.searchCriteria += '&core_depositor__name__icontains=' + coreDepositorName;
     }
-
+    console.log(this.searchCriteria);
     return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp' + this.searchCriteria + '&paginate_by=10&page=' + page, "callback").pipe();
   }
 
@@ -99,7 +98,7 @@ export class SiteService {
     //return null; 
   }
 
-  searchMapSites(id: string[],names: string, deposit: string, oreType: string, commodity: string, coreDepositorName: string): Observable<Site[]> {
+  searchMapSites(id: string[],name: string, deposit: string, oreType: string, commodity: string, coreDepositorName: string): Observable<Site[]> {
     this.searchCriteria = "";
 
     if (id.length !=0 && id[0]!="") {
