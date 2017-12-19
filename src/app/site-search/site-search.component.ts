@@ -27,7 +27,9 @@ export class SiteSearchComponent implements OnInit {
   searchOreType: string = "";
   searchCommodity: string = "";
   searchInstitution: string = "";
-  drillcoreNameArray: string[];
+  searchDrillcoreId:string="";
+  
+  drillcoreIdArray: string[];
 
 
   //name2: String;  
@@ -37,7 +39,7 @@ export class SiteSearchComponent implements OnInit {
   ngOnInit() {
     this.searchSites(1);
     this.mapService.drawMap(this);
-    this.getMapSites();
+    //this.getMapSites();
   }
 
   searchDrillcoreByName(): void {
@@ -55,7 +57,6 @@ export class SiteSearchComponent implements OnInit {
   }
 
   searchCoreDepositorByName(name: string): void {
-    console.log("true");
     if (name.length > 1)
       this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.coreDepositorAutocompleteValues = coreDepositValues['results']; });
     else
@@ -84,12 +85,11 @@ export class SiteSearchComponent implements OnInit {
   }
 
   searchSites(page: number = 1): void {
-    console.log(this.searchDrillcoreName + " -" + this.searchDepositName + " -" + this.searchOreType + " -" + this.searchCommodity + " -" + this.searchInstitution + " -" + this.pageNumber);
+    console.log(this.searchDrillcoreId + "-"+this.searchDrillcoreName + " -" + this.searchDepositName + " -" + this.searchOreType + " -" + this.searchCommodity + " -" + this.searchInstitution + " -" + this.pageNumber);
 
-    this.drillcoreNameArray = this.searchDrillcoreName.split(",");
-    console.log("1" + this.drillcoreNameArray);
+    this.drillcoreIdArray = String(this.searchDrillcoreId).split(",");
 
-    this.siteService.searchSites(this.drillcoreNameArray, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution, page).subscribe(sites => {
+    this.siteService.searchSites(this.drillcoreIdArray,this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution, page).subscribe(sites => {
       this.sites = sites['results']; this.siteCount = sites['count'];
       if (sites['page'])
         this.pageCount = new Array(Number(String(sites['page']).split("of ")[1]))
@@ -97,7 +97,7 @@ export class SiteSearchComponent implements OnInit {
         this.pageCount = new Array(1);
 
     });
-    this.siteService.searchMapSites(this.drillcoreNameArray, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites); console.log("mapsites" + this.mapSites); });
+    this.siteService.searchMapSites(this.drillcoreIdArray,this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites); console.log("mapsites" + this.mapSites.length); });
     this.selectedSite = undefined;
     this.setPageNumber(page);
   }

@@ -5,7 +5,7 @@ import { Analysis } from '../analysis';
 import { AnalysisService } from '../services/analysis.service';
 import { AnalysisResult } from '../analysis-result';
 
-
+import { MapService} from '../services/map.service';
 //import * as $ from 'jquery';
 import * as ol from 'openlayers';
 
@@ -33,33 +33,12 @@ export class AnalysisDetailsComponent implements OnInit {
   analysis: Analysis;
   analysisResults: AnalysisResult[];
 
-  constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService) {
+  constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService, private mapService: MapService) {
    }
 
   ngOnInit() {
     this.getAnalysisById(this.route.snapshot.paramMap.get('id'));
     this.getAnalysisResultsByAnalysisId(this.route.snapshot.paramMap.get('id'));
-    
-    //new _ol_Map_
-    var holeNr1 = new ol.Feature({
-      geometry: new ol.geom.Point(ol.proj.fromLonLat([29.34424401655, 62.856645860855]))
-    });
-    //console.log("holenr1 "+JSON.stringify(holeNr1));
-    
-    
-    /*
-    var holeNr1 = new Feature({
-      //geometry: new Point(proj.fromLonLat([29.34424401655, 62.856645860855]))
-    });*/
-    
-    
-    new ol.Map({
-      target: 'map',
-      view: new ol.View({
-        center: [0, 0],
-        zoom: 2
-      })
-    });
 
   }
 
