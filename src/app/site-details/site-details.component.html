@@ -1,4 +1,3 @@
-
 <div *ngIf="site" class="row">
   <div class="col">
     <h3>
@@ -7,64 +6,66 @@
   </div>
 </div>
 <div class="row ">
-  <div  class="col">
+  <div class="col">
     <table *ngIf="site" class="table">
       <colgroup>
         <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
       </colgroup>
-      <tr>
+      <tr *ngIf="site.id">
         <td>ID</td>
         <td>{{site.id}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.deposit__name">
         <td>Deposit</td>
-        <td>{{site.deposit__name}}</td>
+        <td>
+          <a routerLink="/deposit/{{site.deposit__id}}">{{site.deposit__name}}</a>
+        </td>
       </tr>
-      <tr>
+      <tr *ngIf="site.latitude">
         <td>Latitude</td>
         <td>{{site.latitude}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.longitude">
         <td>Longitude</td>
         <td>{{site.longitude}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.elevation">
         <td>Elevation</td>
         <td></td>
       </tr>
-      <tr>
+      <tr *ngIf="site.hole_length">
         <td>Length</td>
         <td>{{site.hole_length}} m</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.hole_dip">
         <td>Dip</td>
         <td>{{site.hole_dip}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.hole_azimuth">
         <td>Azimuth</td>
         <td>{{site.hole_azimuth}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.drilling_year">
         <td>Drilling year</td>
         <td>{{site.drilling_year}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.drilling_agent__name">
         <td>Drilling company</td>
         <td>{{site.drilling_agent__name}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.number_boxes">
         <td>Number of boxes</td>
         <td>{{site.number_boxes}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="site.core_depositor__name">
         <td>Deposited by </td>
         <td>{{site.core_depositor__name}}</td>
       </tr>
     </table>
   </div>
   <div class="col">
-    
-      <div id="map" class="map"></div>
+
+    <div id="map" class="map"></div>
   </div>
 </div>
 
@@ -74,10 +75,10 @@
 
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="#dipAzimuth" data-toggle="tab">Dip/azimuth</a>
+        <a class="nav-link active" href="#lithology" data-toggle="tab">Lithology</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#lithology" data-toggle="tab">Lithology</a>
+        <a class="nav-link" href="#dipAzimuth" data-toggle="tab">Dip/azimuth</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#RQD" data-toggle="tab">RQD</a>
@@ -104,11 +105,11 @@
         <a class="nav-link" href="#references" data-toggle="tab">References</a>
       </li>
     </ul>
-    <br>
-    <div class="tab-content ">
+    
+    <div class="tab-content">
       <div class="tab-pane fade show active" id="lithology">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+          <table *ngIf="lithologies" class="table table-hover table-bordered ">
+              <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth to (m)</th>
@@ -137,8 +138,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="dipAzimuth">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+        <table class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Depth (m)</th>
               <th>Dip</th>
@@ -153,8 +154,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="RQD">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+          <table class="table table-hover table-bordered ">
+              <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth to (m)</th>
@@ -175,8 +176,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="structures">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+          <table class="table table-hover table-bordered ">
+              <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
@@ -201,8 +202,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="stratigraphy">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+          <table class="table table-hover table-bordered ">
+              <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m)</th>
@@ -219,42 +220,38 @@
         </table>
       </div>
       <div class="tab-pane fade" id="images">
-        <div *ngFor="let drillcoreBox of drillcoreBoxes" class="row">
-        <div class="col-4">
-            <a routerLink="/drillcore/corebox/{{drillcoreBox.id}}"><h5>{{drillcoreBox.number}}</h5> </a>
-        <table class="table">
-            <colgroup>
-              <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
-            </colgroup>
-          <tr>
-            <td>Depth from (m)</td>
-            <td>{{drillcoreBox.start_depth}}</td>
-          </tr>
-          <tr>
-              <td>Depth (m)</td>
-              <td>{{drillcoreBox.end_depth}}</td>
-            </tr>
-        </table>
+        <div *ngFor="let drillcoreBox of drillcoreBoxes" class="row align-items-center">
+          <div class="col-4">
+            <a routerLink="/drillcore/corebox/{{drillcoreBox.id}}">
+              <h5>{{drillcoreBox.number}}</h5>
+            </a>
+            <table class="table">
+              <colgroup>
+                <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+              </colgroup>
+              <tr>
+                <td>Depth:</td>
+                <td>{{drillcoreBox.start_depth.toFixed(2)}} - {{drillcoreBox.end_depth.toFixed(2)}} m</td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-8">
+            <a target="_blank" routerLink="/drillcore/corebox/{{drillcoreBox.id}}" > 
+              <img src="http://www.eurocore.rocks{{drillcoreBox.attachmentlink__attachment__url}}" width="100%" >
+            </a>
+
+          </div>
+
         </div>
-        <div class="col">
-          <a routerLink="/drillcore/corebox/{{drillcoreBox.id}}"><img src="http://www.eurocore.rocks{{drillcoreBox.attachmentlink__attachment__url}}" width="600" height="200"></a>
-          
+        <br>
+        <div *ngIf="drillcoreBoxes">
+          <div class="search-results" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="200" (scrolled)="onScroll()">
+          </div>
         </div>
-        
-      </div>
-      <br>
-      <div *ngIf="drillcoreBoxes">
-      <div  class="search-results"
-      infiniteScroll
-      [infiniteScrollDistance]="1"
-      [infiniteScrollThrottle]="200"
-      (scrolled)="onScroll()">
-      </div>  
-      </div>
       </div>
       <div class="tab-pane fade" id="samples">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+          <table class="table table-hover table-bordered ">
+              <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
@@ -275,11 +272,11 @@
             <td>Abcde</td>
           </tr>
         </table>
-       
+
       </div>
       <div class="tab-pane fade" id="analyses">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+          <table class="table table-hover table-bordered ">
+              <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
@@ -300,8 +297,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="linkedFiles">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+          <table class="table table-hover table-bordered ">
+              <thead class="thead-light">
             <tr>
               <th>Type</th>
               <th>Format</th>
@@ -322,8 +319,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="references">
-        <table class="table table-striped table-sm table-responsive">
-          <thead class="thead-dark">
+          <table class="table table-hover table-bordered ">
+              <thead class="thead-light">
             <tr>
               <th>Reference</th>
               <th>Remarks</th>

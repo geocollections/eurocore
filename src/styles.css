@@ -90,5 +90,11 @@
     color: #333;
     opacity: 0.9;
 }
+.pagination-row{
+  line-height:40px;
+}
+.tab-content{
+  padding-top: 10px;
+}
 
   

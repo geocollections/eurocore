@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { Title } from '@angular/platform-browser';
+
+
+
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
@@ -25,11 +29,13 @@ export class SiteDetailsComponent implements OnInit {
   pageCount: number;
 
   constructor(private route: ActivatedRoute, private siteService: SiteService, private mapService: MapService,
-    private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService) { }
+    private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title) { }
 
   ngOnInit() {
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.mapService.drawDetailsViewMap();
+    this.titleService.setTitle("EUROCORE Data Portal | Drillcore details"); 
+    //this.titleService.
   }
 
   getSiteById(id: string): void {

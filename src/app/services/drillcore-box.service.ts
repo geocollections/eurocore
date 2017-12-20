@@ -13,6 +13,6 @@ export class DrillcoreBoxService {
 
   getDrillcoreBoxesByDrillcoreId(id: string, paginateBy: number, pageNr: number): Observable<DrillcoreBox>{
     //return this.http.jsonp<DrillcoreBox>('http://api.eurocore.rocks/drillcore_box/?drillcore__id__icontains='+id+'&format=jsonp',"callback").pipe();
-    return this.http.jsonp<DrillcoreBox>('http://api.eurocore.rocks/drillcore_box/?drillcore__id__icontains='+id+'&paginate_by='+paginateBy+'&page='+pageNr+'&format=jsonp',"callback").pipe();
+    return this.http.jsonp<DrillcoreBox>('http://api.eurocore.rocks/drillcore_box/?drillcore__id__iexact='+id+'&paginate_by='+paginateBy+'&page='+pageNr+'&format=jsonp',"callback").pipe();
   }
 }

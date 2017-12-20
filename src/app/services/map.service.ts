@@ -225,8 +225,8 @@ export class MapService {
 
       this.vectorSource.addFeature(pointWithName);
 
-      //this.map.getView().setZoom(4);
-      //this.map.getView().setCenter(ol.proj.fromLonLat([29.34424401655 ,62.856645860855]));
+      this.map.getView().setZoom(5);
+      this.map.getView().setCenter(ol.proj.fromLonLat([longitude ,latitude]));
     }
   }
 
