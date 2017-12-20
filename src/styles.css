@@ -1,10 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');*/
 .map {
-  height: 450px;
+  height: 400px;
   min-width: 300px;
-  width: 100%;
+  width:100%;
 }
+.row{
+  padding-bottom: 5px;
+
+}
+.col{
+  padding-bottom: 5px;
+}
+
  
 .export-geojson {
     position: absolute;
@@ -59,8 +67,20 @@
     top: 80px;
   }
 
+
+  html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 95%;
+  }
+
   #footer {
-    /*position: fixed;*/
+     position: absolute;
     bottom: 0px;
     width: 100%;
     font-size: 0.7em;
@@ -69,6 +89,6 @@
     background-color: #EEEEEE;
     color: #333;
     opacity: 0.9;
-    }
+}
 
   

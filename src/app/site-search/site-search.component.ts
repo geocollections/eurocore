@@ -115,8 +115,13 @@ export class SiteSearchComponent implements OnInit {
     //console.log("getsites" + this.sites.length);
   }
 
-  setPageNumber(pageNumber: number) {
+  setPageNumber(pageNumber: number):void {
     this.pageNumber = pageNumber;
     //this.searchSites();
+  }
+
+  enterKeyPress(keyEvent):void{
+    if(keyEvent.which==13)
+    this.searchSites();
   }
 }

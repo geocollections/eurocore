@@ -201,11 +201,14 @@ export class MapService {
       });
       //pointWithName.setId();
       pointWithName.setStyle(new ol.style.Style({
-        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
-          color: '#8959A8',
-          crossOrigin: 'anonymous',
-          src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
-        })),
+        image: new ol.style.Circle({
+          radius: 7,
+          fill: new ol.style.Fill({color: 'red'}),
+          stroke: new ol.style.Stroke({
+            color: 'black',
+            width: 1
+          })
+        }),
         text: new ol.style.Text({
           scale: 1.4,
           text: name,
@@ -241,11 +244,19 @@ export class MapService {
             geometry: new ol.geom.Point(ol.proj.fromLonLat([sites[i].longitude, sites[i].latitude]))
           });
           point.setStyle(new ol.style.Style({
-            image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
+           /* image: new ol.style.Icon(/** @type {olx.style.IconOptions} *//*({
               color: '#8959A8',
               crossOrigin: 'anonymous',
               src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
-            })),
+            })),*/
+            image: new ol.style.Circle({
+              radius: 7,
+              fill: new ol.style.Fill({color: 'red'}),
+              stroke: new ol.style.Stroke({
+                color: 'black',
+                width: 1
+              })
+            }),
             text: new ol.style.Text({
               scale: 0,
               text: sites[i].name,
