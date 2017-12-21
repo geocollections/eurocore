@@ -17,7 +17,7 @@ export class SiteService {
 
   getSites(): Observable<Site[]> {
 
-    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp', "callback").pipe();
+    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&fields=name,longitude,latitude,id', "callback").pipe();
   }
 
 

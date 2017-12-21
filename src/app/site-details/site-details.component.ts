@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Title } from '@angular/platform-browser';
 
-
-
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
@@ -43,9 +41,6 @@ export class SiteDetailsComponent implements OnInit {
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.mapService.drawDetailsViewMap();
     this.titleService.setTitle("EUROCORE Data Portal | Drillcore details"); 
-    this.getAnalyzesByDrillcoreId("17");
-    //this.getSamplesByDrillcoreId(this.route.snapshot.paramMap.get('id'));
-    //this.titleService.
   }
 
   getSiteById(id: string): void {

@@ -12,7 +12,7 @@
         <input [(ngModel)]="searchDrillcoreName" id="drillcoreName" list="drillcoreList" class="form-control" (input)="searchDrillcoreByName(searchDrillcoreName)"
           (keypress)="enterKeyPress($event)" placeholder="Drillcore name" data-role="tagsinput" />
         <datalist *ngIf="drillcoreAutocompleteValues" id='drillcoreList'>
-          <option *ngFor="let drillcoreValue of drillcoreAutocompleteValues" value='{{drillcoreValue.name}}'>
+          <option *ngFor="let drillcoreValue of drillcoreAutocompleteValues" value='{{drillcoreValue.name}}'> 
         </datalist>
       </div>
       <div class="form-group">

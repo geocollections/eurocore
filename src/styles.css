@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');*/
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 .map {
   height: 400px;
   min-width: 300px;
@@ -77,6 +78,7 @@
     margin: 0;
     padding-bottom: 6rem;
     min-height: 95%;
+    font-family: 'Titillium Web', sans-serif !important;
   }
 
   #footer {

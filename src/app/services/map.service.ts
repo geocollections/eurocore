@@ -7,8 +7,10 @@ import * as ol from "openlayers";
 
 @Injectable()
 export class MapService {
-  vectorSource: any;
-  map: any;
+  vectorSource: ol.source.Vector;
+  allVectors: ol.source.Vector;
+  map: ol.Map;
+  allSites: Site[];
 
   constructor() {   
    }
@@ -140,11 +142,18 @@ export class MapService {
     });
     this.vectorSource = vectorSource;
 
+
+    var allVectors = new ol.source.Vector({
+    });
+    this.allVectors = allVectors;
+
     var vectorLayer = new ol.layer.Vector({
       source: this.vectorSource
     }); 
-
-    
+    var allVectorsLayer = new ol.layer.Vector({
+      source: this.allVectors
+    }); 
+  
     
     this.map = new ol.Map({
       target: 'map',
@@ -160,13 +169,15 @@ export class MapService {
           source: new ol.source.XYZ({ 
             url:'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'})
         }),
-        vectorLayer
+        allVectorsLayer,
+        
       ],
       view: new ol.View({
         center: ol.proj.fromLonLat([29.34424401655, 62.856645860855]),
         zoom: 4
       })
     });
+    this.map.addLayer(vectorLayer);
 
     if (siteSearch) {
 
@@ -235,7 +246,6 @@ export class MapService {
 
   addPoints(sites: Site[]): void {
 
-    //var point;
     if (sites) {
       this.vectorSource.clear();
       for (var i = 0; i < Object.keys(sites).length; i++) {
@@ -245,12 +255,8 @@ export class MapService {
             id: sites[i].id,
             geometry: new ol.geom.Point(ol.proj.fromLonLat([sites[i].longitude, sites[i].latitude]))
           });
+          point.setId(sites[i].id);
           point.setStyle(new ol.style.Style({
-           /* image: new ol.style.Icon(/** @type {olx.style.IconOptions} *//*({
-              color: '#8959A8',
-              crossOrigin: 'anonymous',
-              src: 'https://openlayers.org/en/v4.5.0/examples/data/dot.png'
-            })),*/
             image: new ol.style.Circle({
               radius: 7,
               fill: new ol.style.Fill({color: 'red'}),
@@ -282,10 +288,52 @@ export class MapService {
       this.vectorSource.clear();
     }
 
-
+    console.log(this.vectorSource.getFeatureById(2));
     //this.map.getView().setZoom(4);
 
   }
+
+
+
+  addAllPoints(sites: Site[]): void{
+    for (var i = 0; i < Object.keys(sites).length; i++) {
+      if (sites[i].longitude != undefined) {
+        var point = new ol.Feature({
+          name: sites[i].name,
+          id: sites[i].id,
+          geometry: new ol.geom.Point(ol.proj.fromLonLat([sites[i].longitude, sites[i].latitude]))
+        });
+        point.setStyle(new ol.style.Style({
+          image: new ol.style.Circle({
+            radius: 7,
+            fill: new ol.style.Fill({color: 'green'}),
+            stroke: new ol.style.Stroke({
+              color: 'black',
+              width: 1
+            })
+          }),
+          text: new ol.style.Text({
+            scale: 0,
+            text: sites[i].name,
+            offsetY: -25,
+            fill: new ol.style.Fill({
+              color: 'black'
+            }),
+            stroke: new ol.style.Stroke({
+              color: 'white',
+              width: 3.5
+            })
+          })
+
+        }));
+        //this.vectorSource.addFeature(point);
+        this.allVectors.addFeature(point);
+        
+      }
+    }
+    console.log(this.allVectors);
+  }
+
 
 
   drawDetailsViewMap(): void {

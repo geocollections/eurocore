@@ -35,6 +35,7 @@ export class SiteSearchComponent implements OnInit {
   constructor(private siteService: SiteService, private mapService: MapService) { }
 
   ngOnInit() {
+    this.getMapSites();
     this.searchSites(1);
     this.mapService.drawDrillcoreSearchMap(this);
     //this.getMapSites();
@@ -95,7 +96,8 @@ export class SiteSearchComponent implements OnInit {
         this.pageCount = new Array(1);
 
     });
-    this.siteService.searchMapSites(this.drillcoreIdArray,this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites); console.log("mapsites" + this.mapSites.length); });
+    this.siteService.searchMapSites(this.drillcoreIdArray,this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites =>
+       { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites); console.log("mapsites" + this.mapSites.length); });
     this.selectedSite = undefined;
     this.setPageNumber(page);
   }
@@ -111,7 +113,7 @@ export class SiteSearchComponent implements OnInit {
   }
 
   getMapSites(): void {
-    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites) });
+    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; this.mapService.addAllPoints(this.mapSites) });
     //console.log("getsites" + this.sites.length);
   }
 
