@@ -12,6 +12,10 @@ import { LithologyService } from '../services/lithology.service';
 import { Lithology } from '../lithology';
 import { DrillcoreBoxService } from '../services/drillcore-box.service';
 import { DrillcoreBox } from '../drillcoreBox';
+import { SampleService } from '../services/sample.service';
+import { Sample } from '../sample';
+import { AnalysisService } from '../services/analysis.service';
+import { Analysis } from '../analysis';
 
 @Component({
   selector: 'app-site-details',
@@ -24,17 +28,23 @@ export class SiteDetailsComponent implements OnInit {
   @Input() site: Site;
   lithologies: Lithology[];
   drillcoreBoxes: DrillcoreBox[]=[];
+  samples: Sample[];
+  analyzes: Analysis[];
+
   pageNr: number = 1;
   paginateBy = 5;
   pageCount: number;
 
   constructor(private route: ActivatedRoute, private siteService: SiteService, private mapService: MapService,
-    private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title) { }
+    private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title, 
+    private sampleService: SampleService, private analysisService: AnalysisService) { }
 
   ngOnInit() {
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.mapService.drawDetailsViewMap();
     this.titleService.setTitle("EUROCORE Data Portal | Drillcore details"); 
+    this.getAnalyzesByDrillcoreId("17");
+    //this.getSamplesByDrillcoreId(this.route.snapshot.paramMap.get('id'));
     //this.titleService.
   }
 
@@ -68,6 +78,14 @@ export class SiteDetailsComponent implements OnInit {
 
   onScroll() {
     this.getDrillcoreBoxesByDrillcoreId(this.route.snapshot.paramMap.get("id"));
+  }
+
+  getSamplesByDrillcoreId(drillcoreId: string): void{
+    this.sampleService.searchSamplesByDrillcoreId(drillcoreId).subscribe(samples=> {this.samples=samples['results']; console.log(this.samples)});
+  }
+
+  getAnalyzesByDrillcoreId(drillcoreId: string): void{
+    this.analysisService.getAnalyzesByDrillcoreId(drillcoreId).subscribe(analyzes=>{this.analyzes=analyzes['results']; console.log(this.analyzes)});
   }
 
 }

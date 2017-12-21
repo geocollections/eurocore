@@ -93,10 +93,10 @@
         <a class="nav-link" href="#images" data-toggle="tab" (click)="getDrillcoreBoxesByDrillcoreId(site.id)">Core boxes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#samples" data-toggle="tab">Samples</a>
+        <a class="nav-link" href="#samples" data-toggle="tab" (click)="getSamplesByDrillcoreId(site.id)">Samples</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#analyses" data-toggle="tab">Analyses</a>
+        <a class="nav-link" href="#analyses" data-toggle="tab" (click)="getAnalyzesByDrillcoreId(site.id)">Analyses</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#linkedFiles" data-toggle="tab">Linked files</a>
@@ -250,7 +250,7 @@
         </div>
       </div>
       <div class="tab-pane fade" id="samples">
-          <table class="table table-hover table-bordered ">
+          <table *ngIf="samples" class="table table-hover table-bordered ">
               <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
@@ -262,37 +262,37 @@
               <th>Date</th>
             </tr>
           </thead>
-          <tr>
-            <td>123</td>
-            <td>223</td>
-            <td>Name</td>
-            <td>Abcde</td>
-            <td>223</td>
-            <td>Name</td>
-            <td>Abcde</td>
+          <tr *ngFor="let sample of samples">
+            <td>{{sample.start_depth}}</td>
+            <td>{{sample.end_depth}}</td>
+            <td><a routerLink="/sample/{{sample.id}}">{{sample.id}}</a></td>
+            <td>{{sample.sample_number}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
 
       </div>
       <div class="tab-pane fade" id="analyses">
-          <table class="table table-hover table-bordered ">
+          <table *ngIf="analyzes" class="table table-hover table-bordered ">
               <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
-              <th>Analyse ID</th>
-              <th>Analyse number</th>
+              <th>Analysis ID</th>
+              <th>Analysis number</th>
               <th>Person/Institution</th>
               <th>Date</th>
             </tr>
           </thead>
-          <tr>
-            <td>123</td>
-            <td>223</td>
-            <td>Name</td>
-            <td>Abcde</td>
-            <td>Name</td>
-            <td>Abcde</td>
+          <tr *ngFor="let analysis of analyzes">
+            <td>{{analysis.start_depth}}</td>
+            <td>{{analysis.end_depth}}</td>
+            <td><a routerLink="/analysis/{{analysis.id}}">{{analysis.id}}</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
       </div>

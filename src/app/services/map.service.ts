@@ -4,12 +4,14 @@ import { SiteSearchComponent } from '../site-search/site-search.component';
 import * as ol from "openlayers";
 
 
+
 @Injectable()
 export class MapService {
   vectorSource: any;
   map: any;
 
-  constructor() { }
+  constructor() {   
+   }
 
   drawDrillcoreSearchMap(siteSearch?: SiteSearchComponent): void {
     
@@ -319,6 +321,8 @@ export class MapService {
         zoom: 4
       })
     });
+
+ 
   }
 
 

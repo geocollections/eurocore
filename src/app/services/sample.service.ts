@@ -15,4 +15,8 @@ export class SampleService {
     return this.http.jsonp<Sample>('http://api.eurocore.rocks/sample/'+id+'?format=jsonp',"callback").pipe();
   }
 
+  searchSamplesByDrillcoreId(drillcoreId: string): Observable<Sample[]>{
+    return this.http.jsonp<Sample[]>('http://api.eurocore.rocks/sample/?format=jsonp&order_by=start_depth&drillcore__id='+drillcoreId,"callback").pipe();   
+  }
+
 }

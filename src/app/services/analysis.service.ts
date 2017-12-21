@@ -20,8 +20,12 @@ export class AnalysisService {
     return this.http.jsonp<Analysis>('http://api.eurocore.rocks/analysis/'+id+'?format=jsonp',"callback").pipe();
   }
 
-  getAnalysisResultsByAnalysisId(id: string){
+  getAnalysisResultsByAnalysisId(id: string): Observable<AnalysisResult[]>{
     return this.http.jsonp<AnalysisResult[]>('http://api.eurocore.rocks/analysis_result/?format=jsonp&analysis__id__iexact='+id+'&order_by=parameter__parameter',"callback").pipe();
+  }
+
+  getAnalyzesByDrillcoreId(id:string): Observable<Analysis[]>{
+    return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?format=jsonp&order_by=start_depth&sample__drillcore__id__iexact='+id,"callback").pipe();
   }
 
 }
