@@ -44,7 +44,8 @@ export class SiteService {
     if (!name.trim()) {
       return of([]);
     }
-    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&fields=core_depositor__name&core_depositor__name__icontains=' + name + '&group_by=core_depositor__name', "callback").pipe();
+    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&multi_search=value:'+name+';fields:core_depositor__name,core_depositor__acronym;lookuptype:icontains&fields=core_depositor__name,core_depositor__acronym&group_by=core_depositor__name&group_by=core_depositor__acronym', "callback").pipe();
+    //return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&fields=core_depositor__name&core_depositor__name__icontains=' + name + '&group_by=core_depositor__name', "callback").pipe();
   }
 
   searchSites(id: string[],name: string, deposit: string, oreType: string, commodity: string, coreDepositorName: string, page = 1): Observable<Site[]> {
@@ -71,7 +72,8 @@ export class SiteService {
       this.searchCriteria += '&multi_search=value:' + commodity + ';fields:deposit__main_commodity,deposit__other_commodities;lookuptype:icontains';
     }
     if (coreDepositorName != "") {
-      this.searchCriteria += '&core_depositor__name__icontains=' + coreDepositorName;
+      //this.searchCriteria += '&core_depositor__name__icontains=' + coreDepositorName;
+      this.searchCriteria += '&multi_search=value:' + coreDepositorName + ';fields:core_depositor__name,core_depositor__acronym;lookuptype:icontains';
     }
     console.log(this.searchCriteria);
     return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp' + this.searchCriteria + '&paginate_by=10&page=' + page, "callback").pipe();
@@ -122,7 +124,8 @@ export class SiteService {
       this.searchCriteria += '&multi_search=value:' + commodity + ';fields:deposit__main_commodity,deposit__other_commodities;lookuptype:icontains';
     }
     if (coreDepositorName != "") {
-      this.searchCriteria += '&core_depositor__name__icontains=' + coreDepositorName;
+      //this.searchCriteria += '&core_depositor__name__icontains=' + coreDepositorName;
+      this.searchCriteria += '&multi_search=value:' + coreDepositorName + ';fields:core_depositor__name,core_depositor__acronym;lookuptype:icontains';
     }
 
     return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp' + this.searchCriteria + '&fields=name,longitude,latitude,id', "callback").pipe();

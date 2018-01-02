@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-site-search',
@@ -31,9 +32,9 @@ export class SiteSearchComponent implements OnInit {
   
   drillcoreIdArray: string[];
 
-
-  constructor(private siteService: SiteService, private mapService: MapService) { }
-
+  constructor(private siteService: SiteService, private mapService: MapService) { 
+  }
+ 
   ngOnInit() {
     this.getMapSites();
     this.searchSites(1);
@@ -57,7 +58,7 @@ export class SiteSearchComponent implements OnInit {
 
   searchCoreDepositorByName(name: string): void {
     if (name.length > 1)
-      this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.coreDepositorAutocompleteValues = coreDepositValues['results']; });
+      this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.sortCoreDepositors(coreDepositValues['results'], name) });
     else
       this.coreDepositorAutocompleteValues = [];
   }
@@ -69,6 +70,18 @@ export class SiteSearchComponent implements OnInit {
       this.siteService.searchOreTypeByName(name).subscribe(oreTypeValues => { this.oreTypeAutocompleteValues = oreTypeValues['results']; });
     else
       this.oreTypeAutocompleteValues = [];
+  }
+
+  sortCoreDepositors(deposits: Site[], name:string):void{
+    this.coreDepositorAutocompleteValues=[];
+    for(var i = 0; i < deposits.length; i++){
+      if(deposits[i].core_depositor__name != undefined && deposits[i].core_depositor__name.toUpperCase().search(name.toUpperCase()) >= 0){
+        this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__name);
+      }
+      if(deposits[i].core_depositor__acronym !=undefined && deposits[i].core_depositor__acronym.toUpperCase().search(name.toUpperCase()) >= 0){
+        this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__acronym);
+      }
+    }
   }
 
   sortDeposits(deposits: Site[], name: string): void {

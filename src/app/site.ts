@@ -19,6 +19,7 @@ export class Site {
     deposit__metal_subgroup__name: string;
     number_boxes: number;
     core_depositor__name:string;
+    core_depositor__acronym:string;
     
 
   }
