@@ -12,7 +12,7 @@ export class MapService {
   map: ol.Map;
   allSites: Site[];
 
-  constructor() {   
+  constructor() {  
    }
 
   drawDrillcoreSearchMap(siteSearch?: SiteSearchComponent): void {
@@ -39,7 +39,7 @@ export class MapService {
           var dragBox = new ol.interaction.DragBox({
             //condition: ol.events.condition.platformModifierKeyOnly
           });
-
+          
           var siteIds: string[];
           siteIds = [];
 
@@ -330,8 +330,12 @@ export class MapService {
         this.allVectors.addFeature(point);
         
       }
-    }
+    } 
     console.log(this.allVectors);
+
+
+
+    
   }
 
 
@@ -369,6 +373,8 @@ export class MapService {
         zoom: 4
       })
     });
+
+
 
  
   }

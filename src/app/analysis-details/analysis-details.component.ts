@@ -7,19 +7,7 @@ import { AnalysisResult } from '../analysis-result';
 
 import { MapService} from '../services/map.service';
 //import * as $ from 'jquery';
-import * as ol from 'openlayers';
-
-/*
-import Map from 'ol/map';
-import View from 'ol/view';
-import TileLayer from 'ol/layer/tile';
-import XYZ from 'ol/source/xyz';
-import ol from 'ol';*/
-/*import feature from 'ol/feature';
-import point from 'ol/geom/point';
-import proj from 'ol/proj';*/
-//import { Feature, Map } from 'openlayers';
-
+//import  'openlayers';
 
 
 @Component({
@@ -34,16 +22,18 @@ export class AnalysisDetailsComponent implements OnInit {
   analysisResults: AnalysisResult[];
 
   constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService, private mapService: MapService) {
+
    }
 
   ngOnInit() {
     this.getAnalysisById(this.route.snapshot.paramMap.get('id'));
     this.getAnalysisResultsByAnalysisId(this.route.snapshot.paramMap.get('id'));
-
+   
   }
 
   getAnalysisById(id:string): void{
     this.analysisSerrivce.getAnalysisById(id).subscribe(analysis=>{this.analysis=analysis['results'][0]; console.log(this.analysis);});
+
   }
 
   getAnalysisResultsByAnalysisId(id: string): void{

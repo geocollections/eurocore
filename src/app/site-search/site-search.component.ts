@@ -126,4 +126,16 @@ export class SiteSearchComponent implements OnInit {
     if(keyEvent.which==13)
     this.searchSites();
   }
+
+  resetFormValues():void{
+    this.searchDrillcoreName="";
+    this.searchDepositName="";
+    this.searchOreType="";
+    this.searchCommodity="";
+    this.searchInstitution="";
+    this.searchDrillcoreId="";
+    this.searchSites();
+  }
+
+
 }
