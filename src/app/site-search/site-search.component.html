@@ -39,7 +39,7 @@
       <div class="form-group">
         <!--<label for="name">Core depositor</label>-->
         <input [(ngModel)]="searchInstitution" id="coreDepositorName" list="coreDepositorList" class="form-control" (input)="searchCoreDepositorByName(searchInstitution)"
-          (keypress)="enterKeyPress($event)" placeholder="Institution" />
+          (keypress)="enterKeyPress($event)" placeholder="Core depositor" />
         <datalist *ngIf="coreDepositorAutocompleteValues" id="coreDepositorList">
           <option *ngFor="let coreDepositorValue of coreDepositorAutocompleteValues" value='{{coreDepositorValue}}'>
         </datalist>

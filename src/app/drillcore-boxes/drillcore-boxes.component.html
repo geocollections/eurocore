@@ -1,3 +1,135 @@
-<p>
-  drillcore-boxes works!
-</p>
+<div class="row ">
+    <div  class="col">
+<h3>Box: {{corebox.number}}</h3>
+    </div>
+</div>
+<div class="row ">
+    <div  class="col">
+  <table class="table">
+    <colgroup>
+      <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+    </colgroup>
+    <tr>
+      <td>ID</td>
+      <td>{{corebox.id}}</td>
+    </tr>
+    <tr>
+      <td>Drillcore</td>
+      <td>{{corebox.drillcore__name}}</td>
+    </tr>
+    <tr>
+        <td>Depth from (m)</td>
+        <td>{{corebox.start_depth}}</td>
+      </tr>
+      <tr>
+          <td>Depth to (m)</td>
+          <td>{{corebox.end_depth}}</td>
+        </tr>
+    </table>
+    </div>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="#samples" data-toggle="tab">Samples</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#analyses" data-toggle="tab">Analyses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#references" data-toggle="tab">References</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#linkedFIles" data-toggle="tab">Linked files</a>
+    </li>
+</ul>
+<br>
+
+<div class="tab-content">
+    <div class="tab-pane fade" id="samples">
+        <table class="table table-striped table-sm table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Depth from (m)</th>
+                    <th>Depth (m, interval)</th>
+                    <th>Sample ID</th>
+                    <th>Sample number</th>
+                    <th>Purpose</th>
+                    <th>Person/Institution</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>123</td>
+                <td>223</td>
+                <td>Name</td>
+                <td>Abcde</td>
+                <td>223</td>
+                <td>Name</td>
+            </tr>
+        </table>
+    </div>
+    <div class="tab-pane fade show active" id="analyses">
+        <table class="table table-striped table-sm table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Depth from (m)</th>
+                    <th>Depth (m, interval)</th>
+                    <th>Sample ID</th>
+                    <th>Sample number</th>
+                    <th>Purpose</th>
+                    <th>Person/Institution</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>123</td>
+                <td>223</td>
+                <td>Name</td>
+                <td>Abcde</td>
+                <td>223</td>
+                <td>Name</td>
+                <td>Abcde</td>
+            </tr>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="references">
+        <table class="table table-striped table-sm table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Depth from (m)</th>
+                    <th>Depth (m, interval)</th>
+                    <th>Sample ID</th>
+                    <th>Sample number</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>123</td>
+                <td>223</td>
+                <td>Name</td>
+                <td>Abcde</td>
+                <td>223</td>
+            </tr>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="linkedFIles">
+        <table class="table table-striped table-sm table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Depth from (m)</th>
+                    <th>Depth (m, interval)</th>
+                    <th>Sample ID</th>
+                    <th>Sample number</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>123</td>
+                <td>223</td>
+                <td>Name</td>
+                <td>Abcde</td>
+                <td>223</td>
+            </tr>
+        </table>
+    </div>
+  </div>
