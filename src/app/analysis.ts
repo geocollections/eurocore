@@ -9,7 +9,7 @@ export class Analysis {
         lab__lab: string;
         instrument__instrument: string;
         depth: number;
-        start_depth: number;
+        //start_depth: number;
         end_depth: number;
         date: string;
         agent__name: string;
