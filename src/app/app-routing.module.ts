@@ -10,17 +10,19 @@ import { SampleDetailsComponent }   from './sample-details/sample-details.compon
 import { AnalysisDetailsComponent }   from './analysis-details/analysis-details.component';
 import { DrillcoreBoxesComponent} from "./drillcore-boxes/drillcore-boxes.component";
 import { FrontpageComponent} from "./frontpage/frontpage.component";
+import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.component';
 
 
 const routes: Routes = [
   { path: 'drillcore', component: SitesComponent },
   { path: 'ores', component: OresComponent },
-  { path: 'data', component: DataComponent },
+  { path: 'data_search', component: DataComponent },
   { path: 'drillcore/:id', component: SiteDetailsComponent },
   { path: 'deposit/:id', component: DepositDetailsComponent },
   { path: 'sample/:id', component: SampleDetailsComponent },
   { path: 'analysis/:id', component: AnalysisDetailsComponent },
   { path: 'corebox/:id', component: DrillcoreBoxesComponent },
+  { path: 'drillcore_data/:id', component: DrillcoreDataComponent}, 
   { path: '', component: FrontpageComponent },
 ];  
 

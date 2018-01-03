@@ -26,6 +26,7 @@ import { AnalysisService } from './services/analysis.service';
 import { DrillcoreBoxesComponent } from './drillcore-boxes/drillcore-boxes.component';
 import { FrontpageComponent } from './frontpage/frontpage.component';
 import { DrillcoreBoxService } from './services/drillcore-box.service';
+import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.component';
 
  
 
@@ -42,7 +43,8 @@ import { DrillcoreBoxService } from './services/drillcore-box.service';
     SampleDetailsComponent,
     AnalysisDetailsComponent,
     DrillcoreBoxesComponent,
-    FrontpageComponent
+    FrontpageComponent,
+    DrillcoreDataComponent
   ],
   imports: [
     BrowserModule,
