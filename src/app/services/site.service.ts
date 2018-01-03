@@ -131,8 +131,8 @@ export class SiteService {
     return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp' + this.searchCriteria + '&fields=name,longitude,latitude,id', "callback").pipe();
   }
 
-
-
-
+  searchSitesByDepositId(id:string):Observable<Site[]>{
+    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&deposit__id__iexact='+id, "callback").pipe();
+  }
 
 }
