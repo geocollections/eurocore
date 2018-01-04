@@ -8,7 +8,7 @@
     <h5>Parameters:</h5>
     <div *ngFor="let siteParameter of siteParameters">
         <label class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" name="parameter" value="{{siteParameter.analysis__analysisresult__parameter__parameter}}">
+            <input  sitep type="checkbox" class="custom-control-input" name="parameter" value="{{siteParameter.analysis__analysisresult__parameter__parameter}}">
             <span class="custom-control-indicator"></span>
             <span class="custom-control-description">
                 {{siteParameter.analysis__analysisresult__parameter__parameter}} 
@@ -19,6 +19,7 @@
     </div>
   </div>
 </div>
+{{checkedParameters}}
 <div class="row ">
     <div class="col">
       <ul class="nav nav-tabs">
@@ -33,7 +34,26 @@
   
       <div class="tab-content">
         <div class="tab-pane fade" id="data">
-            <p>TODO: Data table</p>
+            <table class="table table-hover table-bordered ">
+                <thead class="thead-light">
+            <tr>
+                <th>Depth</th>
+                <th>Sample</th>
+                <th>Sample ID</th>
+                <th>Sample number</th>
+                <th>Purpose</th>
+                <th>Person/Institution</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>123</td>
+            <td>223</td>
+            <td>Name</td>
+            <td>Abcde</td>
+            <td>223</td>
+            <td>Name</td>
+        </tr>
+        </table>
         </div>
         <div class="tab-pane fade" id="chart">
           <p>TODO: Chart</p>

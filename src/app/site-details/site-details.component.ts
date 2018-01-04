@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Title } from '@angular/platform-browser';
+import {PlatformLocation } from '@angular/common';
 
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
@@ -35,9 +36,10 @@ export class SiteDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private siteService: SiteService, private mapService: MapService,
     private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title, 
-    private sampleService: SampleService, private analysisService: AnalysisService) { }
+    private sampleService: SampleService, private analysisService: AnalysisService, private platformLocation: PlatformLocation) { 
+    }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.mapService.drawDetailsViewMap();
     this.titleService.setTitle("EUROCORE Data Portal | Drillcore details"); 
@@ -81,6 +83,10 @@ export class SiteDetailsComponent implements OnInit {
 
   getAnalyzesByDrillcoreId(drillcoreId: string): void{
     this.analysisService.getAnalyzesByDrillcoreId(drillcoreId).subscribe(analyzes=>{this.analyzes=analyzes['results']; console.log(this.analyzes)});
+  }
+
+  openNewWindow(id:string):void{    
+    window.open((this.platformLocation as any).location.pathname +'#/corebox/'+id, '', 'width=600,height=800') ;
   }
 
 }

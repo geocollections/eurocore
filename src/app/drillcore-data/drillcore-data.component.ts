@@ -12,6 +12,7 @@ import { Site } from '../site';
 export class DrillcoreDataComponent implements OnInit {
 
   siteParameters: Site[];
+  checkedParameters:String[];
   constructor(private siteService: SiteService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -20,6 +21,11 @@ export class DrillcoreDataComponent implements OnInit {
 
   getAllParametersByDrillcoreId(id:string):void{
     this.siteService.searchAllParametersByDrillcoreId(id).subscribe(parameters=>{this.siteParameters=parameters['results']; console.log(this.siteParameters)});
+  }
+
+  changeParameters(element: HTMLInputElement):void{
+    console.log(element.value);
+    console.log(`Checkbox ${element.value} was ${element.checked ? '' : 'un'}checked\n`);
   }
 
 }
