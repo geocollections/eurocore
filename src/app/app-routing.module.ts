@@ -11,6 +11,7 @@ import { AnalysisDetailsComponent }   from './analysis-details/analysis-details.
 import { DrillcoreBoxesComponent} from "./drillcore-boxes/drillcore-boxes.component";
 import { FrontpageComponent} from "./frontpage/frontpage.component";
 import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.component';
+import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'analysis/:id', component: AnalysisDetailsComponent },
   { path: 'corebox/:id', component: DrillcoreBoxesComponent },
   { path: 'drillcore_data/:id', component: DrillcoreDataComponent}, 
+  { path: 'spectrum/:id', component: SpectrumDetailsComponent}, 
   { path: '', component: FrontpageComponent },
 ];  
 

@@ -50,7 +50,7 @@ export class SiteDetailsComponent implements OnInit {
 
   getSiteById(id: string): void {
     this.siteService.searchSiteById(id).subscribe(site => { this.site = site['results'][0]; console.log(this.site); this.mapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude);  });
-    this.lithologyService.getLithologyByDrillcoreId(id).subscribe(lithologies => { this.lithologies = lithologies['results']; console.log(this.lithologies); });
+    
   }
 
   getDrillcoreBoxesByDrillcoreId(id: string): void {
@@ -78,6 +78,9 @@ export class SiteDetailsComponent implements OnInit {
 
   onScroll() {
     this.getDrillcoreBoxesByDrillcoreId(this.route.snapshot.paramMap.get("id"));
+  }
+  getLithologyByDrillcoreId(drillcoreId:string):void{
+    this.lithologyService.getLithologyByDrillcoreId(drillcoreId).subscribe(lithologies => { this.lithologies = lithologies['results']; console.log(this.lithologies); });
   }
 
   getSamplesByDrillcoreId(drillcoreId: string): void{

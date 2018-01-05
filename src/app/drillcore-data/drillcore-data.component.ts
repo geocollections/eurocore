@@ -12,7 +12,7 @@ import { Site } from '../site';
 export class DrillcoreDataComponent implements OnInit {
 
   siteParameters: Site[];
-  checkedParameters:String[];
+  //checkedParameters:String[];
   constructor(private siteService: SiteService, private route: ActivatedRoute) { }
 
   ngOnInit() {

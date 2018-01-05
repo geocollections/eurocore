@@ -74,7 +74,7 @@
   <div class="col">
     <ul *ngIf="drillcoreSummary" class="nav nav-tabs">
       <li *ngIf=" !(drillcoreSummary.lithologies==0  || drillcoreSummary.lithologies==null)" class="nav-item">
-        <a class="nav-link" href="#lithology" data-toggle="tab">Lithology ({{drillcoreSummary.lithologies}})</a>
+        <a class="nav-link" href="#lithology" data-toggle="tab" (click)="getLithologyByDrillcoreId(site.id)">Lithology ({{drillcoreSummary.lithologies}})</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.dips==0  || drillcoreSummary.dips==null)" class="nav-item">
         <a class="nav-link" href="#dipAzimuth" data-toggle="tab">Dip/azimuth ({{drillcoreSummary.dips}})</a>

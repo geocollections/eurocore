@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { HttpClientModule, HttpClientJsonpModule }    from '@angular/common/http';
 import {JsonpModule, Jsonp, Response} from '@angular/http';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+//import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -29,6 +29,7 @@ import { DrillcoreBoxesComponent } from './drillcore-boxes/drillcore-boxes.compo
 import { FrontpageComponent } from './frontpage/frontpage.component';
 import { DrillcoreBoxService } from './services/drillcore-box.service';
 import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.component';
+import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.component';
 
  
 
@@ -46,7 +47,8 @@ import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.componen
     AnalysisDetailsComponent,
     DrillcoreBoxesComponent,
     FrontpageComponent,
-    DrillcoreDataComponent
+    DrillcoreDataComponent,
+    SpectrumDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,7 @@ import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.componen
     JsonpModule,
     HttpClientJsonpModule,
     InfiniteScrollModule, 
-    BrowserAnimationsModule
+   
   ],
   providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService],
   bootstrap: [AppComponent]

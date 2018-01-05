@@ -28,4 +28,9 @@ export class AnalysisService {
     return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?format=jsonp&order_by=depth&sample__drillcore__id__iexact='+id,"callback").pipe();
   }
 
+  getAnalysisSepectrumEnergyRanges(id:string):Observable<String[]>{
+    return this.http.jsonp<String[]>('http://api.eurocore.rocks/spectrum/?analysis__id=2000000&distinct=true&fields=energy_range__value&format=jsonp',"callback").pipe();
+    
+  }
+
 }

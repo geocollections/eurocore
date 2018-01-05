@@ -1,6 +1,12 @@
-<div *ngIf="analysis">
-  <h3>Analysis ID: {{analysis.id}}</h3>
-  <table class="table">
+<div class="row ">
+    <div *ngIf="analysis" class="col ">
+<h3>Analysis ID: {{analysis.id}}</h3>
+</div>
+</div>
+<div class="row ">
+    <div class="col ">
+<div *ngIf="analysis" >
+  <table class="table table-hover table-bordered table-responsive">
     <colgroup>
       <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
     </colgroup>
@@ -14,7 +20,10 @@
     </tr>
     <tr>
       <td>Sample</td>
-      <td><a routerLink="/sample/{{analysis.sample__id}}">{{analysis.sample__id}}</a></td>
+      <td>
+        <!--<a routerLink="/sample/{{analysis.sample__id}}">{{analysis.sample__sample_number}}</a>-->
+        {{analysis.sample__sample_number}}
+      </td>
     </tr>
     <tr>
       <td>Depth from, m</td>
@@ -37,18 +46,47 @@
       <td>{{analysis.instrument__instrument}}</td>
     </tr>
     <tr>
-      <td>Analyzed by</td>
-      <td>{{analysis.agent__name}}</td>
-    </tr>
-    <tr>
-      <td>Date</td>
-      <td>{{analysis.date}}</td>
-    </tr>
+      <tr>
+        <td>Instrument model</td>
+        <td></td>
+      </tr>
+      <tr>
+        <tr>
+          <td>Analytical procedures & conditions</td>
+          <td></td>
+        </tr>
+        <tr>
+          <tr>
+            <td>Reference sample(s) or standard(s</td>
+            <td></td>
+          </tr>
+          <tr>
+            <tr>
+              <td>Post-processing </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Analyzed by</td>
+              <td>{{analysis.agent__name}}</td>
+            </tr>
+            <tr>
+              <td>Date</td>
+              <td>{{analysis.date}}</td>
+            </tr>
   </table>
 
+</div>
+</div>
+<div class="col ">
+  <button (click)="openSpectrumView(analysis.id)" class="btn btn-primary btn-lg">Show spectra (4)</button>
+</div>
+</div>
+
+<div class="row align-items-center">
+    <div class="col ">
   <h4>Analysis results</h4>
-  <table class="table table-striped table-sm table-responsive">
-    <thead class="thead-dark">
+  <table class="table table-hover table-bordered table-responsive">
+    <thead class="thead-light">
       <tr>
         <th>Parameter</th>
         <th>Unit</th>
@@ -65,13 +103,5 @@
       <td>{{analysisResult.lower_limit}}</td>
     </tr>
   </table>
+    </div>
 </div>
-
-
-
-
-
-
-
-
-
