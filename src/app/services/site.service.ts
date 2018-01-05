@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Jsonp, JsonpModule } from '@angular/http';
 
 import { Site } from '../site';
+import { DrillcoreSummary } from '../drillcoreSummary';
 
 @Injectable()
 export class SiteService {
@@ -69,7 +70,8 @@ export class SiteService {
       this.searchCriteria += '&deposit__genetic_type__name__icontains=' + oreType;
     }
     if (commodity != "") {
-      this.searchCriteria += '&multi_search=value:' + commodity + ';fields:deposit__main_commodity,deposit__other_commodities;lookuptype:icontains';
+      //this.searchCriteria += '&multi_search=value:' + commodity + ';fields:deposit__main_commodity,deposit__other_commodities;lookuptype:icontains';
+      this.searchCriteria += '&deposit__main_commodity__icontains=' + commodity;
     }
     if (coreDepositorName != "") {
       //this.searchCriteria += '&core_depositor__name__icontains=' + coreDepositorName;
@@ -121,7 +123,8 @@ export class SiteService {
       this.searchCriteria += '&deposit__genetic_type__name__icontains=' + oreType;
     }
     if (commodity != "") {
-      this.searchCriteria += '&multi_search=value:' + commodity + ';fields:deposit__main_commodity,deposit__other_commodities;lookuptype:icontains';
+      //this.searchCriteria += '&multi_search=value:' + commodity + ';fields:deposit__main_commodity,deposit__other_commodities;lookuptype:icontains';
+      this.searchCriteria += '&deposit__main_commodity__icontains=' + commodity;
     }
     if (coreDepositorName != "") {
       //this.searchCriteria += '&core_depositor__name__icontains=' + coreDepositorName;
@@ -137,6 +140,10 @@ export class SiteService {
 
   searchAllParametersByDrillcoreId(id: string): Observable<Site[]> {
     return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/' + id + '?fields=name,analysis__analysisresult__parameter__parameter,analysis__analysisresult__unit__unit,analysis__analysis_method__method&distinct=true&format=jsonp', "callback").pipe();
+  }
+
+  searchDrillcoreSummaryById(id:string): Observable<DrillcoreSummary>{
+    return this.http.jsonp<DrillcoreSummary>('http://api.eurocore.rocks/drillcore_summary/?format=jsonp&drillcore__id__iexact='+id, "callback").pipe();
   }
 
 }

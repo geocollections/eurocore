@@ -34,7 +34,7 @@
       </div>
       <div class="form-group">
         <!--<label for="name">Commodity</label>-->
-        <input [(ngModel)]="searchCommodity" id="commodity" class="form-control" (keypress)="enterKeyPress($event)" placeholder="Commodity"
+        <input [(ngModel)]="searchCommodity" id="commodity" class="form-control" (keypress)="enterKeyPress($event)" placeholder="Main commodity"
         />
       </div>
       <div class="form-group">
@@ -88,10 +88,11 @@
       <table class="table table-hover table-bordered ">
         <thead class="thead-light">
           <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>Name</th>
             <th>Deposit</th>
-            <th>Year</th>
+            <th>Commodity</th>
+           <!-- <th>Year</th>-->
             <th>Latitude</th>
             <th>Longitude</th>
             <th>Elevation</th>
@@ -109,7 +110,8 @@
           <td>
             <a routerLink="/deposit/{{site.deposit__id}}">{{site.deposit__name}}</a>
           </td>
-          <td>{{site.drilling_year}}</td>
+          <td>{{site.deposit__main_commodity}}</td>
+         <!-- <td>{{site.drilling_year}}</td>-->
           <td>{{site.latitude}}</td>
           <td>{{site.longitude}}</td>
           <td> </td>
