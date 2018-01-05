@@ -42,11 +42,11 @@ export class SiteDetailsComponent implements OnInit {
   ngOnInit() {    
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.mapService.drawDetailsViewMap();
-    this.titleService.setTitle("EUROCORE Data Portal | Drillcore details"); 
+    //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
   }
 
   getSiteById(id: string): void {
-    this.siteService.searchSiteById(id).subscribe(site => { this.site = site['results'][0]; console.log(this.site); this.mapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude); });
+    this.siteService.searchSiteById(id).subscribe(site => { this.site = site['results'][0]; console.log(this.site); this.mapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude);  });
     this.lithologyService.getLithologyByDrillcoreId(id).subscribe(lithologies => { this.lithologies = lithologies['results']; console.log(this.lithologies); });
   }
 

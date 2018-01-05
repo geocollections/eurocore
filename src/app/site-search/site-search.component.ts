@@ -3,6 +3,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
 import * as $ from 'jquery';
+//import * as x from 'jquery-ui';
 
 @Component({
   selector: 'app-site-search',
@@ -11,6 +12,7 @@ import * as $ from 'jquery';
   encapsulation: ViewEncapsulation.None
 })
 export class SiteSearchComponent implements OnInit {
+
 
   selectedSite: Site;
   sites: Site[];
@@ -40,6 +42,7 @@ export class SiteSearchComponent implements OnInit {
     this.searchSites(1);
     this.mapService.drawDrillcoreSearchMap(this);
     //this.getMapSites();
+
   } 
 
   searchDrillcoreByName(): void {
@@ -58,7 +61,7 @@ export class SiteSearchComponent implements OnInit {
 
   searchCoreDepositorByName(name: string): void {
     if (name.length > 1)
-      this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.sortCoreDepositors(coreDepositValues['results'], name) });
+      this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.sortCoreDepositors(coreDepositValues['results'], name); console.log("res"+coreDepositValues['results']);});
     else
       this.coreDepositorAutocompleteValues = [];
   }

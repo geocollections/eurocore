@@ -44,8 +44,8 @@ export class SiteService {
     if (!name.trim()) {
       return of([]);
     }
-    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&multi_search=value:' + name + ';fields:core_depositor__name,core_depositor__acronym;lookuptype:icontains&fields=core_depositor__name,core_depositor__acronym&group_by=core_depositor__name&group_by=core_depositor__acronym', "callback").pipe();
-    //return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&fields=core_depositor__name&core_depositor__name__icontains=' + name + '&group_by=core_depositor__name', "callback").pipe();
+    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?fields=core_depositor__name,core_depositor__acronym&distinct=true&multi_search=value:'+name+';fields:core_depositor__name,core_depositor__acronym;lookuptype:icontains&format=jsonp', "callback").pipe();
+    //return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&multi_search=value:' + name + ';fields:core_depositor__name,core_depositor__acronym;lookuptype:icontains&fields=core_depositor__name,core_depositor__acronym&group_by=core_depositor__name&group_by=core_depositor__acronym', "callback").pipe();
   }
 
   searchSites(id: string[], name: string, deposit: string, oreType: string, commodity: string, coreDepositorName: string, page = 1): Observable<Site[]> {
