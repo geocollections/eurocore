@@ -29,8 +29,11 @@ export class AnalysisService {
   }
 
   getAnalysisSepectrumEnergyRanges(id:string):Observable<String[]>{
-    return this.http.jsonp<String[]>('http://api.eurocore.rocks/spectrum/?analysis__id=2000000&distinct=true&fields=energy_range__value&format=jsonp',"callback").pipe();
-    
+    return this.http.jsonp<String[]>('http://api.eurocore.rocks/spectrum/?analysis__id=2000000&distinct=true&fields=energy_range__value&format=jsonp',"callback").pipe();    
   }
 
+  getAnalysisSpectrumData(id: string):Observable<String[]>{
+    return this.http.jsonp<String[]>('http://api.eurocore.rocks/spectrum/?analysis__id=2000000&format=jsonp',"callback").pipe();    
+  }
+  
 }

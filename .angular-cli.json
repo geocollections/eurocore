@@ -28,10 +28,7 @@
       "scripts": [ 
         "./assets/d3.js",
         "./assets/flog2.js",
-        "./assets/flog2_form.js",
-        "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/popper.js/dist/umd/popper.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js" 
+        "./assets/flog2_form.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

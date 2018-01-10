@@ -39,8 +39,9 @@ export class AnalysisDetailsComponent implements OnInit {
     this.analysisSerrivce.getAnalysisResultsByAnalysisId(id).subscribe(analysisResults=> {this.analysisResults=analysisResults['results']; console.log(this.analysisResults);});   
   }
 
-  openSpectrumView(id:string):void{    
-    window.open((this.platformLocation as any).location.pathname +'#/spectrum/'+id, '', 'width=600,height=800') ;
+  openSpectrumView(id:number):void{   
+    var ID=id.toString(); 
+    window.open((this.platformLocation as any).location.pathname +'#/spectrum/'+ID, '', 'width=600,height=800') ;
   }
 
 }

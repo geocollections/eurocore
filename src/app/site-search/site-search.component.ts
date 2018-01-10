@@ -3,7 +3,8 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
 import * as $ from 'jquery';
-//import * as x from 'jquery-ui';
+//import  'jquery-ui/ui/widgets/autocomplete';
+
 
 @Component({
   selector: 'app-site-search',
@@ -17,13 +18,14 @@ export class SiteSearchComponent implements OnInit {
   selectedSite: Site;
   sites: Site[];
   mapSites: Site[];
-  siteCount: string;
+  siteCount: number;
   drillcoreAutocompleteValues: String[];
   depositAutocompleteValues: String[];
   oreTypeAutocompleteValues: String[];
   coreDepositorAutocompleteValues: String[];
   pageNumber: number = 1;
   pageCount;
+  
 
   searchDrillcoreName: string = "";
   searchDepositName: string = "";
@@ -35,6 +37,7 @@ export class SiteSearchComponent implements OnInit {
   drillcoreIdArray: string[];
 
   constructor(private siteService: SiteService, private mapService: MapService) { 
+    
   }
  
   ngOnInit() {
@@ -42,13 +45,13 @@ export class SiteSearchComponent implements OnInit {
     this.searchSites(1);
     this.mapService.drawDrillcoreSearchMap(this);
     //this.getMapSites();
-
   } 
 
   searchDrillcoreByName(): void {
 
     if (this.searchDrillcoreName.length > 1)
-      this.siteService.searchDrillcoreByName(this.searchDrillcoreName).subscribe(drillcoreValues => { this.drillcoreAutocompleteValues = drillcoreValues['results']; });
+      this.siteService.searchDrillcoreByName(this.searchDrillcoreName).subscribe(drillcoreValues => { this.drillcoreAutocompleteValues = drillcoreValues['results']; 
+    });
     else
       this.drillcoreAutocompleteValues = [];
   }
@@ -61,7 +64,7 @@ export class SiteSearchComponent implements OnInit {
 
   searchCoreDepositorByName(name: string): void {
     if (name.length > 1)
-      this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.sortCoreDepositors(coreDepositValues['results'], name); console.log("res"+coreDepositValues['results']);});
+      this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.sortCoreDepositors(coreDepositValues['results'], name); console.log("res"+this.coreDepositorAutocompleteValues);});
     else
       this.coreDepositorAutocompleteValues = [];
   }
@@ -79,10 +82,10 @@ export class SiteSearchComponent implements OnInit {
     this.coreDepositorAutocompleteValues=[];
     for(var i = 0; i < deposits.length; i++){
       if(deposits[i].core_depositor__name != undefined && deposits[i].core_depositor__name.toUpperCase().search(name.toUpperCase()) >= 0){
-        this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__name);
+        this.coreDepositorAutocompleteValues[i]=(deposits[i].core_depositor__name);
       }
       if(deposits[i].core_depositor__acronym !=undefined && deposits[i].core_depositor__acronym.toUpperCase().search(name.toUpperCase()) >= 0){
-        this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__acronym);
+        this.coreDepositorAutocompleteValues[i]=(deposits[i].core_depositor__acronym);
       }
     }
   }
@@ -152,6 +155,5 @@ export class SiteSearchComponent implements OnInit {
     this.searchDrillcoreId="";
     this.searchSites();
   }
-
 
 }

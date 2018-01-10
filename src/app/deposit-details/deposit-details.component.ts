@@ -8,6 +8,12 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { Title } from '@angular/platform-browser';
 
+//import * as $ from 'jquery';
+/*var $=require('jquery');
+import 'popper.js';
+import 'bootstrap'; */
+
+
 @Component({
   selector: 'app-deposit-details',
   templateUrl: './deposit-details.component.html',
@@ -32,9 +38,10 @@ export class DepositDetailsComponent implements OnInit {
     this.depositService.searchDepositById(id).subscribe(deposit => { this.deposit = deposit['results'][0]; console.log(this.deposit); this.mapService.addPointWithName(this.deposit.name, this.deposit.longitude, this.deposit.latitude); });;
   }
 
-  getDrillcoresByDepositId(id: string): void {
+  getDrillcoresByDepositId(id: number): void {
+    var ID=id.toString();
     if (this.sites == undefined) {
-      this.siteService.searchSitesByDepositId(id).subscribe(sites => { this.sites = sites['results']; console.log(this.sites) });
+      this.siteService.searchSitesByDepositId(ID).subscribe(sites => { this.sites = sites['results']; console.log(this.sites) });
     }
   }
 

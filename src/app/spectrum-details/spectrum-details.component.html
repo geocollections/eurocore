@@ -2,7 +2,6 @@
     <div class="col">
         <h3>Analysis ID: {{analysisId}}</h3>
 
-        <h5>Spectrum energy ranges:</h5>
 
         <!--<label class="custom-control custom-checkbox">
             <input  sitep type="checkbox" class="custom-control-input" name="parameter" value="{{siteParameter.analysis__analysisresult__parameter__parameter}}">
@@ -12,19 +11,27 @@
                 {{siteParameter.analysis__analysisresult__unit__unit}} 
                ( {{siteParameter.analysis__analysis_method__method}} )
             </span>
-          </label>-->
+          </label>
         <label *ngFor="let spectrumEnergyRange of spectrumEnergyRanges" class="custom-control custom-checkbox">
             <input sitep type="checkbox" class="custom-control-input" name="parameter" value="{{spectrumEnergyRange.energy_range__value}}">
             <span class="custom-control-indicator"></span>
             <span class="custom-control-description">
                 {{spectrumEnergyRange.energy_range__value}}
             </span>
-        </label>
+        </label>-->
         
     </div>
 </div>
+<!--
 <div class="row">
     <div class="col">
             <img src="http://www.excel-easy.com/data-analysis/images/charts/line-chart.png" width="500" height="500">
+    </div>
+</div>-->
+<div class="row">
+    <div class="col">
+        <div id="myDiv">
+            <!-- Plotly chart will be drawn inside this DIV -->
+          </div>
     </div>
 </div>

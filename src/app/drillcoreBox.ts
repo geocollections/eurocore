@@ -7,4 +7,5 @@ export class DrillcoreBox {
     attachmentlink__attachment__uuid: string;
     attachmentlink__attachment__mime_type__extension: string;
     drillcore__id: number;
+    drillcore__name: string;
   }
