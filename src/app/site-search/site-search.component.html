@@ -6,7 +6,7 @@
   </div>
 
 
-  <!--<div class="ui-widget">
+ <!-- <div class="ui-widget">
     <label for="tags">Tags: </label>
     <input id="tags">
   </div>-->
@@ -17,7 +17,8 @@
       <div class="form-group">
         <!--<label for="name">Drillcore name</label>-->
         <input [(ngModel)]="searchDrillcoreName" id="drillcoreName" list="drillcoreList" class="form-control" (input)="searchDrillcoreByName()"
-          (keypress)="enterKeyPress($event)" placeholder="Drillcore name" data-role="tagsinput" />
+          (keypress)="enterKeyPress($event)" placeholder="Drillcore name" data-role="tagsinput" >
+          
         <datalist *ngIf="drillcoreAutocompleteValues" id='drillcoreList'>
           <option *ngFor="let drillcoreValue of drillcoreAutocompleteValues" value='{{drillcoreValue.name}}'> 
         </datalist>

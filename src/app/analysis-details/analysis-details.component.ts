@@ -41,7 +41,7 @@ export class AnalysisDetailsComponent implements OnInit {
 
   openSpectrumView(id:number):void{   
     var ID=id.toString(); 
-    window.open((this.platformLocation as any).location.pathname +'#/spectrum/'+ID, '', 'width=600,height=800') ;
+    window.open((this.platformLocation as any).location.pathname +'#/spectrum/'+ID, '', 'width=800,height=800') ;
   }
 
 }

@@ -17,6 +17,8 @@ import { AnalysisService } from '../services/analysis.service';
 import { Analysis } from '../analysis';
 import { DrillcoreSummary } from '../drillcoreSummary';
 
+//import * as $ from 'jquery'; 
+
 @Component({
   selector: 'app-site-details',
   templateUrl: './site-details.component.html',
@@ -96,7 +98,20 @@ export class SiteDetailsComponent implements OnInit {
   }
 
   getDrillcoreSummary(drillcoreId:string):void{
-    this.siteService.searchDrillcoreSummaryById(drillcoreId).subscribe(drillcoreSummary =>{this.drillcoreSummary=drillcoreSummary['results'][0]; if(!(this.drillcoreSummary.references==0  || this.drillcoreSummary.references==null))console.log("true");});
+    this.siteService.searchDrillcoreSummaryById(drillcoreId).subscribe(drillcoreSummary =>{this.drillcoreSummary=drillcoreSummary['results'][0];this.activateFirstTab();console.log(this.drillcoreSummary);});
+  }
+
+  openAnalysisView(id:number):void{   
+    var ID=id.toString(); 
+    window.open((this.platformLocation as any).location.pathname +'#/analysis/'+ID, '', 'width=600,height=800') ;
+  }
+  openSampleView(id:number):void{   
+    var ID=id.toString(); 
+    window.open((this.platformLocation as any).location.pathname +'#/sample/'+ID, '', 'width=600,height=800') ;
+  }
+
+  activateFirstTab(){
+
   }
 
 }

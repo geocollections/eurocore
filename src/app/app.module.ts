@@ -5,6 +5,7 @@ import { HttpClientModule, HttpClientJsonpModule }    from '@angular/common/http
 import {JsonpModule, Jsonp, Response} from '@angular/http';
 
 //import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -58,6 +59,7 @@ import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.co
     JsonpModule,
     HttpClientJsonpModule,
     InfiniteScrollModule, 
+    NgbModule.forRoot(),
    
   ],
   providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService],

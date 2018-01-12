@@ -3,8 +3,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
 import * as $ from 'jquery';
-//import  'jquery-ui/ui/widgets/autocomplete';
-
+import  'jquery-ui/ui/widgets/autocomplete';
 
 @Component({
   selector: 'app-site-search',
@@ -36,6 +35,8 @@ export class SiteSearchComponent implements OnInit {
   
   drillcoreIdArray: string[];
 
+
+
   constructor(private siteService: SiteService, private mapService: MapService) { 
     
   }
@@ -45,12 +46,14 @@ export class SiteSearchComponent implements OnInit {
     this.searchSites(1);
     this.mapService.drawDrillcoreSearchMap(this);
     //this.getMapSites();
+    
   } 
 
-  searchDrillcoreByName(): void {
 
+
+  searchDrillcoreByName(): void { 
     if (this.searchDrillcoreName.length > 1)
-      this.siteService.searchDrillcoreByName(this.searchDrillcoreName).subscribe(drillcoreValues => { this.drillcoreAutocompleteValues = drillcoreValues['results']; 
+      this.siteService.searchDrillcoreByName(this.searchDrillcoreName).subscribe(drillcoreValues => { this.drillcoreAutocompleteValues = drillcoreValues['results'];      
     });
     else
       this.drillcoreAutocompleteValues = [];
@@ -154,6 +157,7 @@ export class SiteSearchComponent implements OnInit {
     this.searchInstitution="";
     this.searchDrillcoreId="";
     this.searchSites();
+
   }
 
 }

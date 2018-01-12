@@ -264,7 +264,7 @@
           <tr *ngFor="let sample of samples">
             <td>{{sample.depth}}</td>
             <td>{{sample.end_depth}}</td>
-            <td><a routerLink="/sample/{{sample.id}}">{{sample.id}}</a></td>
+            <td><a href="javascript:void(0);" (click)="openSampleView(sample.id)">{{sample.id}}</a></td>
             <td>{{sample.sample_number}}</td>
             <td></td>
             <td></td>
@@ -288,7 +288,7 @@
           <tr *ngFor="let analysis of analyzes">
             <td>{{analysis.depth}}</td>
             <td>{{analysis.end_depth}}</td>
-            <td><a routerLink="/analysis/{{analysis.id}}">{{analysis.id}}</a></td>
+            <td><a href="javascript:void(0);" (click)="openAnalysisView(analysis.id)">{{analysis.id}}</a></td>
             <td></td>
             <td></td>
             <td></td>

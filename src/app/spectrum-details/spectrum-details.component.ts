@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnalysisService } from '../services/analysis.service';
-import Plotly from 'plotly.js/dist/plotly.min';
- 
+import Plotly from 'plotly.js/dist/plotly-basic.min';
+
 @Component({
   selector: 'app-spectrum-details',
   templateUrl: './spectrum-details.component.html',
@@ -15,24 +15,24 @@ export class SpectrumDetailsComponent implements OnInit {
   spectrumData: String[];
 
   constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService) {
-    
-   }
+
+  }
 
   ngOnInit() {
-    this.analysisId=this.route.snapshot.paramMap.get('id');
+    this.analysisId = this.route.snapshot.paramMap.get('id');
     //this.getAnalysisSepectrumEnergyRanges("20000");
     this.getAnalysisSpectrumData("20000");
   }
 
-  getAnalysisSepectrumEnergyRanges(id: string):void{
-    this.analysisSerrivce.getAnalysisSepectrumEnergyRanges(id).subscribe(spectrumEnergyRanges=>{this.spectrumEnergyRanges=spectrumEnergyRanges['results']; console.log(this.spectrumEnergyRanges)});
+  getAnalysisSepectrumEnergyRanges(id: string): void {
+    this.analysisSerrivce.getAnalysisSepectrumEnergyRanges(id).subscribe(spectrumEnergyRanges => { this.spectrumEnergyRanges = spectrumEnergyRanges['results']; console.log(this.spectrumEnergyRanges) });
   }
 
-  getAnalysisSpectrumData(id: string):void{
-    this.analysisSerrivce.getAnalysisSpectrumData(id).subscribe(spectrumData=>{this.filterSpectrumData(spectrumData['results']); console.log(this.spectrumData);})
+  getAnalysisSpectrumData(id: string): void {
+    this.analysisSerrivce.getAnalysisSpectrumData(id).subscribe(spectrumData => { this.filterSpectrumData(spectrumData['results']); console.log(this.spectrumData); })
   }
 
-  filterSpectrumData(results: String[]):void{
+  filterSpectrumData(results: String[]): void {
     var data = [];
     for (var k = 0; k < results.length; k++) {
       var x = [];
@@ -46,7 +46,7 @@ export class SpectrumDetailsComponent implements OnInit {
 
       for (var i = 0; i < results[k]['data'].length; i++) {
         x.push(results[k]['data'][i].keV);
-        y.push(results[k]['data'][i].count);       
+        y.push(results[k]['data'][i].count);
       }
       data.push(t);
     }
@@ -60,8 +60,19 @@ export class SpectrumDetailsComponent implements OnInit {
         title: 'count'
       }
     };
- 
-    Plotly.newPlot('myDiv', data, layout);
+
+    Plotly.newPlot('myDiv', data, layout,
+      {
+        modeBarButtonsToRemove: ['toImage'],
+        modeBarButtonsToAdd: [{
+          name: 'Download plot as a SVG',
+          icon: Plotly.Icons.camera,
+          click: function (gd) {
+            Plotly.downloadImage(gd, { format: 'svg' })
+          }
+        }],
+        displaylogo: false
+      });
   }
 
 }
