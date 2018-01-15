@@ -17,7 +17,11 @@ import { AnalysisService } from '../services/analysis.service';
 import { Analysis } from '../analysis';
 import { DrillcoreSummary } from '../drillcoreSummary';
 
-//import * as $ from 'jquery'; 
+import * as $ from 'jquery'; 
+import 'popper.js';
+//import  'bootstrap/dist/js/bootstrap.min';
+import  'bootstrap/js/src/tab';
+
 
 @Component({
   selector: 'app-site-details',
@@ -29,7 +33,7 @@ export class SiteDetailsComponent implements OnInit {
 
   @Input() site: Site;
   lithologies: Lithology[];
-  drillcoreBoxes: DrillcoreBox[]=[];
+  drillcoreBoxes: DrillcoreBox[]=[]; 
   samples: Sample[];
   analyzes: Analysis[];
   drillcoreSummary: DrillcoreSummary;
@@ -98,7 +102,7 @@ export class SiteDetailsComponent implements OnInit {
   }
 
   getDrillcoreSummary(drillcoreId:string):void{
-    this.siteService.searchDrillcoreSummaryById(drillcoreId).subscribe(drillcoreSummary =>{this.drillcoreSummary=drillcoreSummary['results'][0];this.activateFirstTab();console.log(this.drillcoreSummary);});
+    this.siteService.searchDrillcoreSummaryById(drillcoreId).subscribe(drillcoreSummary =>{this.drillcoreSummary=drillcoreSummary['results'][0];this.findFirstTab();console.log(this.drillcoreSummary);});
   }
 
   openAnalysisView(id:number):void{   
@@ -110,8 +114,75 @@ export class SiteDetailsComponent implements OnInit {
     window.open((this.platformLocation as any).location.pathname +'#/sample/'+ID, '', 'width=600,height=800') ;
   }
 
-  activateFirstTab(){
-
+  findFirstTab(){
+    if(!(this.drillcoreSummary.lithologies==0  || this.drillcoreSummary.lithologies==null)){
+      console.log("lithologies"); 
+      this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.activateTab("lithologyTab");
+      return;   
+    }
+    if(!(this.drillcoreSummary.dips==0  || this.drillcoreSummary.dips==null)){
+      console.log("dip"); 
+      //this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.activateTab("dipTab");
+      return;   
+    }
+    if(!(this.drillcoreSummary.rqds==0  || this.drillcoreSummary.rqds==null)){
+      console.log("rqds"); 
+      //this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.activateTab("rqdTab");
+      return;   
+    }
+    if(!(this.drillcoreSummary.structures==0  || this.drillcoreSummary.structures==null)){
+      console.log("structures"); 
+      //this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.activateTab("structuresTab");
+      return;   
+    }
+    if(!(this.drillcoreSummary.stratigraphies==0  || this.drillcoreSummary.stratigraphies==null)){
+      console.log("stratigraphies"); 
+      //this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.activateTab("stratigraphyTab");
+      return;   
+    }
+    if(!(this.drillcoreSummary.boxes==0  || this.drillcoreSummary.boxes==null)){
+      console.log("images");
+      this.getDrillcoreBoxesByDrillcoreId(this.site.id.toString());
+      this.activateTab("boxesTab");
+      return;   
+    }
+    if(!(this.drillcoreSummary.samples==0  || this.drillcoreSummary.samples==null)){
+      console.log("sampels");
+      this.getSamplesByDrillcoreId(this.site.id.toString());
+      this.activateTab("samplesTab");
+      return;   
+    }
+    if(!(this.drillcoreSummary.analyses==0  || this.drillcoreSummary.analyses==null)){
+      console.log("analysis");
+      this.getAnalyzesByDrillcoreId(this.site.id.toString());
+      this.activateTab("analysesTab");
+      return;   
+    } 
+    if(!(this.drillcoreSummary.attachments==0  || this.drillcoreSummary.attachments==null)){
+      console.log("attachments"); 
+      //this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.activateTab("attachmentsTab");
+      return;   
+    }
+    if(!(this.drillcoreSummary.references==0  || this.drillcoreSummary.references==null)){
+      console.log("references"); 
+      //this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.activateTab("refernecesTab");
+      return;   
+    }  
   }
+
+  activateTab(tab: string){
+    $(function () {
+      $('#'+tab).tab('show');      
+    })
+  }
+
+
 
 }
