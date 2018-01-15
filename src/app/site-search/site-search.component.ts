@@ -3,7 +3,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
 import * as $ from 'jquery';
-import  'jquery-ui/ui/widgets/autocomplete';
+import 'jquery-ui/ui/widgets/autocomplete';
 
 @Component({
   selector: 'app-site-search',
@@ -24,37 +24,37 @@ export class SiteSearchComponent implements OnInit {
   coreDepositorAutocompleteValues: String[];
   pageNumber: number = 1;
   pageCount;
-  
+
 
   searchDrillcoreName: string = "";
   searchDepositName: string = "";
   searchOreType: string = "";
   searchCommodity: string = "";
   searchInstitution: string = "";
-  searchDrillcoreId:string="";
-  
+  searchDrillcoreId: string = "";
+
   drillcoreIdArray: string[];
 
 
 
-  constructor(private siteService: SiteService, private mapService: MapService) { 
-    
+  constructor(private siteService: SiteService, private mapService: MapService) {
+
   }
- 
+
   ngOnInit() {
+    this.getSessionData();
     this.getMapSites();
     this.searchSites(1);
     this.mapService.drawDrillcoreSearchMap(this);
-    //this.getMapSites();
-    
-  } 
+    //this.getMapSites();   
+  }
 
 
-
-  searchDrillcoreByName(): void { 
+  searchDrillcoreByName(): void {
     if (this.searchDrillcoreName.length > 1)
-      this.siteService.searchDrillcoreByName(this.searchDrillcoreName).subscribe(drillcoreValues => { this.drillcoreAutocompleteValues = drillcoreValues['results'];      
-    });
+      this.siteService.searchDrillcoreByName(this.searchDrillcoreName).subscribe(drillcoreValues => {
+      this.drillcoreAutocompleteValues = drillcoreValues['results'];
+      });
     else
       this.drillcoreAutocompleteValues = [];
   }
@@ -67,7 +67,7 @@ export class SiteSearchComponent implements OnInit {
 
   searchCoreDepositorByName(name: string): void {
     if (name.length > 1)
-      this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.sortCoreDepositors(coreDepositValues['results'], name); console.log("res"+this.coreDepositorAutocompleteValues);});
+      this.siteService.searchCoreDepositorByName(name).subscribe(coreDepositValues => { this.sortCoreDepositors(coreDepositValues['results'], name); console.log("res" + this.coreDepositorAutocompleteValues); });
     else
       this.coreDepositorAutocompleteValues = [];
   }
@@ -81,14 +81,14 @@ export class SiteSearchComponent implements OnInit {
       this.oreTypeAutocompleteValues = [];
   }
 
-  sortCoreDepositors(deposits: Site[], name:string):void{
-    this.coreDepositorAutocompleteValues=[];
-    for(var i = 0; i < deposits.length; i++){
-      if(deposits[i].core_depositor__name != undefined && deposits[i].core_depositor__name.toUpperCase().search(name.toUpperCase()) >= 0){
-        this.coreDepositorAutocompleteValues[i]=(deposits[i].core_depositor__name);
+  sortCoreDepositors(deposits: Site[], name: string): void {
+    this.coreDepositorAutocompleteValues = [];
+    for (var i = 0; i < deposits.length; i++) {
+      if (deposits[i].core_depositor__name != undefined && deposits[i].core_depositor__name.toUpperCase().search(name.toUpperCase()) >= 0) {
+        this.coreDepositorAutocompleteValues[i] = (deposits[i].core_depositor__name);
       }
-      if(deposits[i].core_depositor__acronym !=undefined && deposits[i].core_depositor__acronym.toUpperCase().search(name.toUpperCase()) >= 0){
-        this.coreDepositorAutocompleteValues[i]=(deposits[i].core_depositor__acronym);
+      if (deposits[i].core_depositor__acronym != undefined && deposits[i].core_depositor__acronym.toUpperCase().search(name.toUpperCase()) >= 0) {
+        this.coreDepositorAutocompleteValues[i] = (deposits[i].core_depositor__acronym);
       }
     }
   }
@@ -106,11 +106,11 @@ export class SiteSearchComponent implements OnInit {
   }
 
   searchSites(page: number = 1): void {
-    console.log(this.searchDrillcoreId + "-"+this.searchDrillcoreName + " -" + this.searchDepositName + " -" + this.searchOreType + " -" + this.searchCommodity + " -" + this.searchInstitution + " -" + this.pageNumber);
+    console.log(this.searchDrillcoreId + "-" + this.searchDrillcoreName + " -" + this.searchDepositName + " -" + this.searchOreType + " -" + this.searchCommodity + " -" + this.searchInstitution + " -" + this.pageNumber);
 
     this.drillcoreIdArray = String(this.searchDrillcoreId).split(",");
 
-    this.siteService.searchSites(this.drillcoreIdArray,this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution, page).subscribe(sites => {
+    this.siteService.searchSites(this.drillcoreIdArray, this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution, page).subscribe(sites => {
       this.sites = sites['results']; this.siteCount = sites['count'];
       if (sites['page'])
         this.pageCount = new Array(Number(String(sites['page']).split("of ")[1]))
@@ -118,10 +118,10 @@ export class SiteSearchComponent implements OnInit {
         this.pageCount = new Array(1);
 
     });
-    this.siteService.searchMapSites(this.drillcoreIdArray,this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites =>
-       { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites); console.log("mapsites" + this.mapSites.length); });
+    this.siteService.searchMapSites(this.drillcoreIdArray, this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites); console.log("mapsites" + this.mapSites.length); });
     this.selectedSite = undefined;
     this.setPageNumber(page);
+    this.setSessionData();
   }
 
   onSelect(site: Site): void {
@@ -139,25 +139,47 @@ export class SiteSearchComponent implements OnInit {
     //console.log("getsites" + this.sites.length);
   }
 
-  setPageNumber(pageNumber: number):void {
+  setPageNumber(pageNumber: number): void {
     this.pageNumber = pageNumber;
     //this.searchSites();
   }
 
-  enterKeyPress(keyEvent):void{
-    if(keyEvent.which==13)
+  enterKeyPress(keyEvent): void {
+    if (keyEvent.which == 13)
+      this.searchSites();
+  }
+
+  resetFormValues(): void {
+    this.searchDrillcoreName = "";
+    this.searchDepositName = "";
+    this.searchOreType = "";
+    this.searchCommodity = "";
+    this.searchInstitution = "";
+    this.searchDrillcoreId = "";
     this.searchSites();
   }
 
-  resetFormValues():void{
-    this.searchDrillcoreName="";
-    this.searchDepositName="";
-    this.searchOreType="";
-    this.searchCommodity="";
-    this.searchInstitution="";
-    this.searchDrillcoreId="";
-    this.searchSites();
-
+  setSessionData(): void {
+    window.sessionStorage.setItem("drillcoreID", this.searchDrillcoreId);
+    window.sessionStorage.setItem("drillcoreName", this.searchDrillcoreName);
+    window.sessionStorage.setItem("depositName", this.searchDepositName);
+    window.sessionStorage.setItem("oreType", this.searchOreType);
+    window.sessionStorage.setItem("commodity", this.searchCommodity);
+    window.sessionStorage.setItem("institution", this.searchInstitution);
+  }
+  getSessionData(): void {
+    if (window.sessionStorage.getItem("drillcoreID"))
+      this.searchDrillcoreId = window.sessionStorage.getItem("drillcoreID");
+    if (window.sessionStorage.getItem("drillcoreName"))
+      this.searchDrillcoreName = window.sessionStorage.getItem("drillcoreName");
+    if (window.sessionStorage.getItem("depositName"))
+      this.searchDepositName = window.sessionStorage.getItem("depositName");
+    if (window.sessionStorage.getItem("oreType"))
+      this.searchOreType = window.sessionStorage.getItem("oreType");
+    if (window.sessionStorage.getItem("commodity"))
+      this.searchCommodity = window.sessionStorage.getItem("commodity");
+    if (window.sessionStorage.getItem("institution"))
+      this.searchInstitution = window.sessionStorage.getItem("institution");
   }
 
 }

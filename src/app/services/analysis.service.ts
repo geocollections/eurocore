@@ -25,7 +25,7 @@ export class AnalysisService {
   }
 
   getAnalyzesByDrillcoreId(id:string): Observable<Analysis[]>{
-    return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?format=jsonp&order_by=depth&sample__drillcore__id__iexact='+id,"callback").pipe();
+    return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?format=jsonp&order_by=depth&multi_search=value:'+id+';fields:drillcore__id,sample__drillcore__id&paginate_by=2000',"callback").pipe();
   }
 
   getAnalysisSepectrumEnergyRanges(id:string):Observable<String[]>{

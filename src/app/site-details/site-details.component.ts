@@ -41,16 +41,20 @@ export class SiteDetailsComponent implements OnInit {
   pageNr: number = 1;
   paginateBy = 5;
   pageCount: number;
+  
 
   constructor(private route: ActivatedRoute, private siteService: SiteService, private mapService: MapService,
     private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title, 
     private sampleService: SampleService, private analysisService: AnalysisService, private platformLocation: PlatformLocation) { 
+      console.log("Path: " +JSON.stringify((this.platformLocation as any).location.href));
     }
 
   ngOnInit() {    
+    console.log("Sessionstorage: "+window.sessionStorage["myVar"]);
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.mapService.drawDetailsViewMap();
     this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
+    window.sessionStorage["myVar"] = 'this will be here even after refresh';
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
   }
 
