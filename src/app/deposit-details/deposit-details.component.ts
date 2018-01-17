@@ -27,7 +27,9 @@ export class DepositDetailsComponent implements OnInit {
   //id: string;
 
   constructor(private route: ActivatedRoute, private depositService: DepositService, private mapService: MapService, private siteService: SiteService,
-    private titleService: Title) { }
+    private titleService: Title) {
+      window.scrollTo(0, 0);
+     }
 
   ngOnInit() {
     this.getDepositById(this.route.snapshot.paramMap.get('id'));

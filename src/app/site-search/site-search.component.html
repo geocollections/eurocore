@@ -5,39 +5,39 @@
     </div>
   </div>
 
-
- <!-- <div class="ui-widget">
-    <label for="tags">Tags: </label>
-    <input id="tags">
-  </div>-->
-
   <div class="row align-items-center">
     <div class="col">
 
       <div class="form-group">
-        <!--<label for="name">Drillcore name</label>-->
+        <!--<label for="name">Drillcore name</label>
         <input [(ngModel)]="searchDrillcoreName" id="drillcoreName" list="drillcoreList" class="form-control" (input)="searchDrillcoreByName()"
           (keypress)="enterKeyPress($event)" placeholder="Drillcore name" data-role="tagsinput" >
           
         <datalist *ngIf="drillcoreAutocompleteValues" id='drillcoreList'>
           <option *ngFor="let drillcoreValue of drillcoreAutocompleteValues" value='{{drillcoreValue.name}}'> 
-        </datalist>
+        </datalist>-->
+        <input [(ngModel)]="searchDrillcoreName" id="drillcoreName"  class="form-control" (input)="searchDrillcoreByName()"
+          (keypress)="enterKeyPress($event)" placeholder="Drillcore name" [typeahead]="drillcoreAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name">
       </div>
       <div class="form-group">
-        <!--<label for="name">Deposit name</label>-->
+        <!--<label for="name">Deposit name</label>
         <input [(ngModel)]="searchDepositName" id="depositName" list="depositList" class="form-control" (input)="searchDepositByName(searchDepositName)"
           (keypress)="enterKeyPress($event)" placeholder="Deposit name" />
         <datalist *ngIf="depositAutocompleteValues" id='depositList'>
           <option *ngFor="let depositValue of depositAutocompleteValues" value='{{depositValue}}'>
-        </datalist>
+        </datalist>-->
+        <input [(ngModel)]="searchDepositName" id="depositName" class="form-control" (input)="searchDepositByName(searchDepositName)"
+          (keypress)="enterKeyPress($event)" placeholder="Deposit name" [typeahead]="depositAutocompleteValues" [typeaheadWaitMs]="200" />
       </div>
       <div class="form-group">
-        <!--<label for="name">Ore type</label>-->
+        <!--<label for="name">Ore type</label>
         <input [(ngModel)]="searchOreType" id="OreType" list="oreTypeList" class="form-control" (input)="searchOreTypeByName(searchOreType)"
           (keypress)="enterKeyPress($event)" placeholder="Ore type" />
         <datalist *ngIf="oreTypeAutocompleteValues" id='oreTypeList'>
           <option *ngFor="let oreTypeValue of oreTypeAutocompleteValues" value='{{oreTypeValue.name}}'>
-        </datalist>
+        </datalist>-->
+        <input [(ngModel)]="searchOreType" id="OreType" class="form-control" (input)="searchOreTypeByName(searchOreType)"
+          (keypress)="enterKeyPress($event)" placeholder="Ore type" [typeahead]="oreTypeAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name" />
       </div>
       <div class="form-group">
         <!--<label for="name">Commodity</label>-->
@@ -45,12 +45,14 @@
         />
       </div>
       <div class="form-group">
-        <!--<label for="name">Core depositor</label>-->
+        <!--<label for="name">Core depositor</label>
         <input [(ngModel)]="searchInstitution" id="coreDepositorName" list="coreDepositorList" class="form-control" (input)="searchCoreDepositorByName(searchInstitution)"
           (keypress)="enterKeyPress($event)" placeholder="Core depositor" />
         <datalist *ngIf="coreDepositorAutocompleteValues" id="coreDepositorList">
           <option *ngFor="let coreDepositorValue of coreDepositorAutocompleteValues" value='{{coreDepositorValue}}'>
-        </datalist>
+        </datalist>-->
+        <input [(ngModel)]="searchInstitution" id="coreDepositorName" class="form-control" (input)="searchCoreDepositorByName(searchInstitution)"
+          (keypress)="enterKeyPress($event)" placeholder="Core depositor" [typeahead]="coreDepositorAutocompleteValues" [typeaheadWaitMs]="200" />
       </div>
       <div class="form-group">
         <input [(ngModel)]="searchDrillcoreId" type="hidden" id="drillcoreId" class="form-control" placeholder="ID" />

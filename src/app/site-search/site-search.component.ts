@@ -5,6 +5,7 @@ import { MapService } from '../services/map.service';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/autocomplete';
 
+
 @Component({
   selector: 'app-site-search',
   templateUrl: './site-search.component.html',
@@ -12,7 +13,6 @@ import 'jquery-ui/ui/widgets/autocomplete';
   encapsulation: ViewEncapsulation.None
 })
 export class SiteSearchComponent implements OnInit {
-
 
   selectedSite: Site;
   sites: Site[];
@@ -36,9 +36,8 @@ export class SiteSearchComponent implements OnInit {
   drillcoreIdArray: string[];
 
 
-
   constructor(private siteService: SiteService, private mapService: MapService) {
-
+    window.scrollTo(0, 0);
   }
 
   ngOnInit() {
@@ -53,14 +52,17 @@ export class SiteSearchComponent implements OnInit {
   searchDrillcoreByName(): void {
     if (this.searchDrillcoreName.length > 1)
       this.siteService.searchDrillcoreByName(this.searchDrillcoreName).subscribe(drillcoreValues => {
-      this.drillcoreAutocompleteValues = drillcoreValues['results'];
+        if (drillcoreValues['results'])
+          this.drillcoreAutocompleteValues = drillcoreValues['results'];
+        else
+          this.drillcoreAutocompleteValues = [];
       });
     else
       this.drillcoreAutocompleteValues = [];
   }
   searchDepositByName(name: string): void {
     if (name.length > 1)
-      this.siteService.searchDepositByName(name).subscribe(depositValues => { this.sortDeposits(depositValues['results'], name); });
+      this.siteService.searchDepositByName(name).subscribe(depositValues => { this.sortDeposits(depositValues['results'], name); console.log(this.depositAutocompleteValues); });
     else
       this.depositAutocompleteValues = [];
   }
@@ -83,12 +85,13 @@ export class SiteSearchComponent implements OnInit {
 
   sortCoreDepositors(deposits: Site[], name: string): void {
     this.coreDepositorAutocompleteValues = [];
+
     for (var i = 0; i < deposits.length; i++) {
       if (deposits[i].core_depositor__name != undefined && deposits[i].core_depositor__name.toUpperCase().search(name.toUpperCase()) >= 0) {
-        this.coreDepositorAutocompleteValues[i] = (deposits[i].core_depositor__name);
+        this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__name);
       }
       if (deposits[i].core_depositor__acronym != undefined && deposits[i].core_depositor__acronym.toUpperCase().search(name.toUpperCase()) >= 0) {
-        this.coreDepositorAutocompleteValues[i] = (deposits[i].core_depositor__acronym);
+        this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__acronym);
       }
     }
   }
@@ -96,6 +99,7 @@ export class SiteSearchComponent implements OnInit {
   sortDeposits(deposits: Site[], name: string): void {
     this.depositAutocompleteValues = [];
     for (var i = 0; i < deposits.length; i++) {
+
       if (deposits[i].deposit__name != undefined && deposits[i].deposit__name.toUpperCase().search(name.toUpperCase()) >= 0) {
         this.depositAutocompleteValues.push(deposits[i].deposit__name);
       }

@@ -31,8 +31,9 @@ export class SiteService {
   searchDepositByName(name: string): Observable<Site[]> {
     if (!name.trim()) {
       return of([]);
-    }
-    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&multi_search=value:' + name + ';fields:deposit__name,deposit__alternative_names;lookuptype:icontains&fields=deposit__name,deposit__alternative_names&group_by=deposit__name&group_by=deposit__alternative_names', "callback").pipe();
+    } 
+    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?fields=deposit__name,deposit__alternative_names&multi_search=value:'+name+';fields:deposit__name,deposit__alternative_names;lookuptype:icontains&format=jsonp&distinct=true&order_by=deposit__name', "callback").pipe();
+    //return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&multi_search=value:' + name + ';fields:deposit__name,deposit__alternative_names;lookuptype:icontains&fields=deposit__name,deposit__alternative_names', "callback").pipe();
   }
   searchOreTypeByName(name: string): Observable<Site[]> {
     if (!name.trim()) {

@@ -47,15 +47,15 @@ export class SiteDetailsComponent implements OnInit {
     private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title, 
     private sampleService: SampleService, private analysisService: AnalysisService, private platformLocation: PlatformLocation) { 
       console.log("Path: " +JSON.stringify((this.platformLocation as any).location.href));
+      window.scrollTo(0, 0);
     }
 
   ngOnInit() {    
-    console.log("Sessionstorage: "+window.sessionStorage["myVar"]);
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.mapService.drawDetailsViewMap();
     this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
-    window.sessionStorage["myVar"] = 'this will be here even after refresh';
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
+    
   }
 
   getSiteById(id: string): void {
