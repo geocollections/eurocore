@@ -55,7 +55,6 @@ export class SiteDetailsComponent implements OnInit {
     this.mapService.drawDetailsViewMap();
     this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
-    
   }
 
   getSiteById(id: string): void {
@@ -185,6 +184,12 @@ export class SiteDetailsComponent implements OnInit {
     $(function () {
       $('#'+tab).tab('show');      
     })
+  }
+
+  getImagePreviewLink(size:string,imageLink:string){
+    let imageFolder=imageLink.substr(0,10);
+    let imagePreviewLink=imageFolder+size+imageLink.substr(9);
+    return imagePreviewLink;
   }
 
 

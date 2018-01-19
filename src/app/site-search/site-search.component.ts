@@ -74,37 +74,43 @@ export class SiteSearchComponent implements OnInit {
       this.coreDepositorAutocompleteValues = [];
   }
 
-
-
   searchOreTypeByName(name: string): void {
     if (name.length > 1)
-      this.siteService.searchOreTypeByName(name).subscribe(oreTypeValues => { this.oreTypeAutocompleteValues = oreTypeValues['results']; });
+      this.siteService.searchOreTypeByName(name).subscribe(oreTypeValues => {
+        if (oreTypeValues['results'])
+          this.oreTypeAutocompleteValues = oreTypeValues['results'];
+        else
+          this.oreTypeAutocompleteValues = [];
+      });
     else
       this.oreTypeAutocompleteValues = [];
   }
 
   sortCoreDepositors(deposits: Site[], name: string): void {
     this.coreDepositorAutocompleteValues = [];
-
-    for (var i = 0; i < deposits.length; i++) {
-      if (deposits[i].core_depositor__name != undefined && deposits[i].core_depositor__name.toUpperCase().search(name.toUpperCase()) >= 0) {
-        this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__name);
-      }
-      if (deposits[i].core_depositor__acronym != undefined && deposits[i].core_depositor__acronym.toUpperCase().search(name.toUpperCase()) >= 0) {
-        this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__acronym);
+    if (deposits) {
+      for (var i = 0; i < deposits.length; i++) {
+        if (deposits[i].core_depositor__name != undefined && deposits[i].core_depositor__name.toUpperCase().search(name.toUpperCase()) >= 0) {
+          this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__name);
+        }
+        if (deposits[i].core_depositor__acronym != undefined && deposits[i].core_depositor__acronym.toUpperCase().search(name.toUpperCase()) >= 0) {
+          this.coreDepositorAutocompleteValues.push(deposits[i].core_depositor__acronym);
+        }
       }
     }
   }
 
   sortDeposits(deposits: Site[], name: string): void {
     this.depositAutocompleteValues = [];
-    for (var i = 0; i < deposits.length; i++) {
+    if (deposits) {
+      for (var i = 0; i < deposits.length; i++) {
 
-      if (deposits[i].deposit__name != undefined && deposits[i].deposit__name.toUpperCase().search(name.toUpperCase()) >= 0) {
-        this.depositAutocompleteValues.push(deposits[i].deposit__name);
-      }
-      if (deposits[i].deposit__alternative_names != undefined && deposits[i].deposit__alternative_names.toUpperCase().search(name.toUpperCase()) >= 0) {
-        this.depositAutocompleteValues.push(deposits[i].deposit__alternative_names);
+        if (deposits[i].deposit__name != undefined && deposits[i].deposit__name.toUpperCase().search(name.toUpperCase()) >= 0) {
+          this.depositAutocompleteValues.push(deposits[i].deposit__name);
+        }
+        if (deposits[i].deposit__alternative_names != undefined && deposits[i].deposit__alternative_names.toUpperCase().search(name.toUpperCase()) >= 0) {
+          this.depositAutocompleteValues.push(deposits[i].deposit__alternative_names);
+        }
       }
     }
   }

@@ -17,7 +17,7 @@
           <option *ngFor="let drillcoreValue of drillcoreAutocompleteValues" value='{{drillcoreValue.name}}'> 
         </datalist>-->
         <input [(ngModel)]="searchDrillcoreName" id="drillcoreName"  class="form-control" (input)="searchDrillcoreByName()"
-          (keypress)="enterKeyPress($event)" placeholder="Drillcore name" [typeahead]="drillcoreAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name">
+          (keypress)="enterKeyPress($event)" placeholder="Drillcore name" [typeahead]="drillcoreAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name" autocomplete="off">
       </div>
       <div class="form-group">
         <!--<label for="name">Deposit name</label>
@@ -27,7 +27,7 @@
           <option *ngFor="let depositValue of depositAutocompleteValues" value='{{depositValue}}'>
         </datalist>-->
         <input [(ngModel)]="searchDepositName" id="depositName" class="form-control" (input)="searchDepositByName(searchDepositName)"
-          (keypress)="enterKeyPress($event)" placeholder="Deposit name" [typeahead]="depositAutocompleteValues" [typeaheadWaitMs]="200" />
+          (keypress)="enterKeyPress($event)" placeholder="Deposit name" [typeahead]="depositAutocompleteValues" [typeaheadWaitMs]="200" autocomplete="off"/>
       </div>
       <div class="form-group">
         <!--<label for="name">Ore type</label>
@@ -37,11 +37,11 @@
           <option *ngFor="let oreTypeValue of oreTypeAutocompleteValues" value='{{oreTypeValue.name}}'>
         </datalist>-->
         <input [(ngModel)]="searchOreType" id="OreType" class="form-control" (input)="searchOreTypeByName(searchOreType)"
-          (keypress)="enterKeyPress($event)" placeholder="Ore type" [typeahead]="oreTypeAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name" />
+          (keypress)="enterKeyPress($event)" placeholder="Ore type" [typeahead]="oreTypeAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name" autocomplete="off"/>
       </div>
       <div class="form-group">
         <!--<label for="name">Commodity</label>-->
-        <input [(ngModel)]="searchCommodity" id="commodity" class="form-control" (keypress)="enterKeyPress($event)" placeholder="Main commodity"
+        <input [(ngModel)]="searchCommodity" id="commodity" class="form-control" (keypress)="enterKeyPress($event)" placeholder="Main commodity" autocomplete="off"
         />
       </div>
       <div class="form-group">
@@ -52,7 +52,7 @@
           <option *ngFor="let coreDepositorValue of coreDepositorAutocompleteValues" value='{{coreDepositorValue}}'>
         </datalist>-->
         <input [(ngModel)]="searchInstitution" id="coreDepositorName" class="form-control" (input)="searchCoreDepositorByName(searchInstitution)"
-          (keypress)="enterKeyPress($event)" placeholder="Core depositor" [typeahead]="coreDepositorAutocompleteValues" [typeaheadWaitMs]="200" />
+          (keypress)="enterKeyPress($event)" placeholder="Core depositor" [typeahead]="coreDepositorAutocompleteValues" [typeaheadWaitMs]="200" autocomplete="off"/>
       </div>
       <div class="form-group">
         <input [(ngModel)]="searchDrillcoreId" type="hidden" id="drillcoreId" class="form-control" placeholder="ID" />

@@ -28,4 +28,10 @@ export class DrillcoreBoxesComponent implements OnInit {
     window.open(url, '', 'width=600,height=800') ;
   }
 
+  getImagePreviewLink(size:string,imageLink:string){
+    let imageFolder=imageLink.substr(0,10);
+    let imagePreviewLink=imageFolder+size+imageLink.substr(9);
+    return imagePreviewLink;
+  }
+
 }
