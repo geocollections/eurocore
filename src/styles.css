@@ -13,7 +13,9 @@
 .col{
   padding-bottom: 5px;
 }
-
+.exportButtons{
+  text-align:right;
+}
  
 .export-geojson {
     position: absolute;

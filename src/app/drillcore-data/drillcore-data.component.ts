@@ -6,7 +6,7 @@ import { Site } from '../site';
 import { AnalysisService } from '../services/analysis.service';
 import { AnalysisSummary } from '../analysis-summary';
 import Plotly from 'plotly.js/dist/plotly-basic.min';
-
+import {TableExport} from 'tableexport';
 
 @Component({
   selector: 'app-drillcore-data',
@@ -28,6 +28,7 @@ export class DrillcoreDataComponent implements OnInit {
     this.getAllParametersByDrillcoreId(this.route.snapshot.paramMap.get('id'));
     //this.getAnalysisSummaryByDrillcoreId(this.route.snapshot.paramMap.get('id'));
     this.getAllAnalysisSummaryData(this.route.snapshot.paramMap.get('id'));
+    //new TableExport(document.getElementsByTagName("table"));
   }
 
   updateSelectedParameters(parameter) {
@@ -38,7 +39,13 @@ export class DrillcoreDataComponent implements OnInit {
     else
       this.selectedParameters.splice(deleteIndex, 1)
     this.filterData(this.analysisSummaryData);
-    this.filterChartData(this.filteredResults);
+    this.filterChartData(this.filteredResults);   
+  }
+
+  exportTable(fileExtension: string, tableId: string){
+    let tabledata=new TableExport(document.getElementById(tableId), { exportButtons: false} );
+    let exportData=tabledata.getExportData()[tableId][fileExtension];
+    tabledata.export2file(exportData.data,exportData.mimeType,exportData.filename, exportData.fileExtension); 
   }
 
   getAllParametersByDrillcoreId(id: string): void {

@@ -16,7 +16,7 @@
         </span>
       </label>
     </div>
-
+    
   </div>
 </div>
 <div class="row ">
@@ -33,17 +33,20 @@
 
     <div class="tab-content">
       <div class="tab-pane" id="data">
-        <table class="table table-hover table-bordered ">
+          <div class="exportButtons">
+          <button class="btn btn-primary" (click)="exportTable('xls','analysisResults')">Export as .xls</button>
+          <button class="btn btn-primary" (click)="exportTable('csv','analysisResults')">Export as .csv</button>
+          </div>
+        <table class="table table-hover table-bordered " id="analysisResults">
           <thead class="thead-light">
             <tr>
-              <th>Depth fro</th>
+              <th>Depth from</th>
               <th>Depth to (m)</th>
               <th>Sample</th>
               <th>Analysis</th>
-              <th>Mehtod</th>
+              <!--<th>Mehtod</th>-->
               <th *ngFor="let selectedParameter of selectedParameters">
-                {{selectedParameter.analysis__analysisresult__parameter__parameter}} {{selectedParameter.analysis__analysisresult__unit__unit}}
-                ({{selectedParameter.analysis__analysis_method__method}})
+                {{getParameterName(selectedParameter)}}
               </th>
             </tr>
           </thead>
@@ -57,7 +60,7 @@
             <td>
               <a href="#">{{filteredResult.analysis_id}}</a>
             </td>
-            <td>{{filteredResult.analysis_method}}</td>
+            <!--<td>{{filteredResult.analysis_method}}</td>-->
             <td *ngFor="let selectedParameter of selectedParameters">{{filteredResult[getParameterColumnName(selectedParameter,filteredResult)]}}</td>
           </tr>
         </table>
