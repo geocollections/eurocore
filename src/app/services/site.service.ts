@@ -139,8 +139,8 @@ export class SiteService {
     return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&deposit__id__iexact=' + id, "callback").pipe();
   }
 
-  searchAllParametersByDrillcoreId(id: string): Observable<Site[]> {
-    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/' + id + '?fields=name,analysis__analysisresult__parameter__parameter,analysis__analysisresult__unit__unit,analysis__analysis_method__method&distinct=true&format=jsonp', "callback").pipe();
+  searchAllParametersByDrillcoreId(id: string): Observable<String[]> {
+    return this.http.jsonp<[String]>('http://api.eurocore.rocks/drillcore/' + id + '?fields=name,analysis__analysisresult__parameter__parameter,analysis__analysisresult__unit__unit,analysis__analysis_method__method&distinct=true&format=jsonp', "callback").pipe();
   }
 
   searchDrillcoreSummaryById(id:string): Observable<DrillcoreSummary>{

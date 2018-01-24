@@ -7,6 +7,7 @@ import { AnalysisService } from '../services/analysis.service';
 import { AnalysisSummary } from '../analysis-summary';
 import Plotly from 'plotly.js/dist/plotly-basic.min';
 
+
 @Component({
   selector: 'app-drillcore-data',
   templateUrl: './drillcore-data.component.html',
@@ -14,10 +15,12 @@ import Plotly from 'plotly.js/dist/plotly-basic.min';
 })
 export class DrillcoreDataComponent implements OnInit {
 
-  siteParameters: Site[];
-  //checkedParameters:String[];
+  siteParameters: String[];
   analysisResults: AnalysisSummary[];
   analysisSummaryData: AnalysisSummary[];
+
+  filteredResults: AnalysisSummary[] = [];
+  selectedParameters: String[] = [];
 
   constructor(private siteService: SiteService, private route: ActivatedRoute, private analysisService: AnalysisService) { }
 
@@ -27,177 +30,148 @@ export class DrillcoreDataComponent implements OnInit {
     this.getAllAnalysisSummaryData(this.route.snapshot.paramMap.get('id'));
   }
 
-  getAllParametersByDrillcoreId(id: string): void {
-    this.siteService.searchAllParametersByDrillcoreId(id).subscribe(parameters => { this.siteParameters = parameters['results']; 
-    console.log(this.siteParameters[0]['analysis__analysisresult__parameter__parameter'].toLowerCase()+'_'+ this.siteParameters[0]['analysis__analysisresult__unit__unit']);
-    console.log(this.siteParameters[0]['analysis__analysis_method__method']);
-    console.log(this.siteParameters) });
+  updateSelectedParameters(parameter) {
+    //console.log(parameter);
+    let deleteIndex = this.selectedParameters.indexOf(parameter);
+    if (deleteIndex == -1)
+      this.selectedParameters.push(parameter);
+    else
+      this.selectedParameters.splice(deleteIndex, 1)
+    this.filterData(this.analysisSummaryData);
+    this.filterChartData(this.filteredResults);
   }
 
-  changeParameters(element: HTMLInputElement): void {
-    console.log(element.value);
-    console.log(`Checkbox ${element.value} was ${element.checked ? '' : 'un'}checked\n`);
+  getAllParametersByDrillcoreId(id: string): void {
+    this.siteService.searchAllParametersByDrillcoreId(id).subscribe(parameters => {
+      this.siteParameters = parameters['results'];
+    });
   }
 
   getAnalysisSummaryByDrillcoreId(id: string): void {
     this.analysisService.getAnalysisSummary(id).subscribe(analysisSummary => { this.analysisResults = analysisSummary['results']; console.log(this.analysisResults) });
   }
 
-  getAllAnalysisSummaryData(id:string):void{
-    let name: string;
-    let dataValues:string[];
-    let array=[];
-    this.analysisService.getAnalysisSummaryData(id).subscribe(analysisSummaryData=>{this.analysisSummaryData=analysisSummaryData['results']; this.filterChartData(this.analysisSummaryData); console.log(this.analysisSummaryData);
-    for(let i=0; i<this.analysisSummaryData.length;i++){
-
-    }
-    name="as";
-    dataValues=["2","3"];
-    array.push({name,dataValues});
-    name="as222"
-    dataValues=["2","3","4"];
-    array.push({name,dataValues});
-    console.log(array);
-    console.log(array[0].dataValues[1]);
-  
-  });
+  getAllAnalysisSummaryData(id: string): void {
+    this.analysisService.getAnalysisSummaryData(id).subscribe(analysisSummaryData => {
+      this.analysisSummaryData = analysisSummaryData['results']; console.log(this.analysisSummaryData);
+    });
   }
 
   filterChartData(results: AnalysisSummary[]): void {
-    console.log(results);
     var data = [];
-    var x = [];
-    var y = [];
-    var x2 = [];
-    var y2 = [];
-    let s_pct = [];
-    let ni_pct = [];
-    let fe_pct = [];
-    let au_ppm = [];
-    let cu_pct = [];
-    let co_pct = [];
-    let zn_pct = [];
-    let s_pct_leco = [];
+    for (let l = 0; l < this.selectedParameters.length; l++) {
+      let x = [];
+      let y = [];
+      let name = this.getParameterName(this.selectedParameters[l]);
+      for (let k = 0; k < results.length; k++) {
+        let name = this.getParameterColumnName(this.selectedParameters[l], results[k]);
+        //console.log("depth " + results[k].depth+" value "+results[k][name]);
+        if (results[k][name]) {
+          x.push(results[k].depth);
+          y.push(results[k][name]);
+        }
+      }
 
-    var t = {
-      x,
-      y,
-      type: 'scatter',
-      name: "Au ppm (FA-AAS)"
+      if (this.selectedParameters[l]['analysis__analysisresult__unit__unit'] == "ppm") {
+        data.push({
+          x,
+          y,
+          mode: 'lines+markers',
+          type: 'scatter',
+          name: name,
+          yaxis: 'y2',
+        })
+      }
+      else {
+        data.push({
+          x,
+          y,
+          mode: 'lines+markers',
+          type: 'scatter',
+          name: name
+        })
+      }
     }
-    var t2 = {
-      x,
-      y,
-      type: 'scatter',
-      name: "Au ppm (ICP-OES)"
-    }
-    for (var k = 0; k < results.length; k++) {
-      //console.log("au"+results[k].au_ppm);
-      //console.log("depth"+results[k].depth);
-      /*if (results[k].au_ppm==null){
-        results[k].au_ppm=0;
-        }*/
-      //if (k % 2 == 0) {
-      if(results[k].s_pct!=null && results[k].analysis_method=="ICP-OES")
-      s_pct.push(results[k].s_pct);
-      if(results[k].s_pct!=null && results[k].analysis_method=="Leco")
-      s_pct_leco.push(results[k].s_pct);
-      if(results[k].ni_pct!=null)
-      ni_pct.push(results[k].ni_pct);
-      if(results[k].fe_pct!=null)
-      fe_pct.push(results[k].fe_pct);
-      if(results[k].au_ppm!=null)
-      au_ppm.push(results[k].au_ppm);
-      if(results[k].cu_pct!=null)
-      cu_pct.push(results[k].cu_pct);
-      if(results[k].co_pct!=null)
-      co_pct.push(results[k].co_pct);
-      if(results[k].zn_pct!=null)
-      zn_pct.push(results[k].zn_pct);
-      if(!x.includes(results[k].depth))
-      x.push(results[k].depth);
-      /*         
-       y.push(results[k].au_ppm);
-  /* }
-   if (k % 2 == 1) {
-     x2.push(results[k].depth);        
-     y2.push(results[k].au_ppm);
-   }*/
-
-    }
-    console.log("Niiiiiii ---"+ni_pct);
-    y = zn_pct;
-    data.push({
-      x,
-      y,
-      type: 'scatter',
-      name: "Zn % (ICP-OES)"
-    })
-    y = fe_pct;
-    data.push({
-      x,
-      y,
-      type: 'scatter',
-      name: "Fe % (ICP-OES)"
-    })
-    y = ni_pct;
-    data.push({
-      x,
-      y,
-      type: 'scatter',
-      name: "Ni % (ICP-OES)"
-    })
-    y = cu_pct;
-    data.push({
-      x,
-      y,
-      type: 'scatter',
-      name: "Cu % (ICP-OES)"
-    })
-    y = co_pct;
-    data.push({
-      x,
-      y,
-      type: 'scatter',
-      name: "Co % (ICP-OES)"
-    })
-    y = s_pct;
-    data.push({
-      x,
-      y,
-      type: 'scatter',
-      name: "S % (ICP-OES)"
-    })
-    y = au_ppm;
-    data.push({
-      x,
-      y,
-      type: 'scatter',
-      name: "Au ppm(FA-AAS)"
-    })
-    y = s_pct_leco;
-    data.push({
-      x,
-      y,
-      type: 'scatter',
-      name: "S % (Leco)"
-    })
-    //t2.x=x2;
-    //t2.y=y2;
-    console.log(t);
-    console.log(t2);
-    //data = [t];
+    // console.log(data);
     var layout = {
-      title: 'Chart title',
+      title: 'Analysis results',
       xaxis: {
-        title: 'Depth'
+        title: 'Depth',
+        domain: [0.05, 0.95]
       },
       yaxis: {
         title: '%'
+      },
+      yaxis2: {
+        title: 'ppm',
+        titlefont: { color: 'rgb(148, 103, 189)' },
+        tickfont: { color: 'rgb(148, 103, 189)' },
+        overlaying: 'y',
+        side: 'right'
       }
     };
 
-    Plotly.newPlot('plotlyChart', data, layout);
+    Plotly.newPlot('plotlyChart', data, layout,
+      {
+        modeBarButtonsToRemove: ['toImage'],
+        modeBarButtonsToAdd: [{
+          name: 'Download plot as a SVG',
+          icon: Plotly.Icons.camera,
+          click: function (gd) {
+            Plotly.downloadImage(gd, { format: 'svg' })
+          }
+        }],
+        displaylogo: false
+      });
 
   }
+
+
+  filterData(results: AnalysisSummary[]): void {
+    this.filteredResults = [];
+    for (var k = 0; k < results.length; k++) {
+      let addRow: boolean = false;
+      //console.log("length" + this.selectedParameters.length);
+      for (var i = 0; i < this.selectedParameters.length; i++) {
+        let parameter = this.selectedParameters[i]['analysis__analysisresult__parameter__parameter'].toLowerCase();
+        let unit;
+        if (this.selectedParameters[i]['analysis__analysisresult__unit__unit'] == "%")
+          unit = "pct";
+        else
+          unit = this.selectedParameters[i]['analysis__analysisresult__unit__unit'];
+        let columnName = parameter + "_" + unit;
+
+        if (results[k][columnName] != null && results[k].analysis_method == this.selectedParameters[i]['analysis__analysis_method__method']) {
+          addRow = true;
+        }
+      }
+      if (addRow == true) {
+
+        this.filteredResults.push(results[k])
+      }
+      addRow = false;
+    }
+  }
+
+  getParameterColumnName(parameter, analysisSummary: AnalysisSummary): string {
+    let columnName = "";
+    if (analysisSummary.analysis_method == parameter['analysis__analysis_method__method']) {
+      let parameterLowCase = parameter['analysis__analysisresult__parameter__parameter'].toLowerCase();
+      let unit;
+      if (parameter['analysis__analysisresult__unit__unit'] == "%")
+        unit = "pct";
+      else
+        unit = parameter['analysis__analysisresult__unit__unit'];
+      columnName = parameterLowCase + "_" + unit;
+    }
+    return columnName;
+  }
+
+  getParameterName(parameter): string {
+    let name = parameter['analysis__analysisresult__parameter__parameter'] + " " +
+      parameter['analysis__analysisresult__unit__unit'] + " (" +
+      parameter['analysis__analysis_method__method'] + ")";
+    return name;
+  }
+
 }

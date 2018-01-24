@@ -46,6 +46,7 @@ export class SiteSearchComponent implements OnInit {
     this.searchSites(1);
     this.mapService.drawDrillcoreSearchMap(this);
     //this.getMapSites();   
+
   }
 
 

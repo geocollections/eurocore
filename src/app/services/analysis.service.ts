@@ -44,6 +44,6 @@ export class AnalysisService {
   }
 
   getAnalysisSummaryData(id:string):Observable<AnalysisSummary[]>{
-    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id='+id+'&fields=id,s_pct,ni_pct,fe_pct,au_ppm,cu_pct,co_pct,zn_pct,depth,end_depth,analysis_id,sample_id,sample_number,analysis_method&order_by=depth&format=jsonp', 'callback').pipe();
+    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id='+id+'&fields=id,s_pct,ni_pct,fe_pct,au_ppm,cu_pct,co_pct,zn_pct,depth,end_depth,analysis_id,sample_id,sample_number,analysis_method&order_by=depth&format=jsonp&paginate_by=350', 'callback').pipe();
   }
 }

@@ -10,6 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class AppComponent {
   title = 'EUROCORE Data Portal';
+  constructor() {
+  }
   
 
 }

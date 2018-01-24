@@ -27,6 +27,8 @@
     "jquery": "^3.2.1",
     "jquery-ui": "^1.12.1",
     "marked": "^0.3.9",
+    "multiselect": "^0.9.12",
+    "ng5-breadcrumb": "0.0.6",
     "ngx-bootstrap": "^2.0.0-rc.0",
     "ngx-infinite-scroll": "^0.7.2",
     "ol3-ext": "^1.0.1",
@@ -34,6 +36,7 @@
     "plotly.js": "^1.31.2",
     "popper.js": "^1.12.9",
     "rxjs": "^5.5.2",
+    "tableexport": "^4.0.11",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

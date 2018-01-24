@@ -7,79 +7,66 @@
   <div class="col">
     <h5>Parameters:</h5>
     <div *ngFor="let siteParameter of siteParameters">
-        <label class="custom-control custom-checkbox">
-            <input  sitep type="checkbox" class="custom-control-input" name="parameter" value="{{siteParameter.analysis__analysisresult__parameter__parameter}}">
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">
-                {{siteParameter.analysis__analysisresult__parameter__parameter}} 
-                {{siteParameter.analysis__analysisresult__unit__unit}} 
-               ( {{siteParameter.analysis__analysis_method__method}} )
-            </span>
-          </label>
+      <label class="custom-control custom-checkbox">
+        <input sitep type="checkbox" class="custom-control-input" name="parameter" value="{{siteParameter.analysis__analysisresult__parameter__parameter}}"
+          (click)="updateSelectedParameters(siteParameter)">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">
+          {{getParameterName(siteParameter)}}
+        </span>
+      </label>
     </div>
+
   </div>
 </div>
 <div class="row ">
-    <div class="col">
+  <div class="col">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="#data" data-toggle="tab">Data</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#chart" data-toggle="tab">Chart</a>
+      </li>
+    </ul>
+    <br>
 
-        <div id="plotlyChart">
-            <!-- Plotly chart will be drawn inside this DIV -->
-          </div>
-
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link" href="#data" data-toggle="tab">Data</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="#chart" data-toggle="tab">Chart</a>
-        </li>
-      </ul>
-      <br>
-  
-      <div class="tab-content">
-        <div class="tab-pane active" id="data">
-            <table class="table table-hover table-bordered ">
-                <thead class="thead-light">
+    <div class="tab-content">
+      <div class="tab-pane" id="data">
+        <table class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
-                <th>Depth fro</th>
-                <th>Depth to (m)</th>
-                <th>Sample</th>
-                <th>Analysis</th>
-                <th>Mehtod</th>
-                <th *ngFor="let siteParameter of siteParameters">
-                    {{siteParameter.analysis__analysisresult__parameter__parameter}} 
-                    {{siteParameter.analysis__analysisresult__unit__unit}} 
-                   ( {{siteParameter.analysis__analysis_method__method}} )
-
-                </th>
-                
-                <!--<th>au_ppm</th>
-                <th>cu_pct</th>
-                <th>co_pct</th>
-                <th>zn_pct</th>-->
+              <th>Depth fro</th>
+              <th>Depth to (m)</th>
+              <th>Sample</th>
+              <th>Analysis</th>
+              <th>Mehtod</th>
+              <th *ngFor="let selectedParameter of selectedParameters">
+                {{selectedParameter.analysis__analysisresult__parameter__parameter}} {{selectedParameter.analysis__analysisresult__unit__unit}}
+                ({{selectedParameter.analysis__analysis_method__method}})
+              </th>
             </tr>
-        </thead>
-        <tr *ngFor="let analysisResult of analysisSummaryData" >
-            <td>{{analysisResult.depth}}</td>
-            <td>{{analysisResult.end_depth}}</td>
-            <td><a href="#">{{analysisResult.sample_number}}</a></td>
-            <td><a href="#">{{analysisResult.analysis_id}}</a></td>
-            <td>{{analysisResult.analysis_method}}</td>
-            <td>{{analysisResult.au_ppm}}</td>
-            <td>{{analysisResult.co_pct}}</td>
-            <td>{{analysisResult.cu_pct}}</td>
-            <td>{{analysisResult.fe_pct}}</td>
-            <td>{{analysisResult.ni_pct}}</td>
-            <td><div *ngIf="analysisResult.analysis_method=='ICP-OES'">{{analysisResult.s_pct}}</div></td>
-            <td><div *ngIf="analysisResult.analysis_method=='Leco'">{{analysisResult.s_pct}}</div></td>
-            <td>{{analysisResult.zn_pct}}</td>
-            
-        </tr>
+          </thead>
+
+          <tr *ngFor="let filteredResult of filteredResults">
+            <td>{{filteredResult.depth}}</td>
+            <td>{{filteredResult.end_depth}}</td>
+            <td>
+              <a href="#">{{filteredResult.sample_number}}</a>
+            </td>
+            <td>
+              <a href="#">{{filteredResult.analysis_id}}</a>
+            </td>
+            <td>{{filteredResult.analysis_method}}</td>
+            <td *ngFor="let selectedParameter of selectedParameters">{{filteredResult[getParameterColumnName(selectedParameter,filteredResult)]}}</td>
+          </tr>
         </table>
-        </div>
-        <div class="tab-pane fade" id="chart">
-          
+      </div>
+      <div class="tab-pane fade" id="chart">
+        <div id="plotlyChart">
+          <!-- Plotly chart will be drawn inside this DIV -->
         </div>
       </div>
     </div>
   </div>
+</div>

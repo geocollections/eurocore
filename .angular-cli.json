@@ -23,7 +23,7 @@
         "../node_modules/openlayers/css/ol.css",
         "./assets/flog2.css",
         "./assets/flog2_form.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css"  
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
       ],
       "scripts": [ 
         "./assets/d3.js",
