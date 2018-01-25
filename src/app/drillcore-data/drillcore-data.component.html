@@ -6,9 +6,11 @@
 <div class="row align-items-center">
   <div class="col">
     <h5>Parameters:</h5>
+    <button class="btn btn-primary" (click)="selectAllParameters()">Select all</button>
+    <button class="btn btn-primary" (click)="clearAllParameters()">Clear</button>
     <div *ngFor="let siteParameter of siteParameters">
       <label class="custom-control custom-checkbox">
-        <input sitep type="checkbox" class="custom-control-input" name="parameter" value="{{siteParameter.analysis__analysisresult__parameter__parameter}}"
+        <input type="checkbox" class="custom-control-input" name="parameter[]" value="{{siteParameter.analysis__analysisresult__parameter__parameter}}"
           (click)="updateSelectedParameters(siteParameter)">
         <span class="custom-control-indicator"></span>
         <span class="custom-control-description">
@@ -16,28 +18,27 @@
         </span>
       </label>
     </div>
-    
   </div>
 </div>
 <div class="row ">
   <div class="col">
     <ul class="nav nav-tabs">
-      <li class="nav-item">
+      <li class="nav-item" >
         <a class="nav-link" href="#data" data-toggle="tab">Data</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#chart" data-toggle="tab">Chart</a>
+      <li class="nav-item" >
+        <a class="nav-link active" href="#chart" data-toggle="tab" >Chart</a>
       </li>
     </ul>
     <br>
 
     <div class="tab-content">
-      <div class="tab-pane" id="data">
-          <div class="exportButtons">
+      <div class="tab-pane table-responsive" id="data">
+          <div *ngIf="filteredResults.length>0" class="exportButtons">
           <button class="btn btn-primary" (click)="exportTable('xls','analysisResults')">Export as .xls</button>
           <button class="btn btn-primary" (click)="exportTable('csv','analysisResults')">Export as .csv</button>
           </div>
-        <table class="table table-hover table-bordered " id="analysisResults">
+        <table *ngIf="filteredResults.length>0" class="table table-hover table-bordered " id="analysisResults">
           <thead class="thead-light">
             <tr>
               <th>Depth from</th>
@@ -65,7 +66,7 @@
           </tr>
         </table>
       </div>
-      <div class="tab-pane fade" id="chart">
+      <div class="tab-pane active" id="chart">
         <div id="plotlyChart">
           <!-- Plotly chart will be drawn inside this DIV -->
         </div>

@@ -6,7 +6,7 @@ import { Site } from '../site';
 import { AnalysisService } from '../services/analysis.service';
 import { AnalysisSummary } from '../analysis-summary';
 import Plotly from 'plotly.js/dist/plotly-basic.min';
-import {TableExport} from 'tableexport';
+import { TableExport } from 'tableexport';
 
 @Component({
   selector: 'app-drillcore-data',
@@ -28,24 +28,27 @@ export class DrillcoreDataComponent implements OnInit {
     this.getAllParametersByDrillcoreId(this.route.snapshot.paramMap.get('id'));
     //this.getAnalysisSummaryByDrillcoreId(this.route.snapshot.paramMap.get('id'));
     this.getAllAnalysisSummaryData(this.route.snapshot.paramMap.get('id'));
-    //new TableExport(document.getElementsByTagName("table"));
   }
 
   updateSelectedParameters(parameter) {
-    //console.log(parameter);
+    console.log(this.siteParameters);
     let deleteIndex = this.selectedParameters.indexOf(parameter);
     if (deleteIndex == -1)
       this.selectedParameters.push(parameter);
     else
       this.selectedParameters.splice(deleteIndex, 1)
+    this.getTabsData();
+    console.log("selePar" + this.selectedParameters);
+  }
+  getTabsData() {
     this.filterData(this.analysisSummaryData);
-    this.filterChartData(this.filteredResults);   
+    this.filterChartData();
   }
 
-  exportTable(fileExtension: string, tableId: string){
-    let tabledata=new TableExport(document.getElementById(tableId), { exportButtons: false} );
-    let exportData=tabledata.getExportData()[tableId][fileExtension];
-    tabledata.export2file(exportData.data,exportData.mimeType,exportData.filename, exportData.fileExtension); 
+  exportTable(fileExtension: string, tableId: string) {
+    let tabledata = new TableExport(document.getElementById(tableId), { exportButtons: false });
+    let exportData = tabledata.getExportData()[tableId][fileExtension];
+    tabledata.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension);
   }
 
   getAllParametersByDrillcoreId(id: string): void {
@@ -64,7 +67,8 @@ export class DrillcoreDataComponent implements OnInit {
     });
   }
 
-  filterChartData(results: AnalysisSummary[]): void {
+  filterChartData(): void {  
+    var results = this.filteredResults;
     var data = [];
     for (let l = 0; l < this.selectedParameters.length; l++) {
       let x = [];
@@ -99,9 +103,21 @@ export class DrillcoreDataComponent implements OnInit {
         })
       }
     }
-    // console.log(data);
+    //console.log(this.siteParameters[0]['name']);
     var layout = {
-      title: 'Analysis results',
+      margin: {
+        l: 10,
+        r: 10,
+        b: 40,
+        t: 40,
+        pad: 4
+      },
+      /*title: 'Analysis results',*/
+      legend:  {
+        x: 0,
+        y: 1.1,
+        "orientation": "h",
+      },
       xaxis: {
         title: 'Depth',
         domain: [0.05, 0.95]
@@ -117,25 +133,50 @@ export class DrillcoreDataComponent implements OnInit {
         side: 'right'
       }
     };
+    let fName = this.siteParameters[0]['name'];
 
-    Plotly.newPlot('plotlyChart', data, layout,
+
+    var d3 = Plotly.d3;
+
+    var WIDTH_IN_PERCENT_OF_PARENT = 90,
+      HEIGHT_IN_PERCENT_OF_PARENT = 90;
+    //console.log(d3.select("div[id='plotlyChart']"));
+    var gd3 = d3.select("div[id='plotlyChart']")
+      //.append('div')
+      .style({
+        width: WIDTH_IN_PERCENT_OF_PARENT + '%',
+        'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
+
+        height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+        'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+      });
+
+    var gd = gd3.node();
+
+    Plotly.newPlot(gd, data, layout,
       {
         modeBarButtonsToRemove: ['toImage'],
         modeBarButtonsToAdd: [{
           name: 'Download plot as a SVG',
           icon: Plotly.Icons.camera,
           click: function (gd) {
-            Plotly.downloadImage(gd, { format: 'svg' })
+
+            Plotly.downloadImage(gd, { filename: fName, format: 'svg', height: 400, width: 800 })
           }
         }],
         displaylogo: false
       });
+
+      window.onresize = function() {
+        Plotly.Plots.resize(gd);
+    };
 
   }
 
 
   filterData(results: AnalysisSummary[]): void {
     this.filteredResults = [];
+    console.log("start...");
     for (var k = 0; k < results.length; k++) {
       let addRow: boolean = false;
       //console.log("length" + this.selectedParameters.length);
@@ -158,6 +199,7 @@ export class DrillcoreDataComponent implements OnInit {
       }
       addRow = false;
     }
+    console.log("end...");
   }
 
   getParameterColumnName(parameter, analysisSummary: AnalysisSummary): string {
@@ -179,6 +221,31 @@ export class DrillcoreDataComponent implements OnInit {
       parameter['analysis__analysisresult__unit__unit'] + " (" +
       parameter['analysis__analysis_method__method'] + ")";
     return name;
+  }
+
+  selectAllParameters() {
+    //this.selectedParameters = [];
+    var data = document.getElementsByName("parameter[]");
+    console.log(data);
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i]);
+      data[i].setAttribute("checked", "true");
+    }
+    for (let i = 0; i < this.siteParameters.length; i++)
+      this.selectedParameters.push(this.siteParameters[i]);
+    this.getTabsData();
+  }
+
+  clearAllParameters() {
+    var data = document.getElementsByName("parameter[]");
+    console.log(data);
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i]);
+      data[i].click()
+      //data[i].removeAttribute("checked");
+    }
+    this.selectedParameters = [];
+    this.getTabsData();
   }
 
 }
