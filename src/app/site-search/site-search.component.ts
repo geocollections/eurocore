@@ -2,8 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
-import * as $ from 'jquery';
-import 'jquery-ui/ui/widgets/autocomplete';
+import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
+//import * as $ from 'jquery';
+//import 'jquery-ui/ui/widgets/autocomplete';
 
 
 @Component({
@@ -36,17 +37,35 @@ export class SiteSearchComponent implements OnInit {
   drillcoreIdArray: string[];
 
 
-  constructor(private siteService: SiteService, private mapService: MapService) {
+  constructor(private siteService: SiteService, private mapService: MapService,private route: ActivatedRoute, private router: Router) {
     window.scrollTo(0, 0);
+
+    //console.log(this.route.snapshot.queryParams['page']);
   }
 
   ngOnInit() {
     this.getSessionData();
+    this.getQueryParams();
     this.getMapSites();
     this.searchSites(1);
     this.mapService.drawDrillcoreSearchMap(this);
     //this.getMapSites();   
+  }
 
+  getQueryParams(){
+    if(this.route.snapshot.queryParams['drillcoreName']!=undefined)
+    this.searchDrillcoreName=this.route.snapshot.queryParams['drillcoreName'];
+    if(this.route.snapshot.queryParams['depositName']!=undefined)
+    this.searchDepositName=this.route.snapshot.queryParams['depositName'];
+    if(this.route.snapshot.queryParams['oreType']!=undefined)
+    this.searchOreType=this.route.snapshot.queryParams['oreType'];
+    if(this.route.snapshot.queryParams['commodity']!=undefined)
+    this.searchCommodity=this.route.snapshot.queryParams['commodity'];
+    if(this.route.snapshot.queryParams['institution']!=undefined)
+    this.searchInstitution=this.route.snapshot.queryParams['institution'];
+    if(this.route.snapshot.queryParams['id']!=undefined)
+    this.searchDrillcoreId=this.route.snapshot.queryParams['id'];
+    this.pageNumber=this.route.snapshot.queryParams['pageNr'];
   }
 
 
@@ -133,6 +152,10 @@ export class SiteSearchComponent implements OnInit {
     this.selectedSite = undefined;
     this.setPageNumber(page);
     this.setSessionData();
+    let navigationExtras: NavigationExtras = {
+      queryParams: { "drillcoreName": this.searchDrillcoreName, 'depositName': this.searchDepositName, "oreType":this.searchOreType,"commodity":this.searchCommodity,"institution":this.searchInstitution,"id":this.searchDrillcoreId, "pageNr":this.pageNumber},
+    };
+    this.router.navigate(['/drillcore'], navigationExtras);
   }
 
   onSelect(site: Site): void {

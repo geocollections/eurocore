@@ -109,7 +109,7 @@ export class DrillcoreDataComponent implements OnInit {
         l: 10,
         r: 10,
         b: 40,
-        t: 40,
+        t: 80,
         pad: 4
       },
       /*title: 'Analysis results',*/
@@ -139,16 +139,16 @@ export class DrillcoreDataComponent implements OnInit {
     var d3 = Plotly.d3;
 
     var WIDTH_IN_PERCENT_OF_PARENT = 90,
-      HEIGHT_IN_PERCENT_OF_PARENT = 90;
+      HEIGHT_IN_PERCENT_OF_PARENT = 70; 
     //console.log(d3.select("div[id='plotlyChart']"));
     var gd3 = d3.select("div[id='plotlyChart']")
       //.append('div')
       .style({
         width: WIDTH_IN_PERCENT_OF_PARENT + '%',
         'margin-left': (100 - WIDTH_IN_PERCENT_OF_PARENT) / 2 + '%',
-
         height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
-        'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
+        //height: HEIGHT_IN_PERCENT_OF_PARENT + 'vh',
+        //'margin-top': (100 - HEIGHT_IN_PERCENT_OF_PARENT) / 2 + 'vh'
       });
 
     var gd = gd3.node();
