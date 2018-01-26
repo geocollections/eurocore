@@ -7,6 +7,7 @@ import {JsonpModule, Jsonp, Response} from '@angular/http';
 //import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { SelectModule } from 'ng-select';
 
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -62,6 +63,7 @@ import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.co
     InfiniteScrollModule, 
     NgbModule.forRoot(),
     TypeaheadModule.forRoot(),
+    SelectModule,
   ],
   providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService],
   bootstrap: [AppComponent]

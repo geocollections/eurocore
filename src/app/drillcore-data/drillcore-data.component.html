@@ -30,12 +30,11 @@
         <a class="nav-link active" href="#chart" data-toggle="tab" >Chart</a>
       </li>
     </ul>
-    <br>
 
     <div class="tab-content">
       <div class="tab-pane table-responsive" id="data">
           <div *ngIf="filteredResults.length>0" class="exportButtons">
-          <button class="btn btn-primary" (click)="exportTable('xls','analysisResults')">Export as .xls</button>
+          <button class="btn btn-primary" (click)="exportTable('xlsx','analysisResults')">Export as .xlsx</button>
           <button class="btn btn-primary" (click)="exportTable('csv','analysisResults')">Export as .csv</button>
           </div>
         <table *ngIf="filteredResults.length>0" class="table table-hover table-bordered " id="analysisResults">

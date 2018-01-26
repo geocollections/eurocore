@@ -3,28 +3,45 @@
 		<h3>Data search</h3>
 	</div>
 </div>
-<div class="row align-items-center">
+<div class="row ">
 	<div class="col">
+		<h4>Search by core & parameter</h4>
+
 		<div class="form-group">
-			<!--<label for="name">Drillcore name</label>-->
-			<input id="drillcoreName" class="form-control" placeholder="Field nr1" data-role="tagsinput" />
+			<input id="pardrillcoreName" class="form-control" placeholder="Drillcore name" data-role="tagsinput" />
 		</div>
-		<div class="form-group">
-			<!--<label for="name">Drillcore name</label>-->
-			<input id="drillcoreName" class="form-control" placeholder="Field nr 2" data-role="tagsinput" />
-		</div>
-		<div class="form-group">
-			<!--<label for="name">Drillcore name</label>-->
-			<input id="drillcoreName" class="form-control" placeholder="Field nr 3" data-role="tagsinput" />
-		</div>
-		<div class="form-group">
-			<!--<label for="name">Drillcore name</label>-->
-			<input id="drillcoreName" class="form-control" placeholder="Field nr 4" data-role="tagsinput" />
+		<!--<div class="form-group">
+			<input id="parameters" class="form-control" placeholder="Parameters" data-role="tagsinput" />
+		</div>-->
+		<ng-select placeholder="Parameters" [options]="myOptions" [multiple]="true" [allowClear]="true" [(ngModel)]="selected">
+		</ng-select>
+		{{selected}}
+		<br><br>
+		<h5>Advanced search (filtering with parameter value)</h5>
+		<div class="form-group ">
+			<input id="parameter" class="form-control2" placeholder="Parameter" data-role="tagsinput" />
+			<select class="form-control2">
+				<option value="gt">></option>
+				<option value="lt">
+					<</option>
+			</select>
+			<input type="text" class="form-control2">
 		</div>
 		<button class="btn btn-primary btn-lg">SEARCH</button>
-		<button class="btn btn-danger btn-lg">RESET FORM</button>
+			<button class="btn btn-danger btn-lg">RESET FORM</button>
+		
 	</div>
 	<div class="col">
+			<h4>Search by core & analytical method</h4>
+			<div class="form-group">
+				<input id="methodDrillcoreName" class="form-control" placeholder="Drillcore name" data-role="tagsinput" />
+			</div>
+			<div class="form-group">
+				<input id="method" class="form-control" placeholder="Method" data-role="tagsinput" />
+			</div>
+	
+			<button class="btn btn-primary btn-lg">SEARCH</button>
+			<button class="btn btn-danger btn-lg">RESET FORM</button>
 	</div>
 </div>
 <div class="row ">
@@ -44,7 +61,32 @@
 
 		<div class="tab-content">
 			<div class="tab-pane fade" id="drillcores">
-					<p>TODO</p>
+				<table class="table table-hover table-bordered ">
+					<thead class="thead-light">
+						<tr>
+							<th>Drillcore</th>
+							<th>Depth from, m</th>
+							<th>Depth to, m</th>
+							<th>Samples</th>
+							<th>Analysis</th>
+							<th>Parameter</th>
+							<th>Unit</th>
+							<th>Value</th>
+							<th>Error</th>
+						</tr>
+					</thead>
+					<tr>
+						<td>Test drillcore</td>
+						<td>45</td>
+						<td>50</td>
+						<td>2</td>
+						<td>4</td>
+						<td>Parameter...</td>
+						<td>unit...</td>
+						<td>valuu...</td>
+						<td>value error</td>
+					</tr>
+				</table>
 			</div>
 			<div class="tab-pane fade" id="samples">
 				<p>TODO</p>

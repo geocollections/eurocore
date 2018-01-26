@@ -38,7 +38,7 @@ export class DrillcoreDataComponent implements OnInit {
     else
       this.selectedParameters.splice(deleteIndex, 1)
     this.getTabsData();
-    console.log("selePar" + this.selectedParameters);
+    //console.log(this.selectedParameters);
   }
   getTabsData() {
     this.filterData(this.analysisSummaryData);
@@ -46,7 +46,7 @@ export class DrillcoreDataComponent implements OnInit {
   }
 
   exportTable(fileExtension: string, tableId: string) {
-    let tabledata = new TableExport(document.getElementById(tableId), { exportButtons: false });
+    let tabledata = new TableExport(document.getElementById(tableId), {formats: ['xlsx','xls', 'csv', 'txt'],exportButtons: false });
     let exportData = tabledata.getExportData()[tableId][fileExtension];
     tabledata.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension);
   }
