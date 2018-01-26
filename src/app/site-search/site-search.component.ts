@@ -39,8 +39,6 @@ export class SiteSearchComponent implements OnInit {
 
   constructor(private siteService: SiteService, private mapService: MapService,private route: ActivatedRoute, private router: Router) {
     window.scrollTo(0, 0);
-
-    //console.log(this.route.snapshot.queryParams['page']);
   }
 
   ngOnInit() {

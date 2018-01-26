@@ -67,7 +67,7 @@ export class DrillcoreDataComponent implements OnInit {
     });
   }
 
-  filterChartData(): void {  
+  filterChartData(): void {
     var results = this.filteredResults;
     var data = [];
     for (let l = 0; l < this.selectedParameters.length; l++) {
@@ -113,7 +113,7 @@ export class DrillcoreDataComponent implements OnInit {
         pad: 4
       },
       /*title: 'Analysis results',*/
-      legend:  {
+      legend: {
         x: 0,
         y: 1.1,
         "orientation": "h",
@@ -139,7 +139,7 @@ export class DrillcoreDataComponent implements OnInit {
     var d3 = Plotly.d3;
 
     var WIDTH_IN_PERCENT_OF_PARENT = 90,
-      HEIGHT_IN_PERCENT_OF_PARENT = 70; 
+      HEIGHT_IN_PERCENT_OF_PARENT = 70;
     //console.log(d3.select("div[id='plotlyChart']"));
     var gd3 = d3.select("div[id='plotlyChart']")
       //.append('div')
@@ -167,8 +167,8 @@ export class DrillcoreDataComponent implements OnInit {
         displaylogo: false
       });
 
-      window.onresize = function() {
-        Plotly.Plots.resize(gd);
+    window.onresize = function () {
+      Plotly.Plots.resize(gd);
     };
 
   }
@@ -224,12 +224,9 @@ export class DrillcoreDataComponent implements OnInit {
   }
 
   selectAllParameters() {
-    //this.selectedParameters = [];
     var data = document.getElementsByName("parameter[]");
-    console.log(data);
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i]);
-      data[i].setAttribute("checked", "true");
+      (<HTMLInputElement>data[i]).checked = true;
     }
     for (let i = 0; i < this.siteParameters.length; i++)
       this.selectedParameters.push(this.siteParameters[i]);
@@ -238,11 +235,8 @@ export class DrillcoreDataComponent implements OnInit {
 
   clearAllParameters() {
     var data = document.getElementsByName("parameter[]");
-    console.log(data);
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i]);
-      data[i].click()
-      //data[i].removeAttribute("checked");
+      (<HTMLInputElement>data[i]).checked = false;
     }
     this.selectedParameters = [];
     this.getTabsData();
