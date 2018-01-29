@@ -88,7 +88,8 @@ export class DrillcoreDataComponent implements OnInit {
           x,
           y,
           mode: 'lines+markers',
-          type: 'scatter',
+          //mode: 'lines',
+          type: 'scattergl',
           name: name,
           yaxis: 'y2',
         })
@@ -98,7 +99,8 @@ export class DrillcoreDataComponent implements OnInit {
           x,
           y,
           mode: 'lines+markers',
-          type: 'scatter',
+         // mode: 'lines',
+          type: 'scattergl',
           name: name
         })
       }

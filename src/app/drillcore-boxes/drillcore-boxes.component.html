@@ -31,11 +31,14 @@
 <div class="row ">
     <div class="col">
         <a href="javascript:void(0);" (click)="openNewWindow('http://www.eurocore.rocks'+corebox.attachmentlink__attachment__url)">
-        <img src="http://www.eurocore.rocks{{getImagePreviewLink('400',corebox.attachmentlink__attachment__url)}}" width="100%">
+        <img id="imgZoom" width="100%" (mousemove)="zoomIn($event)" (mouseleave)="zoomOut()" src="http://www.eurocore.rocks{{getImagePreviewLink('400',corebox.attachmentlink__attachment__url)}}">
         </a>
+        <div id="overlay" (mousemove)="zoomIn($event)"></div>
     </div>
 </div>
-<ul class="nav nav-tabs">
+    
+
+<ul class="nav nav-tabs"> 
     <li class="nav-item">
         <a class="nav-link" href="#samples" data-toggle="tab">Samples</a>
     </li>
