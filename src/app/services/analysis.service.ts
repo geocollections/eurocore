@@ -43,7 +43,7 @@ export class AnalysisService {
     return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?paginate_by=400&drillcore_id='+id+'&analysis_method__iexact=ICP-OES&fields=s_pct,ni_pct,fe_pct,au_ppm,cu_pct,co_pct,zn_pct,depth,end_depth,analysis_id,sample_id,sample_number,analysis_method&order_by=depth&format=jsonp', 'callback').pipe();
   }
 
-  getAnalysisSummaryData(id:string):Observable<AnalysisSummary[]>{ 
-    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id='+id+'&order_by=depth&format=jsonp&paginate_by=40000', 'callback').pipe();
+  getAnalysisSummaryData(id:string):Observable<AnalysisSummary[]>{    
+    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id='+id+'&order_by=depth&format=jsonp&paginate_by=10000', 'callback').pipe();
   }
 }

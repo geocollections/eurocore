@@ -101,7 +101,7 @@ export class SiteDetailsComponent implements OnInit {
   }
 
   openNewWindow(id:string):void{    
-    window.open((this.platformLocation as any).location.pathname +'#/corebox/'+id, '', 'width=600,height=800') ;
+    window.open((this.platformLocation as any).location.pathname +'#/corebox/'+id, '', 'width=500,height=800') ;
   }
 
   getDrillcoreSummary(drillcoreId:string):void{
@@ -110,11 +110,11 @@ export class SiteDetailsComponent implements OnInit {
 
   openAnalysisView(id:number):void{   
     var ID=id.toString(); 
-    window.open((this.platformLocation as any).location.pathname +'#/analysis/'+ID, '', 'width=600,height=800') ;
+    window.open((this.platformLocation as any).location.pathname +'#/analysis/'+ID, '', 'width=500,height=800') ;
   }
   openSampleView(id:number):void{   
     var ID=id.toString(); 
-    window.open((this.platformLocation as any).location.pathname +'#/sample/'+ID, '', 'width=600,height=800') ;
+    window.open((this.platformLocation as any).location.pathname +'#/sample/'+ID, '', 'width=500,height=800') ;
   }
 
   findFirstTab(){

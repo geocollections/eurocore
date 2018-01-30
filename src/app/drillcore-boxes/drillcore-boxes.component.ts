@@ -30,7 +30,7 @@ export class DrillcoreBoxesComponent implements OnInit {
   }
 
   openNewWindow(url: string): void {
-    window.open(url, '', 'width=600,height=800');
+    window.open(url, '', 'width=500,height=800');
   }
 
   getImagePreviewLink(size: string, imageLink: string) {
@@ -45,7 +45,7 @@ export class DrillcoreBoxesComponent implements OnInit {
     var img = document.getElementById("imgZoom");
     var posX = event.offsetX ? (event.offsetX) : event.pageX - img.offsetLeft;
     var posY = event.offsetY ? (event.offsetY) : event.pageY - img.offsetTop;
-    element.style.backgroundPosition = (-posX * 3) + "px " + (-posY * 3.5) + "px";
+    element.style.backgroundPosition = (-posX * 3.5) + "px " + (-posY * 3.5) + "px";
   }
 
   zoomOut() {

@@ -22,7 +22,8 @@ export class DrillcoreDataComponent implements OnInit {
   filteredResults: AnalysisSummary[] = [];
   selectedParameters: String[] = [];
 
-  constructor(private siteService: SiteService, private route: ActivatedRoute, private analysisService: AnalysisService) { }
+  constructor(private siteService: SiteService, private route: ActivatedRoute, private analysisService: AnalysisService) {
+  }
 
   ngOnInit() {
     this.getAllParametersByDrillcoreId(this.route.snapshot.paramMap.get('id'));
@@ -31,14 +32,13 @@ export class DrillcoreDataComponent implements OnInit {
   }
 
   updateSelectedParameters(parameter) {
-    console.log(this.siteParameters);
+    console.log(this.selectedParameters);
     let deleteIndex = this.selectedParameters.indexOf(parameter);
     if (deleteIndex == -1)
       this.selectedParameters.push(parameter);
     else
       this.selectedParameters.splice(deleteIndex, 1)
     this.getTabsData();
-    //console.log(this.selectedParameters);
   }
   getTabsData() {
     this.filterData(this.analysisSummaryData);
@@ -46,7 +46,7 @@ export class DrillcoreDataComponent implements OnInit {
   }
 
   exportTable(fileExtension: string, tableId: string) {
-    let tabledata = new TableExport(document.getElementById(tableId), {formats: ['xlsx','xls', 'csv', 'txt'],exportButtons: false });
+    let tabledata = new TableExport(document.getElementById(tableId), { formats: ['xlsx', 'xls', 'csv', 'txt'], exportButtons: false });
     let exportData = tabledata.getExportData()[tableId][fileExtension];
     tabledata.export2file(exportData.data, exportData.mimeType, exportData.filename, exportData.fileExtension);
   }
@@ -70,6 +70,7 @@ export class DrillcoreDataComponent implements OnInit {
   filterChartData(): void {
     var results = this.filteredResults;
     var data = [];
+    console.log("start data push");
     for (let l = 0; l < this.selectedParameters.length; l++) {
       let x = [];
       let y = [];
@@ -87,9 +88,10 @@ export class DrillcoreDataComponent implements OnInit {
         data.push({
           x,
           y,
+          type: 'scattergl',
+          //mode: 'markers',
           mode: 'lines+markers',
           //mode: 'lines',
-          type: 'scattergl',
           name: name,
           yaxis: 'y2',
         })
@@ -98,23 +100,25 @@ export class DrillcoreDataComponent implements OnInit {
         data.push({
           x,
           y,
-          mode: 'lines+markers',
-         // mode: 'lines',
           type: 'scattergl',
+          //mode: 'markers',
+          mode: 'lines+markers',
+          //mode: 'lines',
           name: name
         })
       }
     }
-    //console.log(this.siteParameters[0]['name']);
+    console.log("end push");
     var layout = {
+      showlegend: true,
       margin: {
         l: 10,
         r: 10,
         b: 40,
-        t: 80,
+        t: 120,
         pad: 4
       },
-      /*title: 'Analysis results',*/
+      title: this.siteParameters[0]['name'],
       legend: {
         x: 0,
         y: 1.1,
@@ -122,26 +126,50 @@ export class DrillcoreDataComponent implements OnInit {
       },
       xaxis: {
         title: 'Depth',
-        domain: [0.05, 0.95]
+        domain: [0.05, 0.95],
+        linecolor: 'black',
+        linewidth: 1,
+       // mirror: true,
+        autotick: true,
+        ticks: "outside",
+        ticklen: 5,
+        tickwidth: 1,
+        tickcolor: 'black'
       },
       yaxis: {
-        title: '%'
+        title: '%',
+         linecolor: 'black',
+         linewidth: 1,
+         mirror: true,
+        autotick: true,
+        ticks: "outside",
+        ticklen: 5,
+        tickwidth: 1,
+        tickcolor: 'black'
       },
       yaxis2: {
         title: 'ppm',
         titlefont: { color: 'rgb(148, 103, 189)' },
         tickfont: { color: 'rgb(148, 103, 189)' },
         overlaying: 'y',
-        side: 'right'
+        side: 'right',
+        linecolor: 'black',
+         linewidth: 1,
+         mirror: true,
+        autotick: true,
+        ticks: "outside",
+        ticklen: 5,
+        tickwidth: 1,
+        tickcolor: 'black',
+        showgrid:false,
       }
     };
     let fName = this.siteParameters[0]['name'];
 
-
     var d3 = Plotly.d3;
 
     var WIDTH_IN_PERCENT_OF_PARENT = 90,
-      HEIGHT_IN_PERCENT_OF_PARENT = 70;
+      HEIGHT_IN_PERCENT_OF_PARENT = WIDTH_IN_PERCENT_OF_PARENT / 3 * 2;
     //console.log(d3.select("div[id='plotlyChart']"));
     var gd3 = d3.select("div[id='plotlyChart']")
       //.append('div')
@@ -155,6 +183,8 @@ export class DrillcoreDataComponent implements OnInit {
 
     var gd = gd3.node();
 
+    var start = window.performance.now();
+   console.log("start new plot");
     Plotly.newPlot(gd, data, layout,
       {
         modeBarButtonsToRemove: ['toImage'],
@@ -163,17 +193,26 @@ export class DrillcoreDataComponent implements OnInit {
           icon: Plotly.Icons.camera,
           click: function (gd) {
 
-            Plotly.downloadImage(gd, { filename: fName, format: 'svg', height: 400, width: 800 })
+            Plotly.downloadImage(gd, { filename: fName, format: 'svg', height: 600, width: 900 })
           }
         }],
         displaylogo: false
-      });
-
+      }
+    );
+      var end = window.performance.now();
+      console.log(end - start + 'ms');
+      
     window.onresize = function () {
       Plotly.Plots.resize(gd);
     };
 
+    document.getElementById("chartTabLink").addEventListener("click", function () {
+      Plotly.Plots.resize(gd);
+    })
   }
+
+
+
 
 
   filterData(results: AnalysisSummary[]): void {
@@ -227,6 +266,7 @@ export class DrillcoreDataComponent implements OnInit {
 
   selectAllParameters() {
     var data = document.getElementsByName("parameter[]");
+    this.selectedParameters = [];
     for (var i = 0; i < data.length; i++) {
       (<HTMLInputElement>data[i]).checked = true;
     }

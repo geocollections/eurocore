@@ -8,8 +8,8 @@
     <h5>Parameters:</h5>
     <button class="btn btn-primary" (click)="selectAllParameters()">Select all</button>
     <button class="btn btn-primary" (click)="clearAllParameters()">Clear</button>
-    <div *ngFor="let siteParameter of siteParameters">
-      <label class="custom-control custom-checkbox">
+    <div>
+      <label *ngFor="let siteParameter of siteParameters" class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" name="parameter[]" value="{{siteParameter.analysis__analysisresult__parameter__parameter}}"
           (click)="updateSelectedParameters(siteParameter)">
         <span class="custom-control-indicator"></span>
@@ -26,46 +26,45 @@
       <li class="nav-item" >
         <a class="nav-link" href="#data" data-toggle="tab">Data</a>
       </li>
-      <li class="nav-item" >
-        <a class="nav-link active" href="#chart" data-toggle="tab" >Chart</a>
+      <li class="nav-item">
+        <a class="nav-link active" href="#chart" data-toggle="tab"  id="chartTabLink">Chart</a>
       </li>
     </ul>
 
     <div class="tab-content">
       <div class="tab-pane table-responsive" id="data">
-          <div *ngIf="filteredResults.length>0" class="exportButtons">
+        <div *ngIf="filteredResults.length>0" class="exportButtons">
           <button class="btn btn-primary" (click)="exportTable('xlsx','analysisResults')">Export as .xlsx</button>
           <button class="btn btn-primary" (click)="exportTable('csv','analysisResults')">Export as .csv</button>
           </div>
-        <table *ngIf="filteredResults.length>0" class="table table-hover table-bordered " id="analysisResults">
-          <thead class="thead-light">
-            <tr>
-              <th>Depth from</th>
-              <th>Depth to (m)</th>
-              <th>Sample</th>
-              <th>Analysis</th>
-              <!--<th>Mehtod</th>-->
-              <th *ngFor="let selectedParameter of selectedParameters">
-                {{getParameterName(selectedParameter)}}
-              </th>
+         
+         <table *ngIf="filteredResults.length>0" class="table table-hover table-bordered " id="analysisResults">
+            <thead class="thead-light">
+              <tr>
+                <th>Depth from</th>
+                <th>Depth to (m)</th>
+                <th>Sample</th>
+                <th>Analysis</th>
+                <th *ngFor="let selectedParameter of selectedParameters">
+                  {{getParameterName(selectedParameter)}}
+                </th>
+              </tr>
+            </thead>
+  
+            <tr *ngFor="let filteredResult of filteredResults">
+              <td>{{filteredResult.depth}}</td>
+              <td>{{filteredResult.end_depth}}</td>
+              <td>
+                <a routerLink="/sample/{{filteredResult.sample_id}}">{{filteredResult.sample_number}}</a>
+              </td>
+              <td>
+                <a routerLink="/analysis/{{filteredResult.analysis_id}}">{{filteredResult.analysis_id}}</a>
+              </td>
+              <td *ngFor="let selectedParameter of selectedParameters">{{filteredResult[getParameterColumnName(selectedParameter,filteredResult)]}}</td>
             </tr>
-          </thead>
-
-          <tr *ngFor="let filteredResult of filteredResults">
-            <td>{{filteredResult.depth}}</td>
-            <td>{{filteredResult.end_depth}}</td>
-            <td>
-              <a routerLink="/sample/{{filteredResult.sample_id}}">{{filteredResult.sample_number}}</a>
-            </td>
-            <td>
-              <a routerLink="/analysis/{{filteredResult.analysis_id}}">{{filteredResult.analysis_id}}</a>
-            </td>
-            <!--<td>{{filteredResult.analysis_method}}</td>-->
-            <td *ngFor="let selectedParameter of selectedParameters">{{filteredResult[getParameterColumnName(selectedParameter,filteredResult)]}}</td>
-          </tr>
-        </table>
+          </table>
       </div>
-      <div class="tab-pane active" id="chart">
+      <div class="tab-pane active" id="chart" >
         <div id="plotlyChart">
           <!-- Plotly chart will be drawn inside this DIV -->
         </div>
