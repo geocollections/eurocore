@@ -21,6 +21,7 @@ export class AnalysisDetailsComponent implements OnInit {
 
   analysis: Analysis;
   analysisResults: AnalysisResult[];
+  spectrumCount: string;
 
   constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService, private mapService: MapService, private platformLocation: PlatformLocation) {
 
@@ -29,6 +30,7 @@ export class AnalysisDetailsComponent implements OnInit {
   ngOnInit() {
     this.getAnalysisById(this.route.snapshot.paramMap.get('id'));
     this.getAnalysisResultsByAnalysisId(this.route.snapshot.paramMap.get('id'));  
+    this.getSpectrumCount(this.route.snapshot.paramMap.get('id'));
   }
 
   getAnalysisById(id:string): void{
@@ -42,6 +44,10 @@ export class AnalysisDetailsComponent implements OnInit {
   openSpectrumView(id:number):void{   
     var ID=id.toString(); 
     window.open((this.platformLocation as any).location.pathname +'#/spectrum/'+ID, '', 'width=800,height=800') ;
+  }
+
+  getSpectrumCount(id: string):void{
+    this.analysisSerrivce.getAnalysisSepectrumEnergyRanges(id).subscribe(spectrumCount=>{this.spectrumCount=spectrumCount['count']; console.log("count "+this.spectrumCount)});
   }
 
 }

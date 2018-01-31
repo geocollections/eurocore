@@ -20,8 +20,8 @@ export class SpectrumDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.analysisId = this.route.snapshot.paramMap.get('id');
-    //this.getAnalysisSepectrumEnergyRanges("20000");
-    this.getAnalysisSpectrumData("20000");
+    //this.getAnalysisSepectrumEnergyRanges("20000"); 
+    this.getAnalysisSpectrumData(this.route.snapshot.paramMap.get('id'));
   }
 
   getAnalysisSepectrumEnergyRanges(id: string): void {
@@ -29,7 +29,9 @@ export class SpectrumDetailsComponent implements OnInit {
   }
 
   getAnalysisSpectrumData(id: string): void {
-    this.analysisSerrivce.getAnalysisSpectrumData(id).subscribe(spectrumData => { this.filterSpectrumData(spectrumData['results']); console.log(this.spectrumData); })
+    this.analysisSerrivce.getAnalysisSpectrumData(id).subscribe(spectrumData => { 
+      this.spectrumData=spectrumData['results'];
+      this.filterSpectrumData(this.spectrumData); console.log(this.spectrumData); })
   }
 
   filterSpectrumData(results: String[]): void {
@@ -40,7 +42,7 @@ export class SpectrumDetailsComponent implements OnInit {
       var t = {
         x,
         y,
-        type: 'scatter',
+        type: 'scattergl',
         name: results[k]['energy_range__value']
       }
 
@@ -52,19 +54,47 @@ export class SpectrumDetailsComponent implements OnInit {
     }
 
     var layout = {
+      showlegend: true,
       margin: {
-        l: 40,
+       /* l: 40,
         r: 10,
         b: 40,
         t: 40,
+        pad: 4*/
+        l: 10,
+        r: 10,
+        b: 40,
+        t: 120,
         pad: 4
       },
       title: 'Spectrum energy ranges',
+      legend: {
+        x: 0,
+        y: 1.1,
+        "orientation": "h",
+      },
       xaxis: {
-        title: 'keV'
+        title: 'keV',
+        domain: [0.05, 0.95],
+        linecolor: 'black',
+        linewidth: 1,
+       // mirror: true,
+        autotick: true,
+        ticks: "outside",
+        ticklen: 5,
+        tickwidth: 1,
+        tickcolor: 'black'
       },
       yaxis: {
-        title: 'count'
+        title: 'count',
+        linecolor: 'black',
+        linewidth: 1,
+        mirror: true,
+       autotick: true,
+       ticks: "outside",
+       ticklen: 5,
+       tickwidth: 1,
+       tickcolor: 'black'
       }
     };
 

@@ -19,4 +19,8 @@ export class SampleService {
     return this.http.jsonp<Sample[]>('http://api.eurocore.rocks/sample/?format=jsonp&order_by=depth&drillcore__id='+drillcoreId,"callback").pipe();   
   }
 
+  searchSamplesByDepth(startDepth: string, endDepth: string, drillcoreId: string):Observable<Sample[]>{
+    return this.http.jsonp<Sample[]>('http://api.eurocore.rocks/sample/?drillcore__id='+drillcoreId+'&depth__range='+startDepth+','+endDepth+'&end_depth__range='+startDepth+','+endDepth+'&format=jsonp&order_by=depth',"callback").pipe();  
+  }
+
 }

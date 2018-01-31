@@ -100,7 +100,7 @@ export class SiteDetailsComponent implements OnInit {
   }
 
   openNewWindow(id:string):void{    
-    window.open((this.platformLocation as any).location.pathname +'#/corebox/'+id, '', 'width=500,height=800') ;
+    window.open((this.platformLocation as any).location.pathname +'#/corebox/'+id, '', 'width=800,height=800') ;
   }
 
   getDrillcoreSummary(drillcoreId:string):void{

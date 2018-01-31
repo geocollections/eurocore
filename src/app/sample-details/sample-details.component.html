@@ -76,9 +76,9 @@
                 </tr>
             </thead>
             <tr *ngFor="let analysis of analyzes">
-                <td>{{analysis.id}}</td>
+                <td><a routerLink="/analysis/{{analysis.id}}">{{analysis.id}}</a></td>
                 <td>
-                    <a routerLink="/analysis/{{analysis.id}}">{{analysis.analysis_method__method}}</a>
+                    {{analysis.analysis_method__method}}
                 </td>
                 <td>{{analysis.agent__name}}</td>
                 <td>{{analysis.date}}</td>

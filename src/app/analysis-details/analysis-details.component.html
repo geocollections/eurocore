@@ -100,7 +100,7 @@
 </div>
 
 <div class="row align-items-center">
-  <div class="col ">
-    <button (click)="openSpectrumView(analysis.id)" class="btn btn-primary btn-lg">Show spectra (4)</button>
+  <div *ngIf="spectrumCount>0" class="col ">
+    <button (click)="openSpectrumView(analysis.id)" class="btn btn-primary btn-lg">Show spectra ({{spectrumCount}})</button>
   </div>
 </div>
