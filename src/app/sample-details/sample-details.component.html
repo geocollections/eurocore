@@ -1,68 +1,71 @@
-<div *ngIf="sample" class="row">
+<div class="row">
     <div class="col">
         <h3>Sample {{sample.sample_number}}</h3>
-
+    </div>
+</div>
+<div *ngIf="sample" class="row">
+    <div class="col">
+        <h4>Sample details</h4>
         <table class="table">
             <colgroup>
                 <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
             </colgroup>
-            <tr>
+            <tr *ngIf="sample.id">
                 <td>ID</td>
                 <td>{{sample.id}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.sample_number">
                 <td>Number</td>
                 <td>{{sample.sample_number}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.drillcore__name">
                 <td>Locality</td>
                 <td>{{sample.drillcore__name}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.latitude">
                 <td>Latitude</td>
                 <td>{{sample.latitude}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.longitude">
                 <td>Longitude</td>
                 <td>{{sample.longitude}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.depth">
                 <td>Depth from, m</td>
                 <td>{{sample.depth}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.end_depth">
                 <td>Depth to, m</td>
                 <td>{{sample.end_depth}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.description">
                 <td>Description</td>
-                <td></td>
+                <td>{{sample.description}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.weight">
                 <td>Weight, g</td>
-                <td></td>
+                <td>{{sample.weight}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.preparation">
                 <td>Preparation</td>
-                <td></td>
+                <td>{{sample.preparation}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.takenBy">
                 <td>Sample taken by</td>
-                <td></td>
+                <td>{{sample.takenBy}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.date">
                 <td>Date</td>
-                <td></td>
+                <td>{{sample.date}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="sample.storage">
                 <td>Storage</td>
-                <td></td>
+                <td>{{sample.storage}}</td>
             </tr>
         </table>
     </div>
-</div>
-<div class="row">
     <div class="col">
+            <h4>Analyses from the sample</h4>
         <table class="table table-hover table-bordered table-responsive">
             <thead class="thead-light">
                 <tr>
@@ -81,5 +84,9 @@
                 <td>{{analysis.date}}</td>
             </tr>
         </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
     </div>
 </div>

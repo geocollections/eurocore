@@ -10,117 +10,117 @@
             <colgroup>
                 <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
             </colgroup>
-            <tr>
+            <tr *ngIf="deposit.id">
                 <td>ID</td>
                 <td>{{deposit.id}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.name">
                 <td>Name</td>
                 <td>{{deposit.name}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.alternative_names">
                 <td>Alternative names</td>
                 <td>{{deposit.alternative_names}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.latitude">
                 <td>Latitude</td>
                 <td>{{deposit.latitude}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.longitude">
                 <td>Longitude</td>
                 <td>{{deposit.longitude}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.genetic_type__name">
                 <td>Ore genetic type</td>
                 <td>{{deposit.genetic_type__name}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.metal_group__name">
                 <td>Metal group</td>
                 <td>{{deposit.metal_group__name}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.metal_subgroup__name">
                 <td>Metal subgroup</td>
                 <td>{{deposit.metal_subgroup__name}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.main_commodity">
                 <td>Main commodity</td>
                 <td>{{deposit.main_commodity}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.other_commodities">
                 <td>Other commodities</td>
                 <td>{{deposit.other_commodities}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.size">
                 <td>Size</td>
-                <td></td>
+                <td>{{deposit.size}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.shape">
                 <td>Shape</td>
-                <td></td>
+                <td>{{deposit.shape}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.status">
                 <td>Status</td>
-                <td></td>
+                <td>{{deposit.status}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.miningMethod">
                 <td>Mining method</td>
-                <td></td>
+                <td>{{deposit.miningMethod}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.miningStarted">
                 <td>Mining started</td>
-                <td></td>
+                <td>{{deposit.miningStarted}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.miningTerminated">
                 <td>Mining terminated</td>
-                <td></td>
+                <td>{{deposit.miningTerminated}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.minedIn">
                 <td>Mined in</td>
-                <td></td>
+                <td>{{deposit.minedIn}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.resourceMt">
                 <td>Resource Mt</td>
-                <td></td>
+                <td>{{deposit.resourceMt}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.reserveMt">
                 <td>Reserve Mt</td>
-                <td></td>
+                <td>{{deposit.reserveMt}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.minedMt">
                 <td>Mined Mt</td>
-                <td></td>
+                <td>{{deposit.minedMt}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.commodityGrade">
                 <td>Commodity grade</td>
-                <td></td>
+                <td>{{deposit.commodityGrade}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.mineralogy">
                 <td>Ore mineralogy</td>
-                <td></td>
+                <td>{{deposit.mineralogy}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.hostRocks">
                 <td>Host rock</td>
-                <td></td>
+                <td>{{deposit.hostRocks}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.adjacentRock">
                 <td>Adjacent rock</td>
-                <td></td>
+                <td>{{deposit.adjacentRock}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.ageOfHostRocks">
                 <td>Age of host rocks</td>
-                <td></td>
+                <td>{{deposit.ageOfHostRocks}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.ageOfMineralization">
                 <td>Age of mineralization</td>
-                <td></td>
+                <td>{{deposit.ageOfMineralization}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.alteration">
                 <td>Alteration</td>
-                <td></td>
+                <td>{{deposit.alteration}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="deposit.comments">
                 <td>Comments</td>
-                <td></td>
+                <td>{{deposit.comments}}</td>
             </tr>
         </table>
     </div>
@@ -130,12 +130,12 @@
 </div>
 <div class="row ">
     <div class="col">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href="#drillcores" data-toggle="tab" (click)="getDrillcoresByDepositId(deposit.id)">Drillcores</a>
+        <ul class="nav nav-tabs" *ngIf="sites">
+            <li class="nav-item"> 
+                <a class="nav-link active" href="#drillcores" data-toggle="tab">Drillcores ({{sites.length}})</a> 
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#references" data-toggle="tab">References</a>
+                <a class="nav-link" href="#references" data-toggle="tab">References</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#linkedFIles" data-toggle="tab">Linked files</a>
@@ -143,7 +143,7 @@
         </ul>
         <br>
         <div class="tab-content">
-            <div class="tab-pane fade" id="drillcores">
+            <div class="tab-pane fade show active" id="drillcores">
                 <table class="table table-hover table-bordered ">
                     <thead class="thead-light">
                         <tr>
@@ -173,7 +173,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="tab-pane fade show active" id="references">
+            <div class="tab-pane fade " id="references">
                 <table class="table table-hover table-bordered ">
                     <thead class="thead-light">
                         <tr>

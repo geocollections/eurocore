@@ -58,8 +58,7 @@ export class SiteDetailsComponent implements OnInit {
   }
 
   getSiteById(id: string): void {
-    this.siteService.searchSiteById(id).subscribe(site => { this.site = site['results'][0]; console.log(this.site); this.mapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude);  });
-    
+    this.siteService.searchSiteById(id).subscribe(site => { this.site = site['results'][0]; console.log(this.site); this.mapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude);  });   
   }
 
   getDrillcoreBoxesByDrillcoreId(id: string): void {
@@ -110,11 +109,11 @@ export class SiteDetailsComponent implements OnInit {
 
   openAnalysisView(id:number):void{   
     var ID=id.toString(); 
-    window.open((this.platformLocation as any).location.pathname +'#/analysis/'+ID, '', 'width=500,height=800') ;
+    window.open((this.platformLocation as any).location.pathname +'#/analysis/'+ID, '', 'width=800,height=800') ;
   }
   openSampleView(id:number):void{   
     var ID=id.toString(); 
-    window.open((this.platformLocation as any).location.pathname +'#/sample/'+ID, '', 'width=500,height=800') ;
+    window.open((this.platformLocation as any).location.pathname +'#/sample/'+ID, '', 'width=800,height=800') ;
   }
 
   findFirstTab(){
