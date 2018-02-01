@@ -5,7 +5,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { AnalysisService } from '../services/analysis.service';
 import { AnalysisSummary } from '../analysis-summary';
-import Plotly from 'plotly.js/dist/plotly-basic.min';
+import Plotly from 'plotly.js/dist/plotly.min';
 import { TableExport } from 'tableexport';
 
 @Component({
@@ -21,6 +21,7 @@ export class DrillcoreDataComponent implements OnInit {
 
   filteredResults: AnalysisSummary[] = [];
   selectedParameters: String[] = [];
+  tableData: AnalysisSummary[];
 
   constructor(private siteService: SiteService, private route: ActivatedRoute, private analysisService: AnalysisService) {
   }
@@ -89,8 +90,8 @@ export class DrillcoreDataComponent implements OnInit {
           x,
           y,
           type: 'scattergl',
-          //mode: 'markers',
-          mode: 'lines+markers',
+          mode: 'markers',
+          //mode: 'lines+markers',
           //mode: 'lines',
           name: name,
           yaxis: 'y2',
@@ -101,8 +102,8 @@ export class DrillcoreDataComponent implements OnInit {
           x,
           y,
           type: 'scattergl',
-          //mode: 'markers',
-          mode: 'lines+markers',
+          mode: 'markers',
+          // mode: 'lines+markers',
           //mode: 'lines',
           name: name
         })
@@ -137,6 +138,7 @@ export class DrillcoreDataComponent implements OnInit {
         tickcolor: 'black'
       },
       yaxis: {
+        side: 'left',
         title: '%',
          linecolor: 'black',
          linewidth: 1,
@@ -240,7 +242,9 @@ export class DrillcoreDataComponent implements OnInit {
       }
       addRow = false;
     }
-    console.log("end...");
+    console.log("end..."); 
+    this.tableData=this.filteredResults.slice(0,100);
+    console.log(this.tableData);
   }
 
   getParameterColumnName(parameter, analysisSummary: AnalysisSummary): string {

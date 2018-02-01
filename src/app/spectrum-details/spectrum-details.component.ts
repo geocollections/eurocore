@@ -67,7 +67,7 @@ export class SpectrumDetailsComponent implements OnInit {
         t: 120,
         pad: 4
       },
-      title: 'Spectrum energy ranges',
+      title: 'Analysis ID: '+ this.analysisId,
       legend: {
         x: 0,
         y: 1.1,
@@ -89,7 +89,7 @@ export class SpectrumDetailsComponent implements OnInit {
         title: 'count',
         linecolor: 'black',
         linewidth: 1,
-        mirror: true,
+       // mirror: true,
        autotick: true,
        ticks: "outside",
        ticklen: 5,
@@ -123,7 +123,7 @@ export class SpectrumDetailsComponent implements OnInit {
           name: 'Download plot as a SVG',
           icon: Plotly.Icons.camera,
           click: function (gd) {
-            Plotly.downloadImage(gd, { format: 'svg' })
+            Plotly.downloadImage(gd, {filename: "spectrum", format: 'svg',height: 600, width: 900 })
           }
         }],
         displaylogo: false

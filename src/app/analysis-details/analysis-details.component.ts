@@ -21,7 +21,7 @@ export class AnalysisDetailsComponent implements OnInit {
 
   analysis: Analysis;
   analysisResults: AnalysisResult[];
-  spectrumCount: string;
+  spectrumCount: number;
 
   constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService, private mapService: MapService, private platformLocation: PlatformLocation) {
 

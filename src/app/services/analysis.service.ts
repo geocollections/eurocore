@@ -44,7 +44,7 @@ export class AnalysisService {
   }
 
   getAnalysisSummaryData(id:string):Observable<AnalysisSummary[]>{    
-    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id='+id+'&order_by=depth&format=jsonp&paginate_by=10000', 'callback').pipe();
+    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id='+id+'&order_by=depth&format=jsonp', 'callback').pipe();
   }
 
   getAnalysesByDepth(startDepth: string, endDepth:string, drillcoreId: string):Observable<Analysis[]>{
