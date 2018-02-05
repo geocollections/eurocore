@@ -27,14 +27,14 @@ export class SiteSearchComponent implements OnInit {
   pageCount;
 
 
-  searchDrillcoreName: string = "";
+  searchDrillcoreName: string = ""; 
   searchDepositName: string = "";
   searchOreType: string = "";
   searchCommodity: string = "";
   searchInstitution: string = "";
   searchDrillcoreId: string = "";
 
-  drillcoreIdArray: string[];
+  drillcoreIdArray: string[]=[];
 
 
   constructor(private siteService: SiteService, private mapService: MapService,private route: ActivatedRoute, private router: Router) {
@@ -46,7 +46,7 @@ export class SiteSearchComponent implements OnInit {
     this.getQueryParams();
     this.getMapSites();
     this.searchSites(1);
-    this.mapService.drawDrillcoreSearchMap(this);
+    this.mapService.drawDrillcoreSearchMap2(this);
     //this.getMapSites();   
   }
 
@@ -138,6 +138,7 @@ export class SiteSearchComponent implements OnInit {
 
     this.drillcoreIdArray = String(this.searchDrillcoreId).split(",");
 
+
     this.siteService.searchSites(this.drillcoreIdArray, this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution, page).subscribe(sites => {
       this.sites = sites['results']; this.siteCount = sites['count'];
       if (sites['page'])
@@ -146,7 +147,17 @@ export class SiteSearchComponent implements OnInit {
         this.pageCount = new Array(1);
 
     });
-    this.siteService.searchMapSites(this.drillcoreIdArray, this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites => { this.mapSites = sites['results']; this.mapService.addPoints(this.mapSites); console.log("mapsites" + this.mapSites.length); });
+    this.siteService.searchMapSites(this.drillcoreIdArray, this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites =>
+       { this.mapSites = sites['results'];
+
+       var showAllSites=false;
+       if(this.searchDrillcoreId=="" && this.searchDrillcoreName=="" && this.searchDepositName=="" && this.searchOreType=="" && this.searchCommodity=="" && this.searchInstitution=="" )
+       {
+       var showAllSites=true;
+       }
+       this.mapService.addPoints(this.mapSites, showAllSites); 
+        //this.mapService.addAllPoints(this.mapSites, showAllSites); 
+       console.log("mapsites" + this.mapSites.length); });
     this.selectedSite = undefined;
     this.setPageNumber(page);
     this.setSessionData();
@@ -158,7 +169,7 @@ export class SiteSearchComponent implements OnInit {
 
   onSelect(site: Site): void {
     this.selectedSite = site;
-    this.mapService.addPointWithName(site.name, site.longitude, site.latitude);
+    //this.mapService.addPointWithName(site.name, site.longitude, site.latitude);
 
   }
 
@@ -167,7 +178,8 @@ export class SiteSearchComponent implements OnInit {
   }
 
   getMapSites(): void {
-    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; this.mapService.addAllPoints(this.mapSites) });
+    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; this.mapService.addAllPoints(this.mapSites)
+   });
     //console.log("getsites" + this.sites.length);
   }
 
