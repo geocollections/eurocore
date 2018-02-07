@@ -51,4 +51,31 @@ export class AnalysisService {
     return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?drillcore__id='+drillcoreId+'&depth__range='+startDepth+','+endDepth+'&end_depth__range='+startDepth+','+endDepth+'&format=jsonp&order_by=depth',"callback").pipe(); 
   }
 
+  getAllAnalysesMethods():Observable<String[]>{
+    return this.http.jsonp<String[]>('http://api.eurocore.rocks/analysis_summary/?fields=analysis_method&distinct=true&format=jsonp', 'callback').pipe();
+  }
+
+  getMeasuredParameters(name: string, methods: string){
+    let nameCriteria="";
+    let methodCriteria="";
+    if(name!="")
+    nameCriteria='&drillcore__name='+name;
+    if(methods.length!=0)
+    methodCriteria='&analysis_method__method__iexact='+methods;
+
+    return this.http.jsonp<String[]>('http://api.eurocore.rocks/analysis/?fields=analysisresult__parameter__parameter,analysisresult__unit__unit&order_by=analysisresult__parameter__parameter&distinct=true&format=jsonp&analysisresult__unit__unit__isnull=false'+nameCriteria+methodCriteria, 'callback').pipe();
+  }
+
+  getAnalysesData(id: string, methods: string, parameters: string):Observable<AnalysisSummary[]>{
+    let idCriteria="";
+    let methodCriteria="";
+    let parameterCriteria="";
+    if(id!="")
+    idCriteria='&drillcore_id='+id;
+    if(methods.length!=0)
+    methodCriteria='&analysis_method__iexact='+methods;
+    if(parameters!="")
+    parameterCriteria="&"+parameters;
+    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?format=jsonp'+idCriteria+methodCriteria+parameterCriteria+'&paginate_by=3000', 'callback').pipe();
+  }
 }

@@ -63,7 +63,9 @@ export class MapService {
           source: new ol.source.XYZ({
             url: 'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
           })
-        }),
+        }), 
+        
+
         allVectorsLayer,
       ],
       target: 'map',

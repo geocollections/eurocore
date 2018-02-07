@@ -23,4 +23,8 @@ export class SampleService {
     return this.http.jsonp<Sample[]>('http://api.eurocore.rocks/sample/?drillcore__id='+drillcoreId+'&depth__range='+startDepth+','+endDepth+'&end_depth__range='+startDepth+','+endDepth+'&format=jsonp&order_by=depth',"callback").pipe();  
   }
 
+  searchSamplesByIds(id: string[]){
+    return this.http.jsonp<Sample>('http://api.eurocore.rocks/sample/?id__in='+id.toString()+'&format=jsonp',"callback").pipe();
+  }
+
 }

@@ -26,7 +26,7 @@ export class SiteService {
     if (!name.trim()) {
       return of([]);
     }
-    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&fields=name&name__icontains=' + name, "callback").pipe();
+    return this.http.jsonp<[Site]>('http://api.eurocore.rocks/drillcore/?format=jsonp&fields=name,id&name__icontains=' + name, "callback").pipe();
   }
   searchDepositByName(name: string): Observable<Site[]> {
     if (!name.trim()) {
@@ -145,6 +145,10 @@ export class SiteService {
 
   searchDrillcoreSummaryById(id:string): Observable<DrillcoreSummary>{
     return this.http.jsonp<DrillcoreSummary>('http://api.eurocore.rocks/drillcore_summary/?format=jsonp&drillcore__id__iexact='+id, "callback").pipe();
+  }
+
+  searchAnalysesMethods(name: string): Observable<String[]>{
+    return this.http.jsonp<String[]>('http://api.eurocore.rocks/drillcore/?name='+name+'&fields=analysis__analysis_method__method&distinct=true&format=jsonp', "callback").pipe();
   }
 
 }
