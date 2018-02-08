@@ -8,58 +8,58 @@
         <h4>Sample details</h4>
         <table class="table">
             <colgroup>
-                <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+                <col span="1" >
             </colgroup>
             <tr *ngIf="sample.id">
-                <td>ID</td>
+                <td class="verticalTableHead">ID</td>
                 <td>{{sample.id}}</td>
             </tr>
             <tr *ngIf="sample.sample_number">
-                <td>Number</td>
+                <td class="verticalTableHead">Number</td>
                 <td>{{sample.sample_number}}</td>
             </tr>
             <tr *ngIf="sample.drillcore__name">
-                <td>Locality</td>
+                <td class="verticalTableHead">Locality</td>
                 <td>{{sample.drillcore__name}}</td>
             </tr>
             <tr *ngIf="sample.latitude">
-                <td>Latitude</td>
+                <td class="verticalTableHead">Latitude</td>
                 <td>{{sample.latitude}}</td>
             </tr>
             <tr *ngIf="sample.longitude">
-                <td>Longitude</td>
+                <td class="verticalTableHead">Longitude</td>
                 <td>{{sample.longitude}}</td>
             </tr>
             <tr *ngIf="sample.depth">
-                <td>Depth from, m</td>
+                <td class="verticalTableHead">Depth from, m</td>
                 <td>{{sample.depth}}</td>
             </tr>
             <tr *ngIf="sample.end_depth">
-                <td>Depth to, m</td>
+                <td class="verticalTableHead">Depth to, m</td>
                 <td>{{sample.end_depth}}</td>
             </tr>
             <tr *ngIf="sample.description">
-                <td>Description</td>
+                <td class="verticalTableHead">Description</td>
                 <td>{{sample.description}}</td>
             </tr>
             <tr *ngIf="sample.weight">
-                <td>Weight, g</td>
+                <td class="verticalTableHead">Weight, g</td>
                 <td>{{sample.weight}}</td>
             </tr>
             <tr *ngIf="sample.preparation">
-                <td>Preparation</td>
+                <td class="verticalTableHead">Preparation</td>
                 <td>{{sample.preparation}}</td>
             </tr>
             <tr *ngIf="sample.takenBy">
-                <td>Sample taken by</td>
+                <td class="verticalTableHead">Sample taken by</td>
                 <td>{{sample.takenBy}}</td>
             </tr>
             <tr *ngIf="sample.date">
-                <td>Date</td>
+                <td class="verticalTableHead">Date</td>
                 <td>{{sample.date}}</td>
             </tr>
             <tr *ngIf="sample.storage">
-                <td>Storage</td>
+                <td class="verticalTableHead">Storage</td>
                 <td>{{sample.storage}}</td>
             </tr>
         </table>

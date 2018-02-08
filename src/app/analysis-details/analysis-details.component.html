@@ -9,65 +9,65 @@
         <h4>Analysis details</h4>
       <table class="table table-hover table-bordered table-responsive">
         <colgroup>
-          <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+          <col span="1" >
         </colgroup>
         <tr *ngIf="analysis.id">
-          <td>ID</td>
+          <td class="verticalTableHead">ID</td>
           <td>{{analysis.id}}</td>
         </tr>
         <tr *ngIf="analysis.sample__drillcore__name">
-          <td>Drillcore</td>
+          <td class="verticalTableHead">Drillcore</td>
           <td>{{analysis.sample__drillcore__name}}</td>
         </tr>
         <tr *ngIf="analysis.sample__sample_number">
-          <td>Sample</td>
+          <td class="verticalTableHead">Sample</td>
           <td>
-            <!--<a routerLink="/sample/{{analysis.sample__id}}">{{analysis.sample__sample_number}}</a>-->
-            {{analysis.sample__sample_number}}
+            <a routerLink="/sample/{{analysis.sample__id}}">{{analysis.sample__sample_number}}</a>
+           <!-- {{analysis.sample__sample_number}}-->
           </td>
         </tr>
         <tr *ngIf="analysis.depth">
-          <td>Depth from, m</td>
+          <td class="verticalTableHead">Depth from, m</td>
           <td>{{analysis.depth}}</td>
         </tr>
         <tr *ngIf="analysis.end_depth">
-          <td>Depth to, m</td>
+          <td class="verticalTableHead">Depth to, m</td>
           <td>{{analysis.end_depth}}</td>
         </tr>
         <tr *ngIf="analysis.analysis_method__method">
-          <td>Method</td>
+          <td class="verticalTableHead">Method</td>
           <td>{{analysis.analysis_method__method}}</td>
         </tr>
         <tr *ngIf="analysis.lab__lab">
-          <td>Lab</td>
+          <td class="verticalTableHead">Lab</td>
           <td>{{analysis.lab__lab}}</td>
         </tr>
         <tr *ngIf="analysis.instrument__instrument">
-          <td>Instrument</td>
+          <td class="verticalTableHead">Instrument</td>
           <td>{{analysis.instrument__instrument}}</td>
         </tr>
         <tr *ngIf="analysis.instrument__model">
-          <td>Instrument model</td>
+          <td class="verticalTableHead">Instrument model</td>
           <td>{{analysis.instrument__model}}</td>
         </tr>
         <tr *ngIf="analysis.analytical">
-          <td>Analytical procedures & conditions</td>
+          <td class="verticalTableHead">Analytical procedures & conditions</td>
           <td>{{analysis.analytical}}</td>
         </tr>
         <tr *ngIf="analysis.refs">
-          <td>Reference sample(s) or standard(s)</td>
+          <td class="verticalTableHead">Reference sample(s) or standard(s)</td>
           <td>{{analysis.refs}}</td>
         </tr>
         <tr *ngIf="analysis.postProcessing">
-          <td>Post-processing </td>
+          <td class="verticalTableHead">Post-processing </td>
           <td>{{analysis.postProcessing}}</td>
         </tr>
         <tr *ngIf="analysis.agent__name">
-        <td>Analyzed by</td>
+        <td class="verticalTableHead">Analyzed by</td>
         <td>{{analysis.agent__name}}</td>
         </tr>
         <tr *ngIf="analysis.date">
-          <td>Date</td>
+          <td class="verticalTableHead">Date</td>
           <td>{{analysis.date}}</td>
         </tr>
       </table>

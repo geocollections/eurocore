@@ -141,7 +141,7 @@ export class MapService {
         allVectors.getFeatures()[k].setStyle(new ol.style.Style({
           image: new ol.style.Circle({
             radius: 7,
-            fill: new ol.style.Fill({ color: 'green' }),
+            fill: new ol.style.Fill({ color: '#6BB745' }),
             stroke: new ol.style.Stroke({
               color: 'black',
               width: 1
@@ -167,7 +167,7 @@ export class MapService {
         feature.setStyle(new ol.style.Style({
           image: new ol.style.Circle({
             radius: 7,
-            fill: new ol.style.Fill({ color: 'red' }),
+            fill: new ol.style.Fill({ color: '#CD154F' }),
             stroke: new ol.style.Stroke({
               color: 'black',
               width: 1
@@ -218,7 +218,7 @@ export class MapService {
       pointWithName.setStyle(new ol.style.Style({
         image: new ol.style.Circle({
           radius: 7,
-          fill: new ol.style.Fill({ color: 'red' }),
+          fill: new ol.style.Fill({ color: '#CD154F' }),
           stroke: new ol.style.Stroke({
             color: 'black',
             width: 1
@@ -254,7 +254,7 @@ export class MapService {
       this.allVectors.getFeatures()[k].setStyle(new ol.style.Style({
         image: new ol.style.Circle({
           radius: 7,
-          fill: new ol.style.Fill({ color: 'green' }),
+          fill: new ol.style.Fill({ color: '#6BB745' }),
           stroke: new ol.style.Stroke({
             color: 'black',
             width: 1
@@ -283,7 +283,7 @@ export class MapService {
         this.allVectors.getFeatureById(sites[i].id).setStyle(new ol.style.Style({
           image: new ol.style.Circle({
             radius: 7,
-            fill: new ol.style.Fill({ color: 'red' }),
+            fill: new ol.style.Fill({ color: '#CD154F' }),
             stroke: new ol.style.Stroke({
               color: 'black',
               width: 1
@@ -325,7 +325,7 @@ export class MapService {
         point.setStyle(new ol.style.Style({
           image: new ol.style.Circle({
             radius: 7,
-            fill: new ol.style.Fill({ color: 'green' }),
+            fill: new ol.style.Fill({ color: '#6BB745' }),
             stroke: new ol.style.Stroke({
               color: 'black',
               width: 1

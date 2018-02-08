@@ -58,7 +58,7 @@
         <input [(ngModel)]="searchDrillcoreId" type="hidden" id="drillcoreId" class="form-control" placeholder="ID" />
       </div>
       <button (click)="searchSites()" class="btn btn-primary">SEARCH DRILLCORES</button>
-      <button (click)="resetFormValues()" class="btn btn-danger">RESET FORM</button>
+      <button (click)="resetFormValues()" class="btn btn-primary">RESET FORM</button>
 
     </div>
     <div class="col">
@@ -76,14 +76,14 @@
       <nav aria-label="Page navigation example" class="float-right">
         <ul class="pagination " *ngIf="siteCount>10">
           <li class="page-item" [ngClass]="{'disabled': pageNumber==1}">
-            <a class="page-link" (click)="searchSites( pageNumber-1)">Previous</a>
+            <a class="page-link" href="javascript:void(0);" (click)="searchSites( pageNumber-1)">Previous</a>
           </li>
 
           <li *ngFor="let page of pageCount; let index = index" class="page-item" [ngClass]="{'active': pageNumber== index + 1 }">
-            <a class="page-link" (click)="searchSites( index + 1 )">{{ index + 1 }}</a>
+            <a class="page-link" href="javascript:void(0);" (click)="searchSites( index + 1 )">{{ index + 1 }}</a>
           </li>
           <li class="page-item" [ngClass]="{'disabled': pageNumber==pageCount.length}">
-            <a class="page-link" (click)="searchSites( pageNumber+1)">Next</a>
+            <a class="page-link" href="javascript:void(0);" (click)="searchSites( pageNumber+1)">Next</a>
           </li>
         </ul>
       </nav>

@@ -8,118 +8,118 @@
     <div class="col">
         <table *ngIf="deposit" class="table">
             <colgroup>
-                <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+                <col span="1"  >
             </colgroup>
             <tr *ngIf="deposit.id">
-                <td>ID</td>
+                <td class="verticalTableHead">ID</td>
                 <td>{{deposit.id}}</td>
             </tr>
             <tr *ngIf="deposit.name">
-                <td>Name</td>
+                <td class="verticalTableHead">Name</td>
                 <td>{{deposit.name}}</td>
             </tr>
             <tr *ngIf="deposit.alternative_names">
-                <td>Alternative names</td>
+                <td class="verticalTableHead">Alternative names</td>
                 <td>{{deposit.alternative_names}}</td>
             </tr>
             <tr *ngIf="deposit.latitude">
-                <td>Latitude</td>
+                <td class="verticalTableHead">Latitude</td>
                 <td>{{deposit.latitude}}</td>
             </tr>
             <tr *ngIf="deposit.longitude">
-                <td>Longitude</td>
+                <td class="verticalTableHead">Longitude</td>
                 <td>{{deposit.longitude}}</td>
             </tr>
             <tr *ngIf="deposit.genetic_type__name">
-                <td>Ore genetic type</td>
+                <td class="verticalTableHead">Ore genetic type</td>
                 <td>{{deposit.genetic_type__name}}</td>
             </tr>
             <tr *ngIf="deposit.metal_group__name">
-                <td>Metal group</td>
+                <td class="verticalTableHead">Metal group</td>
                 <td>{{deposit.metal_group__name}}</td>
             </tr>
             <tr *ngIf="deposit.metal_subgroup__name">
-                <td>Metal subgroup</td>
+                <td class="verticalTableHead">Metal subgroup</td>
                 <td>{{deposit.metal_subgroup__name}}</td>
             </tr>
             <tr *ngIf="deposit.main_commodity">
-                <td>Main commodity</td>
+                <td class="verticalTableHead">Main commodity</td>
                 <td>{{deposit.main_commodity}}</td>
             </tr>
             <tr *ngIf="deposit.other_commodities">
-                <td>Other commodities</td>
+                <td class="verticalTableHead">Other commodities</td>
                 <td>{{deposit.other_commodities}}</td>
             </tr>
             <tr *ngIf="deposit.size">
-                <td>Size</td>
+                <td class="verticalTableHead">Size</td>
                 <td>{{deposit.size}}</td>
             </tr>
             <tr *ngIf="deposit.shape">
-                <td>Shape</td>
+                <td class="verticalTableHead">Shape</td>
                 <td>{{deposit.shape}}</td>
             </tr>
             <tr *ngIf="deposit.status">
-                <td>Status</td>
+                <td class="verticalTableHead">Status</td>
                 <td>{{deposit.status}}</td>
             </tr>
             <tr *ngIf="deposit.miningMethod">
-                <td>Mining method</td>
+                <td class="verticalTableHead">Mining method</td>
                 <td>{{deposit.miningMethod}}</td>
             </tr>
             <tr *ngIf="deposit.miningStarted">
-                <td>Mining started</td>
+                <td class="verticalTableHead">Mining started</td>
                 <td>{{deposit.miningStarted}}</td>
             </tr>
             <tr *ngIf="deposit.miningTerminated">
-                <td>Mining terminated</td>
+                <td class="verticalTableHead">Mining terminated</td>
                 <td>{{deposit.miningTerminated}}</td>
             </tr>
             <tr *ngIf="deposit.minedIn">
-                <td>Mined in</td>
+                <td class="verticalTableHead">Mined in</td>
                 <td>{{deposit.minedIn}}</td>
             </tr>
             <tr *ngIf="deposit.resourceMt">
-                <td>Resource Mt</td>
+                <td class="verticalTableHead">Resource Mt</td>
                 <td>{{deposit.resourceMt}}</td>
             </tr>
             <tr *ngIf="deposit.reserveMt">
-                <td>Reserve Mt</td>
+                <td class="verticalTableHead">Reserve Mt</td>
                 <td>{{deposit.reserveMt}}</td>
             </tr>
             <tr *ngIf="deposit.minedMt">
-                <td>Mined Mt</td>
+                <td class="verticalTableHead">Mined Mt</td>
                 <td>{{deposit.minedMt}}</td>
             </tr>
             <tr *ngIf="deposit.commodityGrade">
-                <td>Commodity grade</td>
+                <td class="verticalTableHead">Commodity grade</td>
                 <td>{{deposit.commodityGrade}}</td>
             </tr>
             <tr *ngIf="deposit.mineralogy">
-                <td>Ore mineralogy</td>
+                <td class="verticalTableHead">Ore mineralogy</td>
                 <td>{{deposit.mineralogy}}</td>
             </tr>
             <tr *ngIf="deposit.hostRocks">
-                <td>Host rock</td>
+                <td class="verticalTableHead">Host rock</td>
                 <td>{{deposit.hostRocks}}</td>
             </tr>
             <tr *ngIf="deposit.adjacentRock">
-                <td>Adjacent rock</td>
+                <td class="verticalTableHead">Adjacent rock</td>
                 <td>{{deposit.adjacentRock}}</td>
             </tr>
             <tr *ngIf="deposit.ageOfHostRocks">
-                <td>Age of host rocks</td>
+                <td class="verticalTableHead">Age of host rocks</td>
                 <td>{{deposit.ageOfHostRocks}}</td>
             </tr>
             <tr *ngIf="deposit.ageOfMineralization">
-                <td>Age of mineralization</td>
+                <td class="verticalTableHead">Age of mineralization</td>
                 <td>{{deposit.ageOfMineralization}}</td>
             </tr>
             <tr *ngIf="deposit.alteration">
-                <td>Alteration</td>
+                <td class="verticalTableHead">Alteration</td>
                 <td>{{deposit.alteration}}</td>
             </tr>
             <tr *ngIf="deposit.comments">
-                <td>Comments</td>
+                <td class="verticalTableHead">Comments</td>
                 <td>{{deposit.comments}}</td>
             </tr>
         </table>

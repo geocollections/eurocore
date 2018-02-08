@@ -9,56 +9,56 @@
   <div class="col">
     <table *ngIf="site" class="table">
       <colgroup>
-        <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+        <col span="1" >
       </colgroup>
       <tr *ngIf="site.id">
-        <td>ID</td>
+        <td class="verticalTableHead">ID</td>
         <td>{{site.id}}</td>
       </tr>
       <tr *ngIf="site.deposit__name">
-        <td>Deposit</td>
+        <td class="verticalTableHead">Deposit</td>
         <td>
           <a routerLink="/deposit/{{site.deposit__id}}">{{site.deposit__name}}</a>
         </td>
       </tr>
       <tr *ngIf="site.latitude">
-        <td>Latitude</td>
+        <td class="verticalTableHead">Latitude</td>
         <td>{{site.latitude}}</td>
       </tr>
       <tr *ngIf="site.longitude">
-        <td>Longitude</td>
+        <td class="verticalTableHead">Longitude</td>
         <td>{{site.longitude}}</td>
       </tr>
       <tr *ngIf="site.elevation">
-        <td>Elevation</td>
+        <td class="verticalTableHead">Elevation</td>
         <td></td>
       </tr>
       <tr *ngIf="site.hole_length">
-        <td>Length</td>
+        <td class="verticalTableHead">Length</td>
         <td>{{site.hole_length}} m</td>
       </tr>
       <tr *ngIf="site.hole_dip">
-        <td>Dip</td>
+        <td class="verticalTableHead">Dip</td>
         <td>{{site.hole_dip}}</td>
       </tr>
       <tr *ngIf="site.hole_azimuth">
-        <td>Azimuth</td>
+        <td class="verticalTableHead">Azimuth</td>
         <td>{{site.hole_azimuth}}</td>
       </tr>
       <tr *ngIf="site.drilling_year">
-        <td>Drilling year</td>
+        <td class="verticalTableHead">Drilling year</td>
         <td>{{site.drilling_year}}</td>
       </tr>
       <tr *ngIf="site.drilling_agent__name">
-        <td>Drilling company</td>
+        <td class="verticalTableHead">Drilling company</td>
         <td>{{site.drilling_agent__name}}</td>
       </tr>
       <tr *ngIf="site.number_boxes">
-        <td>Number of boxes</td>
+        <td class="verticalTableHead">Number of boxes</td>
         <td>{{site.number_boxes}}</td>
       </tr>
       <tr *ngIf="site.core_depositor__name">
-        <td>Deposited by </td>
+        <td class="verticalTableHead">Deposited by </td>
         <td>{{site.core_depositor__name}}</td>
       </tr>
     </table>
@@ -226,10 +226,10 @@
             </a>
             <table class="table">
               <colgroup>
-                <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+                <col span="1" >
               </colgroup>
               <tr>
-                <td>Depth:</td>
+                <td class="verticalTableHead">Depth:</td>
                 <td>{{drillcoreBox.start_depth.toFixed(2)}} - {{drillcoreBox.end_depth.toFixed(2)}} m</td>
               </tr>
             </table>

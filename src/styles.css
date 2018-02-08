@@ -101,5 +101,79 @@
   padding-top: 10px;
 }
 
+.navbar {
+  background-color: rgba(0,68,148,1)!important;
+}
+
+.navbar-dark .navbar-brand {
+  color: white!important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white!important;
+}
+
+.h3, h3 {
+  color: #6BB745!important;
+  font-weight: 600!important;
+}
+h2, h4, h5{
+  color: #6BB745!important;
+}
+
+
+.btn-primary {
+  color: #fff!important;
+  /*background-color: #6BB745!important;
+  border-color: #6BB745!important; */
+  background-color: #004393!important;
+  border-color: #004393!important; 
+}
+
+.btn-danger {
+  color: #fff!important;
+  background-color: #004393!important;
+  border-color: #004393!important; 
+}
+
+
+#footer {
+  background-color: rgba(0,68,148,0.1)!important;
+}
+
+.page-link {
+  color: #004393!important;
+  border: 1px solid #ddd!important;
+}
+
+.page-item.active .page-link {
+  color: #fff!important;
+  background-color: #004393!important;
+}
+
+
+.table .thead-light th {
+  color: #004393!important;
+  background-color: rgba(0,68,148,0.2)!important;
+  /* border-color: #004393; */
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  color: #fff!important;
+  background-color: #004393!important;
+}
+
+.ol-control button {
+  background-color: #004393!important;
+}
+
+.verticalTableHead { 
+  color: #004393!important;
+  background-color: rgba(0,68,148,0.2)!important;
+  font-weight: bold!important;
+}
+.container{
+  margin-bottom: 40px;
+}
 
   

@@ -12,8 +12,8 @@
 			 [typeahead]="drillcoreAutocompleteValues" [typeaheadWaitMs]="200" autocomplete="off" (input)="getDrillcoreByName()" />
 		</div>
 		<div class="form-group">
-			<select class="form-control" [(ngModel)]="searchAnalysesMethods"  (focus)="getAnalyticalMehtods()" >
-					<option value=""></option>
+			<select class="form-control"  [(ngModel)]="searchAnalysesMethods"  (focus)="getAnalyticalMehtods()" >
+					<option value="" ></option>
 				<option *ngFor="let method of methodAutocompleteValues"  value="{{method}}" >{{method}}</option>
 			</select>		
 		</div>

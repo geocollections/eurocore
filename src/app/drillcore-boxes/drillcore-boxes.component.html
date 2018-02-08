@@ -7,22 +7,22 @@
     <div class="col">
         <table class="table" *ngIf="corebox">
             <colgroup>
-                <col span="1" style="background-color:rgba(128, 128, 128, 0.11)">
+                <col span="1" >
             </colgroup>
             <tr>
-                <td>ID</td>
+                <td class="verticalTableHead">ID</td>
                 <td>{{corebox.id}}</td>
             </tr>
             <tr>
-                <td>Drillcore</td>
+                <td class="verticalTableHead">Drillcore</td>
                 <td>{{corebox.drillcore__name}}</td>
             </tr>
             <tr>
-                <td>Depth from (m)</td>
+                <td class="verticalTableHead">Depth from (m)</td>
                 <td>{{corebox.start_depth}}</td>
             </tr>
             <tr>
-                <td>Depth to (m)</td>
+                <td class="verticalTableHead">Depth to (m)</td>
                 <td>{{corebox.end_depth}}</td>
             </tr>
         </table>
