@@ -66,6 +66,8 @@
   <div class="col">
 
     <div id="map" class="map"></div>
+    <br>
+    <a class="btn btn-primary" routerLink="/drillcore_data/{{site.id}}" >Show analytical data</a>
   </div>
 </div>
 
@@ -80,7 +82,7 @@
         <a class="nav-link" href="#dipAzimuth" data-toggle="tab" id="dipTab">Dip/azimuth ({{drillcoreSummary.dips}})</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.rqds==0  || drillcoreSummary.rqds==null)" class="nav-item">
-        <a class="nav-link" href="#RQD" data-toggle="tab" id="rqdTab">RQD ({{drillcoreSummary.rqds}})</a>
+        <a class="nav-link" href="#RQD" data-toggle="tab" (click)="getRqdByDrillcoreId(site.id)" id="rqdTab">RQD ({{drillcoreSummary.rqds}})</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.structures==0  || drillcoreSummary.structures==null)" class="nav-item">
         <a class="nav-link" href="#structures" data-toggle="tab" id="structuresTab">Structures ({{drillcoreSummary.structures}})</a>
@@ -145,10 +147,10 @@
               <th>Azimuth</th>
             </tr>
           </thead>
-          <tr>
-            <td>123</td>
-            <td>223</td>
-            <td>----</td>
+          <tr *ngFor="let d of dip">
+            <td>{{d.depth}}</td>
+            <td>{{d.dip}}</td>
+            <td>{{d.azimuth}}</td>
           </tr>
         </table>
       </div>
@@ -157,20 +159,20 @@
               <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
-              <th>Depth to (m)</th>
-              <th>Core loss</th>
-              <th>RQD</th>
+              <th>Depth to (m)</th>            
+              <th>RQD %</th>
+              <th>Fractures</th>
               <th>Person/Institution</th>
               <th>Date</th>
             </tr>
           </thead>
-          <tr>
-            <td>123</td>
-            <td>223</td>
-            <td>Name</td>
-            <td>Abcde</td>
-            <td>dfgffggf</td>
-            <td>------------------</td>
+          <tr *ngFor="let r of rqd">
+            <td>{{r.depth}}</td>
+            <td>{{r.end_depth}}</td>
+            <td>{{r.rqd}}</td>
+            <td>{{r.fractures}}</td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
       </div>

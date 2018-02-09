@@ -16,11 +16,16 @@ import { Sample } from '../sample';
 import { AnalysisService } from '../services/analysis.service';
 import { Analysis } from '../analysis';
 import { DrillcoreSummary } from '../drillcoreSummary';
+import { DipService } from '../services/dip.service';
+import { Dip } from '../dip';
 
 import * as $ from 'jquery'; 
 import 'popper.js';
 //import  'bootstrap/dist/js/bootstrap.min';
 import  'bootstrap/js/src/tab';
+import { RqdService } from '../services/rqd.service';
+import { Rqd } from '../rqd';
+
 
 
 @Component({
@@ -37,6 +42,8 @@ export class SiteDetailsComponent implements OnInit {
   samples: Sample[];
   analyzes: Analysis[];
   drillcoreSummary: DrillcoreSummary;
+  dip: Dip[];
+  rqd: Rqd[];
 
   pageNr: number = 1;
   paginateBy = 5;
@@ -45,7 +52,8 @@ export class SiteDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private siteService: SiteService, private mapService: MapService,
     private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title, 
-    private sampleService: SampleService, private analysisService: AnalysisService, private platformLocation: PlatformLocation) { 
+    private sampleService: SampleService, private analysisService: AnalysisService, private platformLocation: PlatformLocation,
+    private dipService: DipService, private rqdService: RqdService) { 
       console.log("Path: " +JSON.stringify((this.platformLocation as any).location.href));
       window.scrollTo(0, 0);
     }
@@ -95,6 +103,14 @@ export class SiteDetailsComponent implements OnInit {
     this.sampleService.searchSamplesByDrillcoreId(drillcoreId).subscribe(samples=> {this.samples=samples['results']; console.log(this.samples)});
   }
 
+  getDipByDrillcoreId(id: string):void{
+    this.dipService.getDipByDrillcoreId(id).subscribe(dip =>{this.dip=dip['results']; console.log("dip "+this.dip)});
+  }
+
+  getRqdByDrillcoreId(id: string):void{
+    this.rqdService.getRqdByDrillcoreId(id).subscribe(rqd =>{this.rqd=rqd['results']; console.log("rqd "+ this.rqd)})
+  }
+
   getAnalyzesByDrillcoreId(drillcoreId: string): void{
     this.analysisService.getAnalyzesByDrillcoreId(drillcoreId).subscribe(analyzes=>{this.analyzes=analyzes['results']; console.log(this.analyzes)});
   }
@@ -126,6 +142,7 @@ export class SiteDetailsComponent implements OnInit {
     if(!(this.drillcoreSummary.dips==0  || this.drillcoreSummary.dips==null)){
       console.log("dip"); 
       //this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.getDipByDrillcoreId(this.site.id.toString());
       this.activateTab("dipTab");
       return;   
     }

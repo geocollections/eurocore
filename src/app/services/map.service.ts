@@ -194,7 +194,7 @@ export class MapService {
     });
 
 
-    selectPointerMove.on('select', function (e) {
+     selectPointerMove.on('select', function (e) {
       if (e.selected.length != 0) {
         e.selected[0].getStyle().getText().setScale(1.4);
       }
@@ -248,7 +248,10 @@ export class MapService {
 
   addPoints(sites: Site[], allSites: boolean): void {
     // this.selectedFeatures2.clear();
+    console.log(sites);
+    console.log("allsites boolean "+allSites);
     this.sel.getFeatures().getArray().length = 0;
+    console.log("length"+ this.allVectors.getFeatures().length);
 
     for (var k = 0; k < this.allVectors.getFeatures().length; k++) {
       this.allVectors.getFeatures()[k].setStyle(new ol.style.Style({

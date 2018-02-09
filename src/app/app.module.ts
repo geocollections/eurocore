@@ -33,6 +33,8 @@ import { FrontpageComponent } from './frontpage/frontpage.component';
 import { DrillcoreBoxService } from './services/drillcore-box.service';
 import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.component';
 import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.component';
+import { DipService } from './services/dip.service';
+import { RqdService } from './services/rqd.service';
 
  
 
@@ -65,7 +67,7 @@ import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.co
     TypeaheadModule.forRoot(),
     SelectModule,
   ],
-  providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService],
+  providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService, DipService, RqdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

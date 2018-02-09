@@ -178,7 +178,9 @@ export class SiteSearchComponent implements OnInit {
   }
 
   getMapSites(): void {
-    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; this.mapService.addAllPoints(this.mapSites)
+    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; 
+    this.mapService.addAllPoints(this.mapSites)
+    //this.mapService.addPoints(this.mapSites, true);
    });
     //console.log("getsites" + this.sites.length);
   }
