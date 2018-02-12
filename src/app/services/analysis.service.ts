@@ -78,4 +78,8 @@ export class AnalysisService {
     parameterCriteria="&"+parameters;
     return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?format=jsonp'+idCriteria+methodCriteria+parameterCriteria+'&paginate_by=3000', 'callback').pipe();
   }
+
+  getCTscansByDrillcoreId(id: string):Observable<Analysis[]> {
+    return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?drillcore__id='+id+'&analysis_method__method=CT&format=jsonp', 'callback').pipe();
+  }
 }

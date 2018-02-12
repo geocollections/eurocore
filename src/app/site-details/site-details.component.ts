@@ -44,6 +44,7 @@ export class SiteDetailsComponent implements OnInit {
   drillcoreSummary: DrillcoreSummary;
   dip: Dip[];
   rqd: Rqd[];
+  CTscans: Analysis[];
 
   pageNr: number = 1;
   paginateBy = 5;
@@ -63,6 +64,7 @@ export class SiteDetailsComponent implements OnInit {
     this.mapService.drawDetailsViewMap();
     this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
+    //this.getCTscansByDrillcoreId("29");
   }
 
   getSiteById(id: string): void {
@@ -105,6 +107,10 @@ export class SiteDetailsComponent implements OnInit {
 
   getDipByDrillcoreId(id: string):void{
     this.dipService.getDipByDrillcoreId(id).subscribe(dip =>{this.dip=dip['results']; console.log("dip "+this.dip)});
+  }
+
+  getCTscansByDrillcoreId(id: string):void{
+    this.analysisService.getCTscansByDrillcoreId(id).subscribe( CTscans=>{this.CTscans=CTscans['results']; console.log(this.CTscans)});
   }
 
   getRqdByDrillcoreId(id: string):void{

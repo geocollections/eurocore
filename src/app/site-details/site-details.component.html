@@ -79,7 +79,7 @@
         <a class="nav-link" href="#lithology" data-toggle="tab" (click)="getLithologyByDrillcoreId(site.id)" id="lithologyTab">Lithology ({{drillcoreSummary.lithologies}})</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.dips==0  || drillcoreSummary.dips==null)" class="nav-item">
-        <a class="nav-link" href="#dipAzimuth" data-toggle="tab" id="dipTab">Dip/azimuth ({{drillcoreSummary.dips}})</a>
+        <a class="nav-link" href="#dipAzimuth" data-toggle="tab" (click)="getDipByDrillcoreId(site.id)" id="dipTab">Dip/azimuth ({{drillcoreSummary.dips}})</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.rqds==0  || drillcoreSummary.rqds==null)" class="nav-item">
         <a class="nav-link" href="#RQD" data-toggle="tab" (click)="getRqdByDrillcoreId(site.id)" id="rqdTab">RQD ({{drillcoreSummary.rqds}})</a>
@@ -98,6 +98,9 @@
       </li>
       <li *ngIf=" !(drillcoreSummary.analyses==0  || drillcoreSummary.analyses==null)" class="nav-item">
         <a class="nav-link" href="#analyses" data-toggle="tab" (click)="getAnalyzesByDrillcoreId(site.id)" id="analysesTab">Analyses ({{drillcoreSummary.analyses}})</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#CTscans" data-toggle="tab" (click)="getCTscansByDrillcoreId(site.id)" id="CTscansTab">CT scans ()</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.attachments==0  || drillcoreSummary.attachments==null)" class="nav-item">
         <a class="nav-link" href="#linkedFiles" data-toggle="tab" id="attachmentsTab">Linked files ({{drillcoreSummary.attachments}})</a>
@@ -297,6 +300,30 @@
           </tr>
         </table>
       </div>
+      <div class="tab-pane fade" id="CTscans">
+        <table *ngIf="CTscans" class="table table-hover table-bordered ">
+            <thead class="thead-light">
+          <tr>
+            <th>ID</th>
+            <th>Depth (m)</th>
+            <th>Depth (m, interval)</th>
+            <th>Instrument</th>
+            <th>Person/Institution</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tr *ngFor="let CTscan of CTscans">
+          <td>{{CTscan.id}}</td>
+          <td>{{CTscan.depth}}</td>
+          <td>{{CTscan.end_depth}}</td>
+          <td>{{CTscan.instrument__instrument}}</td>
+          <td>{{CTscan.agent__name}}</td>
+          <td>{{CTscan.date}}</td>
+          <td><a href="">Show 3D data</a></td>
+        </tr>
+      </table>
+     </div>
       <div class="tab-pane fade" id="linkedFiles">
           <table class="table table-hover table-bordered ">
               <thead class="thead-light">
