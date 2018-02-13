@@ -8,91 +8,43 @@
 	<div class="col">
 
 		<div class="form-group">
-			<input id="drillcoreName" class="form-control" placeholder="Drillcore name" [(ngModel)]="searchDrillcoreName" typeaheadOptionField="name"
-			 [typeahead]="drillcoreAutocompleteValues" [typeaheadWaitMs]="200" autocomplete="off" (input)="getDrillcoreByName()" />
+			<label for="name">Drillcore name</label>
+			<input id="drillcoreName" class="form-control" [(ngModel)]="searchDrillcoreName" typeaheadOptionField="name" [typeahead]="drillcoreAutocompleteValues"
+			 [typeaheadWaitMs]="200" autocomplete="off" (input)="getDrillcoreByName()" />
 		</div>
+
+
 		<div class="form-group">
-			<select class="form-control"  [(ngModel)]="searchAnalysesMethods"  (focus)="getAnalyticalMehtods()" >
-					<option value="" ></option>
-				<option *ngFor="let method of methodAutocompleteValues"  value="{{method}}" >{{method}}</option>
-			</select>		
+			<label for="name">Analytical method</label>
+			<ng-select class="form-control" [items]="methodAutocompleteValues" bindLabel="analysis_method" bindValue="analysis_method"
+			 [multiple]="true" [(ngModel)]="searchAnalysesMethods">
+			</ng-select>
 		</div>
+
 		<div class="form-group">
+			<label for="name">
+				Parameter condition
+			</label>
 			<div class="input-group">
-				<select class="form-control" [(ngModel)]="searchComparisonParameter" (focus)="getMeasuredParameters()">
-					<option  value="" *ngFor="let parameter of measuredParameters" 
-					value="{{getParameterColumnName(parameter.analysisresult__parameter__parameter,parameter.analysisresult__unit__unit)}}"> 
-					{{parameter.analysisresult__parameter__parameter}} {{parameter.analysisresult__unit__unit}}</option>
+				<select class="form-control" [(ngModel)]="searchComparisonParameter">
+					<option value=""></option>
+					<option value="" *ngFor="let parameter of measuredParameters" value="{{getParameterColumnName(parameter.analysisresult__parameter__parameter,parameter.analysisresult__unit__unit)}}">
+						{{parameter.analysisresult__parameter__parameter}} {{parameter.analysisresult__unit__unit}}</option>
 				</select>
 
 				<select class="form-control" [(ngModel)]="searchComparisonOperator" name="size">
 					<option value=""> </option>
-					<option value="iexact">Equals</option>
-					<option value="gt">Greater than</option>
+					<option value="iexact" selected>Equals</option>
+					<option value="gt" selected="selected">Greater than</option>
 					<option value="lt">Smaller than</option>
 				</select>
 
 				<input type="text" [(ngModel)]="searchComparisonValue" class="form-control">
-			</div> 
-		</div>
-
-
-		<!--<div class="form-group">
-			<button class="btn btn-primary">Add parameter</button>
-		</div>-->
-
-
-		<!--{{searchComparisonParameter}}
-		{{searchComparisonOperator}} 
-		{{searchComparisonValue}}
-		<!--<div class="form-group">
-			<div class="input-group">
-				<input type="text" class="form-control">
-
-				<select class="form-control" name="size">
-					<option value="">Choose a condition</option>
-					<option value="s">Equals</option>
-					<option value="m">Greater than</option>
-					<option value="l">Smaller than</option>
-				</select>
-
-				<input type="text" class="form-control">
 			</div>
-		</div>-->
-		<!--
-		<ng-select 
-		class="form-control"
-		   [options]="opt" 
-		   [multiple]="true"
-		   
-           placeholder="Select methods"
-		   clearAllText="Clear"
-		   [(ngModel)]="selected"
-           >
-			</ng-select>-->
+		</div>
 
-		
-		<!--<div class="form-group">
-			<input id="parameters" class="form-control" placeholder="Parameters" data-role="tagsinput" />
-		</div>
-		<div class="form-group">
-		<ng-select class="form-control" placeholder="Parameters" [options]="myOptions" [multiple]="true" [allowClear]="true" [(ngModel)]="selected">
-		</ng-select>
-		</div>
-		{{selected}}
-		<br><br>
-		<h5>Advanced search (filtering with parameter value)</h5>
-		<div class="form-group ">
-			<input id="parameter" class="form-control2" placeholder="Parameter" data-role="tagsinput" />
-			<select class="form-control2">
-				<option value="gt">></option>
-				<option value="lt">
-					<</option>
-			</select>
-			<input type="text" class="form-control2">
-		</div>-->
 		<button class="btn btn-primary" (click)="getData()">SEARCH</button>
-		<button class="btn btn-danger" (click)="resetFormValues()">RESET FORM</button>
+		<button class="btn btn-primary" (click)="resetFormValues()">RESET FORM</button>
 
 	</div>
 	<div class="col">
@@ -101,20 +53,20 @@
 <div class="row ">
 	<div class="col">
 		<ul class="nav nav-tabs">
-			<li class="nav-item">
+			<!--<li class="nav-item">
 				<a class="nav-link" href="#drillcores" data-toggle="tab" (click)="getDrillcoresByIds()">Drillcores ({{drillcoreIds.length}})</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link " href="#samples" data-toggle="tab"   (click)="getSamplesByIds()">Samples ({{sampleIds.length}})</a>
-			</li>
+			</li>-->
 			<li class="nav-item">
-				<a class="nav-link" href="#analyses" data-toggle="tab" >Data ({{analysisIds.length}})</a>
+				<a class="nav-link active" href="#analyses" data-toggle="tab">Data ({{dataCount}})</a>
 			</li>
 		</ul>
 		<br>
 
 		<div class="tab-content">
-			<div class="tab-pane fade" id="drillcores">
+			<!--<div class="tab-pane fade" id="drillcores">
 				<table class="table table-hover table-bordered ">
 					<thead class="thead-light">
 						<tr>
@@ -169,9 +121,9 @@
 						<td></td>
 					</tr>
 				</table>
-			</div>
-			<div class="tab-pane fade" id="analyses">
-				<table class="table table-hover table-bordered ">
+			</div>-->
+			<div class="tab-pane fade active show" id="analyses">
+				<table *ngIf="analysisSummary" class="table table-hover table-bordered ">
 					<thead class="thead-light">
 						<tr>
 							<th>Drillcore</th>
@@ -180,17 +132,24 @@
 							<th>Sample </th>
 							<th>Analysis</th>
 							<th>Method</th>
-							<th>{{searchComparisonParameter}}</th>
+							<th *ngIf="searchComparisonParameter">{{getParameterName(searchComparisonParameter)}}</th>
+							<!--<th>{{searchComparisonParameter}}</th>-->
 						</tr>
 					</thead>
 					<tr *ngFor="let analysisSum of analysisSummary">
-						<td><a routerLink="/drillcore/{{analysisSum.drillcore_id}}">{{analysisSum.drillcore_id}}</a></td>
+						<td>
+							<a routerLink="/drillcore/{{analysisSum.drillcore_id}}">{{getDrillcoreName(analysisSum.drillcore_id)}}</a>
+						</td>
 						<td>{{analysisSum.depth}}</td>
 						<td>{{analysisSum.end_depth}}</td>
-						<td><a href="javascript:void(0);" (click)="openNewWin('sample',analysisSum.sample_id)">{{analysisSum.sample_number}}</a></td>
-						<td><a href="javascript:void(0);" (click)="openNewWin('analysis',analysisSum.analysis_id)">{{analysisSum.analysis_id}}</a></td>
+						<td>
+							<a href="javascript:void(0);" (click)="openNewWin('sample',analysisSum.sample_id)">{{analysisSum.sample_number}}</a>
+						</td>
+						<td>
+							<a href="javascript:void(0);" (click)="openNewWin('analysis',analysisSum.analysis_id)">{{analysisSum.analysis_id}}</a>
+						</td>
 						<td>{{analysisSum.analysis_method}}</td>
-						<td>{{analysisSum[searchComparisonParameter]}}</td>
+						<td *ngIf="searchComparisonParameter">{{analysisSum[searchComparisonParameter]}}</td>
 					</tr>
 				</table>
 			</div>

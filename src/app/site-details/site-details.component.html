@@ -9,7 +9,7 @@
   <div class="col">
     <table *ngIf="site" class="table">
       <colgroup>
-        <col span="1" >
+        <col span="1">
       </colgroup>
       <tr *ngIf="site.id">
         <td class="verticalTableHead">ID</td>
@@ -67,7 +67,7 @@
 
     <div id="map" class="map"></div>
     <br>
-    <a class="btn btn-primary" routerLink="/drillcore_data/{{site.id}}" >Show analytical data</a>
+    <a class="btn btn-primary" routerLink="/drillcore_data/{{site.id}}">Show analytical data</a>
   </div>
 </div>
 
@@ -75,6 +75,9 @@
 <div class="row ">
   <div class="col">
     <ul *ngIf="drillcoreSummary" class="nav nav-tabs" id="drillcoreTabs" role="tablist">
+      <li *ngIf=" !(drillcoreSummary.boxes==0  || drillcoreSummary.boxes==null)" class="nav-item">
+        <a class="nav-link" href="#images" data-toggle="tab" (click)="getDrillcoreBoxesByDrillcoreId(site.id)" id="boxesTab">Core boxes ({{drillcoreSummary.boxes}})</a>
+      </li>
       <li *ngIf=" !(drillcoreSummary.lithologies==0  || drillcoreSummary.lithologies==null)" class="nav-item">
         <a class="nav-link" href="#lithology" data-toggle="tab" (click)="getLithologyByDrillcoreId(site.id)" id="lithologyTab">Lithology ({{drillcoreSummary.lithologies}})</a>
       </li>
@@ -89,9 +92,6 @@
       </li>
       <li *ngIf=" !(drillcoreSummary.stratigraphies==0  || drillcoreSummary.stratigraphies==null)" class="nav-item">
         <a class="nav-link" href="#stratigraphy" data-toggle="tab" id="stratigraphyTab">Stratigraphy ({{drillcoreSummary.stratigraphies}})</a>
-      </li>
-      <li *ngIf=" !(drillcoreSummary.boxes==0  || drillcoreSummary.boxes==null)" class="nav-item">
-        <a class="nav-link" href="#images" data-toggle="tab" (click)="getDrillcoreBoxesByDrillcoreId(site.id)" id="boxesTab">Core boxes ({{drillcoreSummary.boxes}})</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.samples==0  || drillcoreSummary.samples==null)" class="nav-item">
         <a class="nav-link" href="#samples" data-toggle="tab" (click)="getSamplesByDrillcoreId(site.id)" id="samplesTab">Samples ({{drillcoreSummary.samples}})</a>
@@ -109,11 +109,11 @@
         <a class="nav-link" href="#references" data-toggle="tab" id="refernecesTab">References ({{drillcoreSummary.references}})</a>
       </li>
     </ul>
-    
+
     <div class="tab-content table-responsive">
       <div class="tab-pane fade" id="lithology">
-          <table *ngIf="lithologies" class="table table-hover table-bordered ">
-              <thead class="thead-light">
+        <table *ngIf="lithologies" class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth to (m)</th>
@@ -158,11 +158,11 @@
         </table>
       </div>
       <div class="tab-pane fade" id="RQD">
-          <table class="table table-hover table-bordered ">
-              <thead class="thead-light">
+        <table class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
-              <th>Depth to (m)</th>            
+              <th>Depth to (m)</th>
               <th>RQD %</th>
               <th>Fractures</th>
               <th>Person/Institution</th>
@@ -180,8 +180,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="structures">
-          <table class="table table-hover table-bordered ">
-              <thead class="thead-light">
+        <table class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
@@ -206,8 +206,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="stratigraphy">
-          <table class="table table-hover table-bordered ">
-              <thead class="thead-light">
+        <table class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m)</th>
@@ -231,7 +231,7 @@
             </a>
             <table class="table">
               <colgroup>
-                <col span="1" >
+                <col span="1">
               </colgroup>
               <tr>
                 <td class="verticalTableHead">Depth:</td>
@@ -241,10 +241,10 @@
           </div>
           <div class="col-8">
             <!--<a target="_blank" href="{{pathName}}#/corebox/{{drillcoreBox.id}}" target="_blank"> -->
-              <a href="javascript:void(0);" (click)="openNewWindow(drillcoreBox.id)">
-              <img src="http://www.eurocore.rocks{{getImagePreviewLink('1000',drillcoreBox.attachmentlink__attachment__url)}}" width="100%" >
+            <a href="javascript:void(0);" (click)="openNewWindow(drillcoreBox.id)">
+              <img src="http://www.eurocore.rocks{{getImagePreviewLink('1000',drillcoreBox.attachmentlink__attachment__url)}}" width="100%">
             </a>
-            </div>
+          </div>
 
         </div>
         <br>
@@ -254,8 +254,8 @@
         </div>
       </div>
       <div class="tab-pane fade" id="samples">
-          <table *ngIf="samples" class="table table-hover table-bordered ">
-              <thead class="thead-light">
+        <table *ngIf="samples" class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
@@ -269,7 +269,9 @@
           <tr *ngFor="let sample of samples">
             <td>{{sample.depth}}</td>
             <td>{{sample.end_depth}}</td>
-            <td><a href="javascript:void(0);" (click)="openSampleView(sample.id)">{{sample.id}}</a></td>
+            <td>
+              <a href="javascript:void(0);" (click)="openSampleView(sample.id)">{{sample.id}}</a>
+            </td>
             <td>{{sample.sample_number}}</td>
             <td></td>
             <td></td>
@@ -279,8 +281,8 @@
 
       </div>
       <div class="tab-pane fade" id="analyses">
-          <table *ngIf="analyzes" class="table table-hover table-bordered ">
-              <thead class="thead-light">
+        <table *ngIf="analyzes" class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
@@ -293,7 +295,9 @@
           <tr *ngFor="let analysis of analyzes">
             <td>{{analysis.depth}}</td>
             <td>{{analysis.end_depth}}</td>
-            <td><a href="javascript:void(0);" (click)="openAnalysisView(analysis.id)">{{analysis.id}}</a></td>
+            <td>
+              <a href="javascript:void(0);" (click)="openAnalysisView(analysis.id)">{{analysis.id}}</a>
+            </td>
             <td></td>
             <td></td>
             <td></td>
@@ -302,31 +306,33 @@
       </div>
       <div class="tab-pane fade" id="CTscans">
         <table *ngIf="CTscans" class="table table-hover table-bordered ">
-            <thead class="thead-light">
-          <tr>
-            <th>ID</th>
-            <th>Depth (m)</th>
-            <th>Depth (m, interval)</th>
-            <th>Instrument</th>
-            <th>Person/Institution</th>
-            <th>Date</th>
-            <th></th>
+          <thead class="thead-light">
+            <tr>
+              <th>ID</th>
+              <th>Depth (m)</th>
+              <th>Depth (m, interval)</th>
+              <th>Instrument</th>
+              <th>Person/Institution</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tr *ngFor="let CTscan of CTscans">
+            <td>{{CTscan.id}}</td>
+            <td>{{CTscan.depth}}</td>
+            <td>{{CTscan.end_depth}}</td>
+            <td>{{CTscan.instrument__instrument}}</td>
+            <td>{{CTscan.agent__name}}</td>
+            <td>{{CTscan.date}}</td>
+            <td>
+              <a href="">Show 3D data</a>
+            </td>
           </tr>
-        </thead>
-        <tr *ngFor="let CTscan of CTscans">
-          <td>{{CTscan.id}}</td>
-          <td>{{CTscan.depth}}</td>
-          <td>{{CTscan.end_depth}}</td>
-          <td>{{CTscan.instrument__instrument}}</td>
-          <td>{{CTscan.agent__name}}</td>
-          <td>{{CTscan.date}}</td>
-          <td><a href="">Show 3D data</a></td>
-        </tr>
-      </table>
-     </div>
+        </table>
+      </div>
       <div class="tab-pane fade" id="linkedFiles">
-          <table class="table table-hover table-bordered ">
-              <thead class="thead-light">
+        <table class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Type</th>
               <th>Format</th>
@@ -347,8 +353,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="references">
-          <table class="table table-hover table-bordered ">
-              <thead class="thead-light">
+        <table class="table table-hover table-bordered ">
+          <thead class="thead-light">
             <tr>
               <th>Reference</th>
               <th>Remarks</th>

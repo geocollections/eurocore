@@ -44,10 +44,9 @@ export class SiteSearchComponent implements OnInit {
   ngOnInit() {
     this.getSessionData();
     this.getQueryParams();
+    this.mapService.drawDrillcoreSearchMap(this);
     this.getMapSites();
     this.searchSites(1);
-    this.mapService.drawDrillcoreSearchMap2(this);
-    //this.getMapSites();   
   }
 
   getQueryParams(){
@@ -155,6 +154,7 @@ export class SiteSearchComponent implements OnInit {
        {
        var showAllSites=true;
        }
+       console.log("show all boolean "+ showAllSites);
        this.mapService.addPoints(this.mapSites, showAllSites); 
         //this.mapService.addAllPoints(this.mapSites, showAllSites); 
        console.log("mapsites" + this.mapSites.length); });
@@ -202,7 +202,8 @@ export class SiteSearchComponent implements OnInit {
     this.searchCommodity = "";
     this.searchInstitution = "";
     this.searchDrillcoreId = "";
-    this.searchSites();
+    this.getMapSites();
+    this.searchSites(1);
   }
 
   setSessionData(): void {

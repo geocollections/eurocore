@@ -64,7 +64,6 @@ export class SiteDetailsComponent implements OnInit {
     this.mapService.drawDetailsViewMap();
     this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
-    //this.getCTscansByDrillcoreId("29");
   }
 
   getSiteById(id: string): void {
@@ -139,6 +138,12 @@ export class SiteDetailsComponent implements OnInit {
   }
 
   findFirstTab(){
+    if(!(this.drillcoreSummary.boxes==0  || this.drillcoreSummary.boxes==null)){
+      console.log("images");
+      this.getDrillcoreBoxesByDrillcoreId(this.site.id.toString());
+      this.activateTab("boxesTab");
+      return;   
+    }
     if(!(this.drillcoreSummary.lithologies==0  || this.drillcoreSummary.lithologies==null)){
       console.log("lithologies"); 
       this.getLithologyByDrillcoreId(this.site.id.toString());
@@ -170,12 +175,7 @@ export class SiteDetailsComponent implements OnInit {
       this.activateTab("stratigraphyTab");
       return;   
     }
-    if(!(this.drillcoreSummary.boxes==0  || this.drillcoreSummary.boxes==null)){
-      console.log("images");
-      this.getDrillcoreBoxesByDrillcoreId(this.site.id.toString());
-      this.activateTab("boxesTab");
-      return;   
-    }
+    
     if(!(this.drillcoreSummary.samples==0  || this.drillcoreSummary.samples==null)){
       console.log("sampels");
       this.getSamplesByDrillcoreId(this.site.id.toString());

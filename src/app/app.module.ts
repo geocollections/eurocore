@@ -7,7 +7,8 @@ import {JsonpModule, Jsonp, Response} from '@angular/http';
 //import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { SelectModule } from 'ng-select';
+//import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -65,7 +66,8 @@ import { RqdService } from './services/rqd.service';
     InfiniteScrollModule, 
     NgbModule.forRoot(),
     TypeaheadModule.forRoot(),
-    SelectModule,
+    NgSelectModule,  
+    //SelectModule,
   ],
   providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService, DipService, RqdService],
   bootstrap: [AppComponent]

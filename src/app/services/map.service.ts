@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Site } from '../site';
 import { SiteSearchComponent } from '../site-search/site-search.component';
 import * as ol from "openlayers";
+//import olx from "openlayers/externs/olx";
 
 
 
@@ -17,7 +18,9 @@ export class MapService {
   constructor() {
   }
 
-  drawDrillcoreSearchMap2(siteSearch?: SiteSearchComponent): void {
+
+
+  drawDrillcoreSearchMap(siteSearch?: SiteSearchComponent): void {
     /*var vectorSource = new ol.source.Vector({
       url: 'https://openlayers.org/en/v4.6.4/examples/data/geojson/countries.geojson',
       format: new ol.format.GeoJSON()
@@ -28,14 +31,15 @@ export class MapService {
     });
     this.vectorSource = vectorSource;
 
+    var vectorLayer = new ol.layer.Vector({
+      source: this.vectorSource
+    });
+
 
     var allVectors = new ol.source.Vector({
     });
     this.allVectors = allVectors;
 
-    var vectorLayer = new ol.layer.Vector({
-      source: this.vectorSource
-    });
     var allVectorsLayer = new ol.layer.Vector({
       source: this.allVectors
     });
@@ -63,8 +67,8 @@ export class MapService {
           source: new ol.source.XYZ({
             url: 'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
           })
-        }), 
-        
+        }),
+
 
         allVectorsLayer,
       ],
@@ -87,15 +91,13 @@ export class MapService {
       toggleCondition: function (layer) {
         return true;
       }
-    });
+    }); 
 
-    this.map.addInteraction(this.sel);
+    //this.map.addInteraction(this.sel);
     //this.map.addInteraction(this.sel);
 
     var selectedFeatures = this.sel.getFeatures();
-    this.selectedFeatures2 = selectedFeatures;
-    console.log("dds" + selectedFeatures);
-    console.log("values" + this.sel.getFeatures());
+
     this.sel.on("select", function () {
       console.log("select " + selectedFeatures.getArray());
       siteSearch.searchSites(1);
@@ -106,7 +108,7 @@ export class MapService {
       //condition: ol.events.condition.platformModifierKeyOnly
     });
 
-    this.map.addInteraction(dragBox);
+    //this.map.addInteraction(dragBox);
 
     var siteIds: string[] = [];
 
@@ -123,7 +125,6 @@ export class MapService {
         }
       });
       console.log("end box");
-      siteSearch.searchSites(1);
     });
 
     // clear selection when drawing a new box and when clicking on the map
@@ -133,11 +134,16 @@ export class MapService {
 
 
     selectedFeatures.on(['add', 'remove'], function () {
-      //console.log("Add " +this.selectedFeatures.getArray());
+      console.log("selected features  " + selectedFeatures);
+
       siteIds = [];
       console.log("ids +" + siteIds);
 
-      for (var k = 0; k < allVectors.getFeatures().length; k++) {
+      /*selectedFeatures.getArray().map(function (feature) {
+        siteIds.push(feature.get('id'));
+      }
+/*
+      for(var k = 0; k < allVectors.getFeatures().length; k++) {
         allVectors.getFeatures()[k].setStyle(new ol.style.Style({
           image: new ol.style.Circle({
             radius: 7,
@@ -147,6 +153,7 @@ export class MapService {
               width: 1
             }),
           }),
+          zIndex: 100,
           text: new ol.style.Text({
             scale: 0,
             text: allVectors.getFeatures()[k].get('name'),
@@ -161,7 +168,8 @@ export class MapService {
           })
 
         }));
-      }
+      }*/
+      /*
       selectedFeatures.getArray().map(function (feature) {
         siteIds.push(feature.get('id'));
         feature.setStyle(new ol.style.Style({
@@ -173,7 +181,7 @@ export class MapService {
               width: 1
             })
           }),
-          zIndex : 100,
+          // zIndex : 100,
           text: new ol.style.Text({
             scale: 0,
             text: feature.get('name'),
@@ -189,13 +197,16 @@ export class MapService {
 
         }));
 
-      });
+      });*/
       siteSearch.searchDrillcoreId = siteIds.toString();
     });
+    
 
 
-     selectPointerMove.on('select', function (e) {
+    selectPointerMove.on('select', function (e) {
+      // console.log("feature "+e);
       if (e.selected.length != 0) {
+        //console.log(e.selected[0].getStyle().get);
         e.selected[0].getStyle().getText().setScale(1.4);
       }
       if (e.deselected.length != 0) {
@@ -247,12 +258,9 @@ export class MapService {
 
 
   addPoints(sites: Site[], allSites: boolean): void {
-    // this.selectedFeatures2.clear();
-    console.log(sites);
-    console.log("allsites boolean "+allSites);
     this.sel.getFeatures().getArray().length = 0;
-    console.log("length"+ this.allVectors.getFeatures().length);
 
+    /*
     for (var k = 0; k < this.allVectors.getFeatures().length; k++) {
       this.allVectors.getFeatures()[k].setStyle(new ol.style.Style({
         image: new ol.style.Circle({
@@ -263,6 +271,7 @@ export class MapService {
             width: 1
           }),
         }),
+        //zIndex : 150,
         text: new ol.style.Text({
           scale: 0,
           text: this.allVectors.getFeatures()[k].get('name'),
@@ -275,42 +284,87 @@ export class MapService {
             width: 3.5
           })
         })
-
+  
       }));
+    }*/
+    /*
+        if (allSites == false)
+          for (var i = 0; i < Object.keys(sites).length; i++) {
+            this.sel.getFeatures().getArray().push(this.allVectors.getFeatureById(sites[i].id));
+    
+            this.allVectors.getFeatureById(sites[i].id).setStyle(new ol.style.Style({
+              image: new ol.style.Circle({
+                radius: 7,
+                fill: new ol.style.Fill({ color: '#CD154F' }),
+                stroke: new ol.style.Stroke({
+                  color: 'black',
+                  width: 1
+                })
+              }),
+              // zIndex : 100,
+              text: new ol.style.Text({
+                scale: 0,
+                text: this.allVectors.getFeatureById(sites[i].id).get('name'),
+                offsetY: -25,
+                fill: new ol.style.Fill({
+                  color: 'black'
+                }),
+                stroke: new ol.style.Stroke({
+                  color: 'white',
+                  width: 3.5
+                })
+              })
+    
+            }));
+          }
+    
+        console.log("select map " + this.sel.getFeatures().getArray().length);
+    */
+
+    if (sites && Object.keys(sites).length<this.allVectors.getFeatures().length) {
+      this.vectorSource.clear();
+      for (var i = 0; i < Object.keys(sites).length; i++) {
+
+        if (sites[i].longitude != undefined) {
+          var point = new ol.Feature({
+            name: sites[i].name,
+            id: sites[i].id,
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([sites[i].longitude, sites[i].latitude]))
+          });
+          point.setId(sites[i].id);
+          point.setStyle(new ol.style.Style({
+            image: new ol.style.Circle({
+              radius: 7,
+              fill: new ol.style.Fill({ color: '#CD154F' }),
+              stroke: new ol.style.Stroke({
+                color: 'black',
+                width: 1
+              })
+
+            }),
+            text: new ol.style.Text({
+              scale: 0,
+              text: sites[i].name,
+              offsetY: -25,
+              fill: new ol.style.Fill({
+                color: 'black'
+              }),
+              stroke: new ol.style.Stroke({
+                color: 'white',
+                width: 3.5
+              })
+
+            })
+          }));
+          this.vectorSource.addFeature(point);
+        }
+
+      }
     }
 
-    if (allSites == false)
-      for (var i = 0; i < Object.keys(sites).length; i++) {
-        this.sel.getFeatures().getArray().push(this.allVectors.getFeatureById(sites[i].id));
-
-        this.allVectors.getFeatureById(sites[i].id).setStyle(new ol.style.Style({
-          image: new ol.style.Circle({
-            radius: 7,
-            fill: new ol.style.Fill({ color: '#CD154F' }),
-            stroke: new ol.style.Stroke({
-              color: 'black',
-              width: 1
-            })
-          }),
-          zIndex : 100,
-          text: new ol.style.Text({
-            scale: 0,
-            text: this.allVectors.getFeatureById(sites[i].id).get('name'),
-            offsetY: -25,
-            fill: new ol.style.Fill({
-              color: 'black'
-            }),
-            stroke: new ol.style.Stroke({
-              color: 'white',
-              width: 3.5
-            })
-          })
-
-        }));
-      }
-      
-    console.log("select map " + this.sel.getFeatures().getArray().length);
-
+    else {
+      this.vectorSource.clear();
+    }
 
   }
 
@@ -334,6 +388,7 @@ export class MapService {
               width: 1
             })
           }),
+          zIndex : 100,
           text: new ol.style.Text({
             scale: 0,
             text: sites[i].name,
@@ -386,6 +441,18 @@ export class MapService {
           })
 
         }),
+
+        /*new ol.layer.Tile({
+          /*extent: [-13884991, 2870341, -7455066, 6338219],*//*
+source: new ol.source.TileWMS({
+  url: 'http://gis.geokogud.info/geoserver/wms',
+  params: {'LAYERS': 'IGME5000:EuroGeology', 'TILED': true},
+  serverType: 'geoserver',
+  // Countries have transparency, so do not fade tiles:
+  //transition: 0,
+ projection:''
+})
+}),*/
         vectorLayer
       ],
       view: new ol.View({
@@ -393,6 +460,7 @@ export class MapService {
         zoom: 4
       })
     });
+
 
   }
 
