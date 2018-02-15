@@ -56,28 +56,30 @@ export class AnalysisService {
   }
 
   getMeasuredParameters(name: string, methods: string[]) {
-    let nameCriteria = "";
+    /*let nameCriteria = "";
     let methodCriteria = "";
     if (name != "")
       nameCriteria = '&drillcore__name=' + name;
     if (methods.length != 0)
-      methodCriteria = '&analysis_method__method__iexact=' + methods;
-
-    return this.http.jsonp<String[]>('http://api.eurocore.rocks/analysis/?fields=analysisresult__parameter__parameter,analysisresult__unit__unit&order_by=analysisresult__parameter__parameter&distinct=true&format=jsonp&analysisresult__unit__unit__isnull=false' + nameCriteria + methodCriteria, 'callback').pipe();
+      methodCriteria = '&analysis_method__method__iexact=' + methods;*/
+    return this.http.jsonp<String[]>('http://api.eurocore.rocks/analysis/?fields=analysisresult__parameter__parameter,analysisresult__unit__unit&order_by=analysisresult__parameter__parameter&distinct=true&format=jsonp&analysisresult__unit__unit__isnull=false', 'callback').pipe();
   }
 
-  getAnalysesData(id: string, methods: string[], parameters: string): Observable<AnalysisSummary[]> {
+  getAnalysesData(ids: string[], methods: string[], parameters: string): Observable<AnalysisSummary[]> {
     let idCriteria = "";
     let methodCriteria = "";
     let parameterCriteria = "";
-    if (id != "")
-      idCriteria = '&drillcore_id=' + id;
+    if (ids.length != 0)
+      if (ids.length > 1)
+        idCriteria = '&drillcore_id__in=' + ids.toString();
+      else
+        idCriteria = '&drillcore_id=' + ids.toString();
     if (methods.length != 0)
       //for(var k=0;k<methods.length;k++)
       if (methods.length > 1)
         methodCriteria = '&analysis_method__in=' + methods.toString();
       else
-        methodCriteria = '&analysis_method__iexact='+methods.toString();
+        methodCriteria = '&analysis_method__iexact=' + methods.toString();
     if (parameters != "")
       parameterCriteria = "&" + parameters;
     return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?format=jsonp' + idCriteria + methodCriteria + parameterCriteria + '&paginate_by=1000', 'callback').pipe();

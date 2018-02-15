@@ -62,13 +62,33 @@ export class MapService {
           }),
          /* new ol.layer.Vector({
             source: vectorSource
-          }),*/
+          }),
         new ol.layer.Tile({
           source: new ol.source.XYZ({
             url: 'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
           })
+        }),*/
+
+
+
+        new ol.layer.Tile({
+          source: new ol.source.XYZ({
+          url: 'https://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia3V1dG9iaW5lIiwiYSI6ImNpZWlxdXAzcjAwM2Nzd204enJvN2NieXYifQ.tp6-mmPsr95hfIWu3ASz2w'
+          })
         }),
 
+        new ol.layer.Tile({
+         /* extent: [-13884991, 2870341, -7455066, 6338219],*/
+          source: new ol.source.TileWMS({
+            url: 'http://gis.geokogud.info/geoserver/wms',
+            params: { 'LAYERS': 'IGME5000:EuroGeology', 'TILED': true },
+            serverType: 'geoserver',
+            // Countries have transparency, so do not fade tiles:
+           // transition: 0,
+            projection: ''
+          }), 
+          opacity: 0.5,
+        }),
 
         allVectorsLayer,
       ],
@@ -91,7 +111,7 @@ export class MapService {
       toggleCondition: function (layer) {
         return true;
       }
-    }); 
+    });
 
     //this.map.addInteraction(this.sel);
     //this.map.addInteraction(this.sel);
@@ -200,7 +220,7 @@ export class MapService {
       });*/
       siteSearch.searchDrillcoreId = siteIds.toString();
     });
-    
+
 
 
     selectPointerMove.on('select', function (e) {
@@ -321,7 +341,7 @@ export class MapService {
         console.log("select map " + this.sel.getFeatures().getArray().length);
     */
 
-    if (sites && Object.keys(sites).length<this.allVectors.getFeatures().length) {
+    if (sites && Object.keys(sites).length < this.allVectors.getFeatures().length) {
       this.vectorSource.clear();
       for (var i = 0; i < Object.keys(sites).length; i++) {
 
@@ -388,7 +408,7 @@ export class MapService {
               width: 1
             })
           }),
-          zIndex : 100,
+          zIndex: 100,
           text: new ol.style.Text({
             scale: 0,
             text: sites[i].name,
@@ -434,25 +454,32 @@ export class MapService {
         //new SelectControl("")
       ]),
       layers: [
+        /*
         new ol.layer.Tile({
           //source: new ol.source.OSM()
           source: new ol.source.XYZ({
             url: 'http://{1-4}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
           })
 
+        }),*/
+        new ol.layer.Tile({
+          source: new ol.source.XYZ({
+          url: 'https://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia3V1dG9iaW5lIiwiYSI6ImNpZWlxdXAzcjAwM2Nzd204enJvN2NieXYifQ.tp6-mmPsr95hfIWu3ASz2w'
+          })
         }),
 
-        /*new ol.layer.Tile({
-          /*extent: [-13884991, 2870341, -7455066, 6338219],*//*
-source: new ol.source.TileWMS({
-  url: 'http://gis.geokogud.info/geoserver/wms',
-  params: {'LAYERS': 'IGME5000:EuroGeology', 'TILED': true},
-  serverType: 'geoserver',
-  // Countries have transparency, so do not fade tiles:
-  //transition: 0,
- projection:''
-})
-}),*/
+        new ol.layer.Tile({
+         /* extent: [-13884991, 2870341, -7455066, 6338219],*/
+          source: new ol.source.TileWMS({
+            url: 'http://gis.geokogud.info/geoserver/wms',
+            params: { 'LAYERS': 'IGME5000:EuroGeology', 'TILED': true },
+            serverType: 'geoserver',
+            // Countries have transparency, so do not fade tiles:
+           // transition: 0,
+            projection: ''
+          }), 
+          opacity: 0.5,
+        }),
         vectorLayer
       ],
       view: new ol.View({

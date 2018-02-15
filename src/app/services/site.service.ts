@@ -151,4 +151,8 @@ export class SiteService {
     return this.http.jsonp<String[]>('http://api.eurocore.rocks/drillcore/?name='+name+'&fields=analysis__analysis_method__method&distinct=true&format=jsonp', "callback").pipe();
   }
 
+  searchAllSitesNames():Observable<String[]>{
+    return this.http.jsonp<[String]>('http://api.eurocore.rocks/drillcore/?format=jsonp&fields=id,name', "callback").pipe();
+  }
+
 }
