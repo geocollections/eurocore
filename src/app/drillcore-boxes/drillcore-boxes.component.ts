@@ -8,6 +8,8 @@ import { Sample } from '../sample';
 import { AnalysisService } from '../services/analysis.service';
 import { Analysis } from '../analysis';
 
+import * as $ from 'jquery'; 
+
 @Component({
   selector: 'app-drillcore-boxes',
   templateUrl: './drillcore-boxes.component.html',
@@ -42,7 +44,10 @@ export class DrillcoreBoxesComponent implements OnInit {
     this.sampleService.searchSamplesByDepth(startDepth, endDepth, drillcoreId).subscribe(samples =>{this.samples=samples['results']; console.log("samples"+this.samples)})
   }
   getAnalysesByDepth(startDepth: string, endDepth: string, drillcoreId: string){
-    this.analysisService.getAnalysesByDepth(startDepth, endDepth, drillcoreId).subscribe(analyses =>{this.analyses=analyses['results']; console.log("analyses "+this.analyses)});
+    this.analysisService.getAnalysesByDepth(startDepth, endDepth, drillcoreId).subscribe(analyses =>{this.analyses=analyses['results'];
+     console.log("analyses "+this.analyses);
+     this.findFirstTab();
+    });
   }
 
   openNewWindow(url: string): void {
@@ -75,5 +80,25 @@ export class DrillcoreBoxesComponent implements OnInit {
   openNewWin(subUrl: string,id:string):void{    
     window.open((this.platformLocation as any).location.pathname +'#/'+subUrl+'/'+id, '', 'width=800,height=800') ;
   }
+
+  findFirstTab(){
+    if(this.samples){
+      this.activateTab("samplesTab");
+      return;   
+    }
+    if(this.analyses){
+      this.activateTab("analysesTab");
+      return;   
+    }
+  }
+
+  activateTab(tab: string){
+    $(function () {
+      $('#'+tab).tab('show');      
+    })
+  }
+
+  
+  
 
 }

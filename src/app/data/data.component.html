@@ -15,8 +15,8 @@
 
 		<div class="form-group">
 				<label for="name">Drillcore name(s)</label>
-				<ng-select class="form-control" [items]="drillcoreAutocompleteValues"  bindLabel="name" bindValue="id"
-				 [(ngModel)]="searchDrillcoreName" 
+				<ng-select class="form-control2" [items]="drillcoreAutocompleteValues"  bindLabel="name" bindValue="id"
+				 [(ngModel)]="searchDrillcoreName"  
 		
 				 [multiple]="true" >
 				</ng-select>
@@ -25,22 +25,22 @@
 
 		<div class="form-group">
 			<label for="name">Analytical method(s)</label>
-			<ng-select class="form-control" [items]="methodAutocompleteValues" bindLabel="analysis_method" bindValue="analysis_method"
+			<ng-select class="form-control2" [items]="methodAutocompleteValues" bindLabel="analysis_method" bindValue="analysis_method"
 			 [multiple]="true" [(ngModel)]="searchAnalysesMethods">
 			</ng-select>
 		</div>
 
 		<div class="form-group">
 				<label for="name">Show Parameter(s)</label>
-				<ng-select class="form-control" [items]="measuredParameters"  bindLabel="label" 
+				<ng-select class="form-control2" [items]="measuredParameters"  bindLabel="label" 
 				 [multiple]="true" [(ngModel)]="searchParameters" (change)="onChange($event)">
 				</ng-select>
 		</div>
 
-		<!--
+		
 		<div class="form-group">
 			<label for="name">
-				Parameter condition
+				Parameter filter
 			</label>
 			<div class="input-group">
 				<select class="form-control" [(ngModel)]="searchComparisonParameter">
@@ -51,14 +51,14 @@
 
 				<select class="form-control" [(ngModel)]="searchComparisonOperator" name="size">
 					<option value=""> </option>
-					<option value="iexact" selected>Equals</option>
+					<option value="iexact" >Equals</option>
 					<option value="gt" selected="selected">Greater than</option>
 					<option value="lt">Smaller than</option>
 				</select>
 
 				<input type="text" [(ngModel)]="searchComparisonValue" class="form-control">
 			</div>
-		</div>-->
+		</div>
 
 		<button class="btn btn-primary" (click)="getData()">SEARCH</button>
 		<button class="btn btn-primary" (click)="resetFormValues()">RESET FORM</button>
@@ -139,7 +139,7 @@
 					</tr>
 				</table>
 			</div>-->
-			<div class="tab-pane fade active show" id="analyses">
+			<div class="tab-pane fade active show table-responsive" id="analyses">
 				<table *ngIf="analysisSummary" class="table table-hover table-bordered ">
 					<thead class="thead-light">
 						<tr>

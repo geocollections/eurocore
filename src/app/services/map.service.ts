@@ -3,7 +3,7 @@ import { Site } from '../site';
 import { SiteSearchComponent } from '../site-search/site-search.component';
 import * as ol from "openlayers";
 //import olx from "openlayers/externs/olx";
-
+import * as $ from 'jquery';
 
 
 @Injectable()
@@ -26,6 +26,7 @@ export class MapService {
       format: new ol.format.GeoJSON()
     });
     */
+    var bedrockAge;
 
     var vectorSource = new ol.source.Vector({
     });
@@ -77,7 +78,7 @@ export class MapService {
           })
         }),
 
-        new ol.layer.Tile({
+        bedrockAge= new ol.layer.Tile({
          /* extent: [-13884991, 2870341, -7455066, 6338219],*/
           source: new ol.source.TileWMS({
             url: 'http://gis.geokogud.info/geoserver/wms',
@@ -97,6 +98,12 @@ export class MapService {
         center: ol.proj.fromLonLat([29.34424401655, 62.856645860855]),
         zoom: 4
       })
+    });
+
+
+    var visibilityInput = $('#bedrockAge');
+    visibilityInput.on('change', function() {
+     bedrockAge.setVisible(this.checked);
     });
     this.map.addLayer(vectorLayer);
 
@@ -444,6 +451,9 @@ export class MapService {
       source: this.vectorSource
     });
 
+
+    var bedrockAge;
+    var anotherLayer;
     this.map = new ol.Map({
       target: 'map',
       controls: ol.control.defaults({
@@ -468,7 +478,29 @@ export class MapService {
           })
         }),
 
-        new ol.layer.Tile({
+        
+        anotherLayer=new ol.layer.Tile({
+           source: new ol.source.OSM(),
+           opacity: 0.5,
+           /*source: new ol.source.Stamen({
+           layer: 'toner',
+           visibility:false
+       })*/
+        /*source: new ol.source.Stamen({
+            layer: 'terrain',
+            visibility:false
+        })*/
+        /*source: new ol.source.MapQuest({
+                    layer: 'osm'
+                })*/
+
+          }),
+         /* new ol.layer.Vector({
+            source: vectorSource
+          }),*/
+
+
+        bedrockAge=new ol.layer.Tile({
          /* extent: [-13884991, 2870341, -7455066, 6338219],*/
           source: new ol.source.TileWMS({
             url: 'http://gis.geokogud.info/geoserver/wms',
@@ -487,6 +519,17 @@ export class MapService {
         zoom: 4
       })
     });
+    //bedrockAge.setVisible(false);
+    anotherLayer.setVisible(false);
+    var visibilityInput = $('#bedrockAge');
+    var visibilityInput2 = $('#anotherLayer');
+    visibilityInput.on('change', function() {
+     bedrockAge.setVisible(this.checked);
+    });
+    visibilityInput2.on('change', function() {
+      anotherLayer.setVisible(this.checked);
+     });
+    // anotherLayer
 
 
   }

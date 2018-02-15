@@ -8,7 +8,7 @@
     <div class="col">
         <table *ngIf="deposit" class="table">
             <colgroup>
-                <col span="1"  >
+                <col span="1">
             </colgroup>
             <tr *ngIf="deposit.id">
                 <td class="verticalTableHead">ID</td>
@@ -126,19 +126,24 @@
     </div>
     <div class="col">
         <div id="map" class="map"></div>
+        <div id="search" style="position: absolute; top: 10px; right: 20px; padding: 5px; background-color: rgba(255,255,255,0.5);">
+            Bedrock age:
+            <input type="checkbox" id="bedrockAge" checked="checked">
+            <!-- Another layer: <input type="checkbox" id="anotherLayer">-->
+        </div>
     </div>
 </div>
 <div class="row ">
     <div class="col">
-        <ul class="nav nav-tabs" *ngIf="sites" id="myTab" role="tablist"> 
-            <li class="nav-item"> 
-                <a class="nav-link active" href="#drillcores" data-toggle="tab">Drillcores ({{sites.length}})</a> 
+        <ul class="nav nav-tabs" *ngIf="sites" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#drillcores" data-toggle="tab">Drillcores ({{sites.length}})</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#references" data-toggle="tab">References</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#linkedFIles" data-toggle="tab" >Linked files</a>
+                <a class="nav-link" href="#linkedFIles" data-toggle="tab">Linked files</a>
             </li>
         </ul>
         <br>

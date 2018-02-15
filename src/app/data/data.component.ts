@@ -221,7 +221,8 @@ export class DataComponent implements OnInit {
     this.searchComparisonOperator = "";
     this.searchComparisonValue = "";
     this.searchComparisonParameter = "";
-    this.getData();
+    //this.analysisSummary=null;
+    //this.getData();
   }
 
   openNewWin(subUrl: string, id: string): void {

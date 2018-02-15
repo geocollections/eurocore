@@ -40,10 +40,10 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item" *ngIf="samples">
-        <a class="nav-link active" href="#samples" data-toggle="tab">Samples ({{samples.length}})</a>
+        <a class="nav-link active" href="#samples" data-toggle="tab" id="samplesTab">Samples ({{samples.length}})</a>
     </li>
     <li class="nav-item" *ngIf="analyses">
-        <a class="nav-link" href="#analyses" data-toggle="tab">Analyses ({{analyses.length}})</a>
+        <a class="nav-link" href="#analyses" data-toggle="tab" id="analysesTab">Analyses ({{analyses.length}})</a>
     </li>
     <!--<li class="nav-item">
         <a class="nav-link" href="#references" data-toggle="tab">References</a>
@@ -87,7 +87,7 @@
                     <th>Depth (m)</th>
                     <th>Depth (m, interval)</th> 
                     <th>Method</th>                   
-                    <th>Analysis ID</th>
+                    <th>Analysis number</th>
                     <th>Person/Institution</th>
                     <th>Date</th>
                 </tr>
@@ -97,7 +97,7 @@
                 <td>{{analysis.depth}}</td>
                 <td>{{analysis.end_depth}}</td>
                 <td>{{analysis.analysis_method__method}}</td>
-                <td>{{analysis.id}}</td>
+                <td></td> 
                 <td>{{analysis.agent__name}}</td>
                 <td>{{analysis.date}}</td>
             </tr>

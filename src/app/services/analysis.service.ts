@@ -47,8 +47,8 @@ export class AnalysisService {
     return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id=' + id + '&order_by=depth&format=jsonp', 'callback').pipe();
   }
 
-  getAnalysesByDepth(startDepth: string, endDepth: string, drillcoreId: string): Observable<Analysis[]> {
-    return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?drillcore__id=' + drillcoreId + '&depth__range=' + startDepth + ',' + endDepth + '&end_depth__range=' + startDepth + ',' + endDepth + '&format=jsonp&order_by=depth', "callback").pipe();
+  getAnalysesByDepth(startDepth: string, endDepth: string, drillcoreId: string): Observable<Analysis[]> {  //analysis/?drillcore__id=17&or_search=depth__range:102.7,108.1;end_depth__range:102.7,108.1
+    return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?drillcore__id=' + drillcoreId + '&or_search=depth__range:' + startDepth + ',' + endDepth + ';end_depth__range:' + startDepth + ',' + endDepth + '&format=jsonp&order_by=depth&paginate_by=1000', "callback").pipe();
   }
 
   getAllAnalysesMethods(): Observable<String[]> {
