@@ -176,4 +176,18 @@ h2, h4, h5{
   margin-bottom: 40px;
 }
 
+
+.btn-outline-secondary:hover {
+  color: #fff!important;
+  background-color: #004393!important;
+  border-color: #004393!important;
+}
+
+.btn-outline-secondary {
+  color: #004393!important;
+  background-color: transparent;
+  background-image: none;
+  border-color: #004393!important;
+}
+
   

@@ -4,6 +4,7 @@ import { SiteSearchComponent } from '../site-search/site-search.component';
 import * as ol from "openlayers";
 //import olx from "openlayers/externs/olx";
 import * as $ from 'jquery';
+//import * as x from 'ol-ext/dist/ol-ext.js';
 
 
 @Injectable()
@@ -74,20 +75,20 @@ export class MapService {
 
         new ol.layer.Tile({
           source: new ol.source.XYZ({
-          url: 'https://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia3V1dG9iaW5lIiwiYSI6ImNpZWlxdXAzcjAwM2Nzd204enJvN2NieXYifQ.tp6-mmPsr95hfIWu3ASz2w'
+            url: 'https://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia3V1dG9iaW5lIiwiYSI6ImNpZWlxdXAzcjAwM2Nzd204enJvN2NieXYifQ.tp6-mmPsr95hfIWu3ASz2w'
           })
         }),
 
-        bedrockAge= new ol.layer.Tile({
-         /* extent: [-13884991, 2870341, -7455066, 6338219],*/
+        bedrockAge = new ol.layer.Tile({
+          /* extent: [-13884991, 2870341, -7455066, 6338219],*/
           source: new ol.source.TileWMS({
             url: 'http://gis.geokogud.info/geoserver/wms',
             params: { 'LAYERS': 'IGME5000:EuroGeology', 'TILED': true },
             serverType: 'geoserver',
             // Countries have transparency, so do not fade tiles:
-           // transition: 0,
+            // transition: 0,
             projection: ''
-          }), 
+          }),
           opacity: 0.5,
         }),
 
@@ -102,8 +103,8 @@ export class MapService {
 
 
     var visibilityInput = $('#bedrockAge');
-    visibilityInput.on('change', function() {
-     bedrockAge.setVisible(this.checked);
+    visibilityInput.on('change', function () {
+      bedrockAge.setVisible(this.checked);
     });
     this.map.addLayer(vectorLayer);
 
@@ -474,42 +475,42 @@ export class MapService {
         }),*/
         new ol.layer.Tile({
           source: new ol.source.XYZ({
-          url: 'https://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia3V1dG9iaW5lIiwiYSI6ImNpZWlxdXAzcjAwM2Nzd204enJvN2NieXYifQ.tp6-mmPsr95hfIWu3ASz2w'
+            url: 'https://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia3V1dG9iaW5lIiwiYSI6ImNpZWlxdXAzcjAwM2Nzd204enJvN2NieXYifQ.tp6-mmPsr95hfIWu3ASz2w'
           })
         }),
 
-        
-        anotherLayer=new ol.layer.Tile({
-           source: new ol.source.OSM(),
-           opacity: 0.5,
-           /*source: new ol.source.Stamen({
-           layer: 'toner',
-           visibility:false
-       })*/
-        /*source: new ol.source.Stamen({
-            layer: 'terrain',
-            visibility:false
-        })*/
-        /*source: new ol.source.MapQuest({
-                    layer: 'osm'
-                })*/
 
-          }),
-         /* new ol.layer.Vector({
-            source: vectorSource
-          }),*/
+        anotherLayer = new ol.layer.Tile({
+          source: new ol.source.OSM(),
+          opacity: 0.5,
+          /*source: new ol.source.Stamen({
+          layer: 'toner',
+          visibility:false
+      })*/
+          /*source: new ol.source.Stamen({
+              layer: 'terrain',
+              visibility:false
+          })*/
+          /*source: new ol.source.MapQuest({
+                      layer: 'osm'
+                  })*/
+
+        }),
+        /* new ol.layer.Vector({
+           source: vectorSource
+         }),*/
 
 
-        bedrockAge=new ol.layer.Tile({
-         /* extent: [-13884991, 2870341, -7455066, 6338219],*/
+        bedrockAge = new ol.layer.Tile({
+          /* extent: [-13884991, 2870341, -7455066, 6338219],*/
           source: new ol.source.TileWMS({
             url: 'http://gis.geokogud.info/geoserver/wms',
             params: { 'LAYERS': 'IGME5000:EuroGeology', 'TILED': true },
             serverType: 'geoserver',
             // Countries have transparency, so do not fade tiles:
-           // transition: 0,
+            // transition: 0,
             projection: ''
-          }), 
+          }),
           opacity: 0.5,
         }),
         vectorLayer
@@ -523,14 +524,19 @@ export class MapService {
     anotherLayer.setVisible(false);
     var visibilityInput = $('#bedrockAge');
     var visibilityInput2 = $('#anotherLayer');
-    visibilityInput.on('change', function() {
-     bedrockAge.setVisible(this.checked);
+    visibilityInput.on('change', function () {
+      bedrockAge.setVisible(this.checked);
     });
-    visibilityInput2.on('change', function() {
+    visibilityInput2.on('change', function () {
       anotherLayer.setVisible(this.checked);
-     });
-    // anotherLayer
+    });
+    // anotherLayer 
 
+
+    $('#bedrockAgeOpacity').on('input change', function () {
+      console.log("changed");
+      bedrockAge.setOpacity(parseFloat(this.value));
+    });
 
   }
 

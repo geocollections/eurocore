@@ -50,87 +50,176 @@
                 <td class="verticalTableHead">Other commodities</td>
                 <td>{{deposit.other_commodities}}</td>
             </tr>
-            <tr *ngIf="deposit.size">
-                <td class="verticalTableHead">Size</td>
-                <td>{{deposit.size}}</td>
-            </tr>
-            <tr *ngIf="deposit.shape">
-                <td class="verticalTableHead">Shape</td>
-                <td>{{deposit.shape}}</td>
-            </tr>
-            <tr *ngIf="deposit.status">
-                <td class="verticalTableHead">Status</td>
-                <td>{{deposit.status}}</td>
-            </tr>
-            <tr *ngIf="deposit.miningMethod">
-                <td class="verticalTableHead">Mining method</td>
-                <td>{{deposit.miningMethod}}</td>
-            </tr>
-            <tr *ngIf="deposit.miningStarted">
-                <td class="verticalTableHead">Mining started</td>
-                <td>{{deposit.miningStarted}}</td>
-            </tr>
-            <tr *ngIf="deposit.miningTerminated">
-                <td class="verticalTableHead">Mining terminated</td>
-                <td>{{deposit.miningTerminated}}</td>
-            </tr>
-            <tr *ngIf="deposit.minedIn">
-                <td class="verticalTableHead">Mined in</td>
-                <td>{{deposit.minedIn}}</td>
-            </tr>
-            <tr *ngIf="deposit.resourceMt">
-                <td class="verticalTableHead">Resource Mt</td>
-                <td>{{deposit.resourceMt}}</td>
-            </tr>
-            <tr *ngIf="deposit.reserveMt">
-                <td class="verticalTableHead">Reserve Mt</td>
-                <td>{{deposit.reserveMt}}</td>
-            </tr>
-            <tr *ngIf="deposit.minedMt">
-                <td class="verticalTableHead">Mined Mt</td>
-                <td>{{deposit.minedMt}}</td>
-            </tr>
-            <tr *ngIf="deposit.commodityGrade">
-                <td class="verticalTableHead">Commodity grade</td>
-                <td>{{deposit.commodityGrade}}</td>
-            </tr>
-            <tr *ngIf="deposit.mineralogy">
-                <td class="verticalTableHead">Ore mineralogy</td>
-                <td>{{deposit.mineralogy}}</td>
-            </tr>
-            <tr *ngIf="deposit.hostRocks">
-                <td class="verticalTableHead">Host rock</td>
-                <td>{{deposit.hostRocks}}</td>
-            </tr>
-            <tr *ngIf="deposit.adjacentRock">
-                <td class="verticalTableHead">Adjacent rock</td>
-                <td>{{deposit.adjacentRock}}</td>
-            </tr>
-            <tr *ngIf="deposit.ageOfHostRocks">
-                <td class="verticalTableHead">Age of host rocks</td>
-                <td>{{deposit.ageOfHostRocks}}</td>
-            </tr>
-            <tr *ngIf="deposit.ageOfMineralization">
-                <td class="verticalTableHead">Age of mineralization</td>
-                <td>{{deposit.ageOfMineralization}}</td>
-            </tr>
-            <tr *ngIf="deposit.alteration">
-                <td class="verticalTableHead">Alteration</td>
-                <td>{{deposit.alteration}}</td>
-            </tr>
-            <tr *ngIf="deposit.comments">
-                <td class="verticalTableHead">Comments</td>
-                <td>{{deposit.comments}}</td>
-            </tr>
         </table>
+
+
+        <ngb-accordion #acc="ngbAccordion">
+            <ngb-panel id="toggle-1" title="Show mining data">
+                <ng-template ngbPanelContent>
+                    <table *ngIf="deposit" class="table">
+                        <colgroup>
+                            <col span="1">
+                        </colgroup>
+                        <tr *ngIf="deposit.size_cat">
+                            <td class="verticalTableHead">Size</td>
+                            <td>{{deposit.size_cat}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.shape">
+                            <td class="verticalTableHead">Shape</td>
+                            <td>{{deposit.shape}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.status">
+                            <td class="verticalTableHead">Status</td>
+                            <td>{{deposit.status}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.discovery">
+                            <td class="verticalTableHead">Year of discovery</td>
+                            <td>{{deposit.discovery}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.mining_start">
+                            <td class="verticalTableHead">Mining started</td>
+                            <td>{{deposit.mining_start}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.mining_time">
+                            <td class="verticalTableHead">Mined during</td>
+                            <td>{{deposit.mining_time}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.mining_method">
+                            <td class="verticalTableHead">Mining method</td>
+                            <td>{{deposit.mining_method}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.resource">
+                            <td class="verticalTableHead">Resource Mt</td>
+                            <td>{{deposit.resource}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.reserve">
+                            <td class="verticalTableHead">Reserve Mt</td>
+                            <td>{{deposit.reserve}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.mined_mt">
+                            <td class="verticalTableHead">Mined Mt</td>
+                            <td>{{deposit.mined_mt}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.tonnage">
+                            <td class="verticalTableHead">Total tonnage</td>
+                            <td>{{deposit.tonnage}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.grade">
+                            <td class="verticalTableHead">Commodity grade</td>
+                            <td>{{deposit.grade}}</td>
+                        </tr>
+                    </table>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="toggle-2" title="Show geological data">
+                <ng-template ngbPanelContent>
+                    <table *ngIf="deposit" class="table">
+                        <colgroup>
+                            <col span="1">
+                        </colgroup>
+                        <tr *ngIf="deposit.district">
+                            <td class="verticalTableHead">Geological district</td>
+                            <td>{{deposit.district}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.metgen_area">
+                            <td class="verticalTableHead">Metallogenic area</td>
+                            <td>{{deposit.metgen_area}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.host_rock1">
+                            <td class="verticalTableHead">Host rock</td>
+                            <td>{{deposit.host_rock1}}, {{deposit.host_rock2}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.adj_rock1">
+                            <td class="verticalTableHead">Adjacent rock</td>
+                            <td>{{deposit.adj_rock1}}, {{deposit.adj_rock2}}, {{deposit.adj_rock3}}, {{deposit.adj_rock4}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.age_host__age">
+                            <td class="verticalTableHead">Age of host rocks</td>
+                            <td>{{deposit.age_host__age}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.radiom_age_host">
+                            <td class="verticalTableHead">Radiometric age of host rocks</td>
+                            <td>{{deposit.radiom_age_host}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.age_min__age">
+                            <td class="verticalTableHead">Age of mineralization</td>
+                            <td>{{deposit.age_min__age}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.radiom_age_min">
+                            <td class="verticalTableHead">Radiometric age of mineralization</td>
+                            <td>{{deposit.radiom_age_min}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.mineralogy1">
+                            <td class="verticalTableHead">Ore mineralogy</td>
+                            <td>{{deposit.mineralogy1}}, {{deposit.mineralogy2}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.ore_distrib">
+                            <td class="verticalTableHead">Ore mineral distribution</td>
+                            <td>{{deposit.ore_distrib}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.alteration">
+                            <td class="verticalTableHead">Alteration</td>
+                            <td>{{deposit.alteration}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.metam_grade">
+                            <td class="verticalTableHead">Regional metamorphic grade</td>
+                            <td>{{deposit.metam_grade}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.texture">
+                            <td class="verticalTableHead">Texture</td>
+                            <td>{{deposit.texture}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.structure">
+                            <td class="verticalTableHead">Structure</td>
+                            <td>{{deposit.structure}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.strike">
+                            <td class="verticalTableHead">Main direction of deposit strike</td>
+                            <td>{{deposit.strike}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.dip">
+                            <td class="verticalTableHead">Main direction of deposit dip</td>
+                            <td>{{deposit.dip}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.plunge">
+                            <td class="verticalTableHead">Main direction of deposit plunge</td>
+                            <td>{{deposit.plunge}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.tect_ctrl">
+                            <td class="verticalTableHead">Tectonic control</td>
+                            <td>{{deposit.tect_ctrl}}</td>
+                        </tr>
+                        <tr *ngIf="deposit.remarks">
+                            <td class="verticalTableHead">Comments</td>
+                            <td>{{deposit.remarks}}</td>
+                        </tr>
+                    </table>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+
+
+
     </div>
     <div class="col">
+
         <div id="map" class="map"></div>
         <div id="search" style="position: absolute; top: 10px; right: 20px; padding: 5px; background-color: rgba(255,255,255,0.5);">
-            Bedrock age:
+            <!--Bedrock age:
             <input type="checkbox" id="bedrockAge" checked="checked">
+            
+            <input id="bedrockAgeOpacity" type="range" min="0" max="1" step="0.05" />-->
+
+            <button type="button" class="btn btn-outline-secondary" placement="bottom" [ngbPopover]="popContent" popoverTitle="Legend:">
+                Show legend
+            </button>
             <!-- Another layer: <input type="checkbox" id="anotherLayer">-->
         </div>
+
+        <ng-template #popContent>
+            <img src='http://gis.geokogud.info/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=IGME5000:EuroGeology&legend_options=fontName:DejaVu%20Sans%20ExtraLight;fontAntiAliasing:true;fontColor:0x333333;fontSize:10;bgColor:0xFFFFff;dpi:96'
+            />
+        </ng-template>
     </div>
 </div>
 <div class="row ">
