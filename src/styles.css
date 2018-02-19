@@ -81,6 +81,14 @@
     padding-bottom: 6rem;
     min-height: 95%;
     font-family: 'Titillium Web', sans-serif !important;
+    /*background-color: rgba(0, 68, 148, 0.1)!important;*/
+  }
+
+  .container{
+    margin-top:90px;
+    padding-top: 30px;
+    background-color: white!important;
+    margin-bottom: 0px!important;
   }
 
   #footer {
@@ -90,7 +98,10 @@
     font-size: 0.7em;
     padding: 5px 0 15px 0;
     text-align: center;
-    background-color: #EEEEEE;
+    /*background-color: rgb(226, 246, 253);*/
+    background-color: white;
+    border-top: 2px solid rgba(0, 68, 148, 0.1);
+
     color: #333;
     opacity: 0.9;
 }
@@ -102,15 +113,37 @@
 }
 
 .navbar {
-  background-color: rgba(0,68,148,1)!important;
+  /*background-color: white!important;*/
+  background-color: white!important;
+  /*background-color: #73C4EE!important;*/
+  /*border-width:5px;
+  border-color: black;*/
+  border-bottom: 2px solid rgba(0, 68, 148, 0.1);
 }
 
-.navbar-dark .navbar-brand {
-  color: white!important;
+#eurocoreLogo{
+  height:70px;
 }
 
-.navbar-dark .navbar-nav .nav-link {
-  color: white!important;
+.navbar-collapse{
+  padding-left: 3%;
+}
+.navbar-light .navbar-brand {
+  padding-left: 5%;
+  color: #004393!important;
+}
+.nav-item{
+  padding-left: 10px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #004393!important;
+  font-weight: bold;
+} 
+
+.navbar-light .navbar-toggler {
+  color: #004393;
+  border-color: #004393;
 }
 
 .h3, h3 {
@@ -136,10 +169,6 @@ h2, h4, h5{
   border-color: #004393!important; 
 }
 
-
-#footer {
-  background-color: rgba(0,68,148,0.1)!important;
-}
 
 .page-link {
   color: #004393!important;
