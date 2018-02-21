@@ -3,6 +3,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { MapService } from '../services/map.service';
 import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
+import { OlMapService } from '../services/ol-map.service';
 //import * as $ from 'jquery';
 //import 'jquery-ui/ui/widgets/autocomplete';
 
@@ -37,14 +38,19 @@ export class SiteSearchComponent implements OnInit {
   drillcoreIdArray: string[]=[];
 
 
-  constructor(private siteService: SiteService, private mapService: MapService,private route: ActivatedRoute, private router: Router) {
+  constructor(private siteService: SiteService, private mapService: MapService,private route: ActivatedRoute, private router: Router,
+  private olMapService: OlMapService) {
     window.scrollTo(0, 0);
   }
 
   ngOnInit() {
     this.getSessionData();
     this.getQueryParams();
-    this.mapService.drawDrillcoreSearchMap(this);
+    //this.mapService.drawDrillcoreSearchMap(this);
+    this.olMapService.drawDetailsViewMap();
+    this.olMapService.addBedrockAgeLayer();
+    this.olMapService.addPointeMoveInteraction();
+    this.olMapService.addSelectInteraction(this);
     this.getMapSites();
     this.searchSites(1);
   }
@@ -155,7 +161,8 @@ export class SiteSearchComponent implements OnInit {
        var showAllSites=true;
        }
        console.log("show all boolean "+ showAllSites);
-       this.mapService.addPoints(this.mapSites, showAllSites); 
+       this.olMapService.addPoints(this.mapSites);
+       //this.mapService.addPoints(this.mapSites, showAllSites); 
         //this.mapService.addAllPoints(this.mapSites, showAllSites); 
        console.log("mapsites" + this.mapSites.length); });
     this.selectedSite = undefined;
@@ -179,7 +186,8 @@ export class SiteSearchComponent implements OnInit {
 
   getMapSites(): void {
     this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; 
-    this.mapService.addAllPoints(this.mapSites)
+    //this.mapService.addAllPoints(this.mapSites)
+    this.olMapService.addAllPoints(this.mapSites);
     //this.mapService.addPoints(this.mapSites, true);
    });
     //console.log("getsites" + this.sites.length);

@@ -25,6 +25,7 @@ import 'popper.js';
 import  'bootstrap/js/src/tab';
 import { RqdService } from '../services/rqd.service';
 import { Rqd } from '../rqd';
+import { OlMapService } from '../services/ol-map.service';
 
 
 
@@ -54,20 +55,25 @@ export class SiteDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private siteService: SiteService, private mapService: MapService,
     private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title, 
     private sampleService: SampleService, private analysisService: AnalysisService, private platformLocation: PlatformLocation,
-    private dipService: DipService, private rqdService: RqdService) { 
+    private dipService: DipService, private rqdService: RqdService, private olMapService: OlMapService) { 
       console.log("Path: " +JSON.stringify((this.platformLocation as any).location.href));
       window.scrollTo(0, 0);
     }
 
   ngOnInit() {    
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
-    this.mapService.drawDetailsViewMap();
+    //this.mapService.drawDetailsViewMap();
+    this.olMapService.drawDetailsViewMap();
+    this.olMapService.addBedrockAgeLayer();
     this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
   }
 
   getSiteById(id: string): void {
-    this.siteService.searchSiteById(id).subscribe(site => { this.site = site['results'][0]; console.log(this.site); this.mapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude);  });   
+    this.siteService.searchSiteById(id).subscribe(site => { this.site = site['results'][0]; console.log(this.site);
+     //this.mapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude); 
+     this.olMapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude);
+     });   
   }
 
   getDrillcoreBoxesByDrillcoreId(id: string): void {

@@ -7,6 +7,7 @@ import { MapService } from '../services/map.service';
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { Title } from '@angular/platform-browser';
+import { OlMapService } from '../services/ol-map.service';
 
 //import * as $ from 'jquery';
 /*var $=require('jquery');
@@ -27,13 +28,15 @@ export class DepositDetailsComponent implements OnInit {
   //id: string;
 
   constructor(private route: ActivatedRoute, private depositService: DepositService, private mapService: MapService, private siteService: SiteService,
-    private titleService: Title) {
+    private titleService: Title, private olMapService: OlMapService) {
       window.scrollTo(0, 0);
      }
 
   ngOnInit() {
     this.getDepositById(this.route.snapshot.paramMap.get('id'));
-    this.mapService.drawDetailsViewMap();
+    //this.mapService.drawDetailsViewMap();
+    this.olMapService.drawDetailsViewMap();
+    this.olMapService.addBedrockAgeLayer();
     this.getDrillcoresByDepositId(this.route.snapshot.paramMap.get('id'));
     
   }
@@ -41,7 +44,8 @@ export class DepositDetailsComponent implements OnInit {
   getDepositById(id: string): void {
     this.depositService.searchDepositById(id).subscribe(deposit => { this.deposit = deposit['results'][0]; 
     console.log(this.deposit); 
-    this.mapService.addPointWithName(this.deposit.name, this.deposit.longitude, this.deposit.latitude); 
+    //this.mapService.addPointWithName(this.deposit.name, this.deposit.longitude, this.deposit.latitude); 
+    this.olMapService.addPointWithName(this.deposit.name, this.deposit.longitude, this.deposit.latitude);
   });
   }
 

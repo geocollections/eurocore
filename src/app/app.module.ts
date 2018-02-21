@@ -36,6 +36,7 @@ import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.componen
 import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.component';
 import { DipService } from './services/dip.service';
 import { RqdService } from './services/rqd.service';
+import { OlMapService } from './services/ol-map.service';
 
  
 
@@ -69,7 +70,7 @@ import { RqdService } from './services/rqd.service';
     NgSelectModule,  
     //SelectModule,
   ],
-  providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService, DipService, RqdService],
+  providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService, DipService, RqdService, OlMapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

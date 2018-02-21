@@ -16,7 +16,7 @@ import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.co
 
 const routes: Routes = [
   { path: 'drillcore', component: SitesComponent },
-  { path: 'ores', component: OresComponent },
+  { path: 'teaching_aids', component: OresComponent },
   { path: 'data_search', component: DataComponent },
   { path: 'drillcore/:id', component: SiteDetailsComponent },
   { path: 'deposit/:id', component: DepositDetailsComponent },

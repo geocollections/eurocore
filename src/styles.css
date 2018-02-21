@@ -81,7 +81,13 @@
     padding-bottom: 6rem;
     min-height: 95%;
     font-family: 'Titillium Web', sans-serif !important;
-    /*background-color: rgba(0, 68, 148, 0.1)!important;*/
+    background-color: rgba(0, 68, 148, 0.03)!important;
+  }
+
+  .alignCenter{
+    float: none;
+    margin: 0 auto;
+    max-width: 900px!important;
   }
 
   .container{
@@ -110,6 +116,10 @@
 }
 .tab-content{
   padding-top: 10px;
+}
+
+.card-header{
+  background-color: white!important;
 }
 
 .navbar {
