@@ -5,10 +5,8 @@ import { Analysis } from '../analysis';
 import { AnalysisService } from '../services/analysis.service';
 import { AnalysisResult } from '../analysis-result';
 
-import { MapService} from '../services/map.service';
 import { PlatformLocation } from '@angular/common';
-//import * as $ from 'jquery';
-//import  'openlayers';
+//import * as $ from 'jquery';;
 
 
 @Component({
@@ -23,7 +21,7 @@ export class AnalysisDetailsComponent implements OnInit {
   analysisResults: AnalysisResult[];
   spectrumCount: number;
 
-  constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService, private mapService: MapService, private platformLocation: PlatformLocation) {
+  constructor(private route: ActivatedRoute, private analysisSerrivce: AnalysisService, private platformLocation: PlatformLocation) {
 
    }
 

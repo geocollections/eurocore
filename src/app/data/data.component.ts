@@ -20,23 +20,6 @@ import { PlatformLocation } from '@angular/common';
 })
 export class DataComponent implements OnInit {
 
-  /*myOptions = [
-    { label: 'Au', value: 'Au' },
-    { label: 'Fe', value: 'Fe' },
-    { label: 'Ni', value: 'Ni' },
-    { label: 'S', value: 'S' },
-    { label: 'Ag', value: 'Ag' }
-  ];*/
-  myOptions = [
-    { label: 'Au', name: 'Au' },
-    { label: 'Pu', name: 'Fe' },
-    { label: 'Eu', name: 'Ni' },
-  ];
-  opt = [{ label: 'dsd', value: "dsd" }, { label: 'dsd2', value: "dds" }];
-  selected;
-
-  items = [true, 'Two', 3];
-  items2 = ["Mehtod1", "Method", "Method3"];
 
   searchDrillcoreName: string[] = [];
   searchAnalysesMethods: string[] = [];
@@ -44,13 +27,12 @@ export class DataComponent implements OnInit {
   searchComparisonOperator: string = "";
   searchComparisonValue: string = "";
   searchComparisonParameter: string = "";
-  //searchAnalyticlaMethod:
   drillcoreAutocompleteValues: string[];
   methodAutocompleteValues: string[];
   measuredParameters: Object[];
 
   parameterKeys: Object[]=[];
-
+ 
   drillcoreIds = [];
   sampleIds = [];
   analysisIds = [];
@@ -65,7 +47,6 @@ export class DataComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.items2);
     this.getAnalyticalMehtods();
     this.getMeasuredParameters();
     this.getDrillcoreByName();
@@ -80,8 +61,6 @@ export class DataComponent implements OnInit {
           this.drillcoreAutocompleteValues = drillcoreValues['results'];
         else
           this.drillcoreAutocompleteValues = [];
-        // console.log("values" + JSON.stringify(this.drillcoreAutocompleteValues));
-        console.log(this.drillcoreAutocompleteValues);
       });
   }
 
@@ -123,20 +102,16 @@ export class DataComponent implements OnInit {
         this.measuredParameters[k]['label']= this.measuredParameters[k]['analysisresult__parameter__parameter'] +" "+this.measuredParameters[k]['analysisresult__unit__unit']
         this.measuredParameters[k]['value']= this.getParameterColumnName(this.measuredParameters[k]['analysisresult__parameter__parameter'],
         this.measuredParameters[k]['analysisresult__unit__unit'])
-        console.log(this.measuredParameters[k]['label']);
       }
-      //console.log(JSON.stringify(this.measuredParameters));
-      //this.searchParameters=this.measuredParameters;
       this.onChange(this.searchParameters);
-      console.log(this.measuredParameters.length);
+      
     })
   }
 
   getDrillcoresByIds() {
     this.siteService.searchSites(this.drillcoreIds, '', '', '', '', '').subscribe(sites => {
       this.sites = sites['results'];
-      console.log(sites['results']);
-
+      //console.log(sites['results']);
     });
   }
 
@@ -144,7 +119,7 @@ export class DataComponent implements OnInit {
     console.log(this.sampleIds.toString());
     this.sampleService.searchSamplesByIds(this.sampleIds).subscribe(samples => {
       this.samples = samples['results'];
-      console.log(samples['results']);
+      //console.log(samples['results']);
     })
   }
 

@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { DepositService } from '../services/deposit.service';
 import { Deposit } from '../deposit';
-import { MapService } from '../services/map.service';
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { Title } from '@angular/platform-browser';
@@ -25,9 +24,9 @@ export class DepositDetailsComponent implements OnInit {
 
   deposit: Deposit;
   sites: Site[];
-  //id: string;
+  //id: string; 
 
-  constructor(private route: ActivatedRoute, private depositService: DepositService, private mapService: MapService, private siteService: SiteService,
+  constructor(private route: ActivatedRoute, private depositService: DepositService, private siteService: SiteService,
     private titleService: Title, private olMapService: OlMapService) {
       window.scrollTo(0, 0);
      }
@@ -36,7 +35,7 @@ export class DepositDetailsComponent implements OnInit {
     this.getDepositById(this.route.snapshot.paramMap.get('id'));
     //this.mapService.drawDetailsViewMap();
     this.olMapService.drawDetailsViewMap();
-    this.olMapService.addBedrockAgeLayer();
+    //this.olMapService.addBedrockAgeLayer();
     this.getDrillcoresByDepositId(this.route.snapshot.paramMap.get('id'));
     
   }

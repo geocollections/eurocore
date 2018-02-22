@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
-import { MapService } from '../services/map.service';
 import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
 import { OlMapService } from '../services/ol-map.service';
 //import * as $ from 'jquery';
@@ -16,7 +15,7 @@ import { OlMapService } from '../services/ol-map.service';
 })
 export class SiteSearchComponent implements OnInit {
 
-  selectedSite: Site;
+  selectedSite: Site; 
   sites: Site[];
   mapSites: Site[];
   siteCount: number;
@@ -38,7 +37,7 @@ export class SiteSearchComponent implements OnInit {
   drillcoreIdArray: string[]=[];
 
 
-  constructor(private siteService: SiteService, private mapService: MapService,private route: ActivatedRoute, private router: Router,
+  constructor(private siteService: SiteService, private route: ActivatedRoute, private router: Router,
   private olMapService: OlMapService) {
     window.scrollTo(0, 0);
   }
@@ -48,7 +47,7 @@ export class SiteSearchComponent implements OnInit {
     this.getQueryParams();
     //this.mapService.drawDrillcoreSearchMap(this);
     this.olMapService.drawDetailsViewMap();
-    this.olMapService.addBedrockAgeLayer();
+    //this.olMapService.addBedrockAgeLayer();
     this.olMapService.addPointeMoveInteraction();
     this.olMapService.addSelectInteraction(this);
     this.getMapSites();

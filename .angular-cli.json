@@ -20,15 +20,14 @@
       "prefix": "app",
       "styles": [ 
         "styles.css",
-        "../node_modules/openlayers/css/ol.css",
-        "./assets/flog2.css",
+        "../node_modules/ol/ol.css",
+        "./assets/flog2.css", 
         "./assets/flog2_form.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/ol-layerswitcher/src/ol-layerswitcher.css"
       ],
       "scripts": [ 
-        "./assets/d3.js",
-        "./assets/flog2.js",
-        "./assets/flog2_form.js"
+
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

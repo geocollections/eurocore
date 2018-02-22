@@ -21,8 +21,6 @@ import { OresComponent } from './ores/ores.component';
 import { DataComponent } from './data/data.component';
 import { SiteSearchComponent } from './site-search/site-search.component';
 import { DepositDetailsComponent } from './deposit-details/deposit-details.component';
-import { MapComponent } from './map/map.component';
-import { MapService } from './services/map.service';
 import { LithologyService } from './services/lithology.service';
 import { DepositService } from './services/deposit.service';
 import { SampleDetailsComponent } from './sample-details/sample-details.component';
@@ -49,7 +47,6 @@ import { OlMapService } from './services/ol-map.service';
     DataComponent,
     SiteSearchComponent,
     DepositDetailsComponent,
-    MapComponent,
     SampleDetailsComponent,
     AnalysisDetailsComponent,
     DrillcoreBoxesComponent,
@@ -67,10 +64,10 @@ import { OlMapService } from './services/ol-map.service';
     InfiniteScrollModule, 
     NgbModule.forRoot(),
     TypeaheadModule.forRoot(),
-    NgSelectModule,  
+    NgSelectModule,   
     //SelectModule,
   ],
-  providers: [SiteService, MapService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService, DipService, RqdService, OlMapService],
+  providers: [SiteService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService, DipService, RqdService, OlMapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

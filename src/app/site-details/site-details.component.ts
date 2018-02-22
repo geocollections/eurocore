@@ -6,7 +6,6 @@ import {PlatformLocation } from '@angular/common';
 
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
-import { MapService } from '../services/map.service';
 import { LithologyService } from '../services/lithology.service';
 import { Lithology } from '../lithology';
 import { DrillcoreBoxService } from '../services/drillcore-box.service';
@@ -52,7 +51,7 @@ export class SiteDetailsComponent implements OnInit {
   pageCount: number;
   
 
-  constructor(private route: ActivatedRoute, private siteService: SiteService, private mapService: MapService,
+  constructor(private route: ActivatedRoute, private siteService: SiteService,
     private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title, 
     private sampleService: SampleService, private analysisService: AnalysisService, private platformLocation: PlatformLocation,
     private dipService: DipService, private rqdService: RqdService, private olMapService: OlMapService) { 
@@ -64,7 +63,7 @@ export class SiteDetailsComponent implements OnInit {
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     //this.mapService.drawDetailsViewMap();
     this.olMapService.drawDetailsViewMap();
-    this.olMapService.addBedrockAgeLayer();
+    //this.olMapService.addBedrockAgeLayer();
     this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
   }

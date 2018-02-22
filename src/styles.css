@@ -206,6 +206,11 @@ h2, h4, h5{
   background-color: #004393!important;
 }
 
+
+.layer-switcher button {
+  background-color: rgba(0,0,0,0.05)!important;
+}
+
 .verticalTableHead { 
   color: #004393!important;
   background-color: rgba(0,68,148,0.2)!important;

@@ -1,66 +1,150 @@
 import { Injectable } from '@angular/core';
 import { Site } from '../site';
 import { SiteSearchComponent } from '../site-search/site-search.component';
-import * as ol from "openlayers";
+//import * as ol from "openlayers";
 import * as $ from 'jquery';
-import { OresComponent } from '../ores/ores.component';
+
+import LayerSwitcher from "ol-layerswitcher/dist/ol-layerswitcher"; 
+
+import Map from 'ol/map';
+import SourceVector from 'ol/source/vector';
+import LayerVector from 'ol/layer/vector';
+import Select from 'ol/interaction/select';
+import SourceXYZ from 'ol/source/xyz';
+import Feature from 'ol/feature';
+import GeomPoint from 'ol/geom/point';
+import Style from 'ol/style/style';
+import Circle from 'ol/style/circle';
+import Fill from 'ol/style/fill';
+import Stroke from 'ol/style/stroke';
+import Text from 'ol/style/text';
+import Condition from 'ol/events/condition';
+import DragBoxInteraction from 'ol/interaction/dragbox';
+import SourceImageArcGISRest from 'ol/source/imagearcgisrest';
+
+
+import View from 'ol/view';
+import Proj from 'ol/proj';
+import LayerGroup from 'ol/layer/group';
+import LayerImage from 'ol/layer/image';
+import LayerTile from 'ol/layer/tile';
+import SourceOSM from 'ol/source/osm';
+import SourceStamen from 'ol/source/stamen';
+import TileWMS from "ol/source/tilewms";
 
 @Injectable()
 export class OlMapService {
 
-  vectorSource: ol.source.Vector;
-  map: ol.Map;
-  allVectors: ol.source.Vector;
-  select: ol.interaction.Select;
+  vectorSource: SourceVector;
+  map: Map;
+  allVectors: SourceVector;
+  select: Select;
 
   constructor() {
   }
 
   drawDetailsViewMap(): void {
-    var vectorSource = new ol.source.Vector({});
+    var vectorSource = new SourceVector({});
     this.vectorSource = vectorSource;
 
-    var vectorLayer = new ol.layer.Vector({
+    var vectorLayer = new LayerVector({
       source: this.vectorSource,
       zIndex: 100
     });
 
 
-    var allVectors = new ol.source.Vector({});
+    var allVectors = new SourceVector({});
     this.allVectors = allVectors;
 
-    var allVectorsLayer = new ol.layer.Vector({
+    var allVectorsLayer = new LayerVector({
       source: this.allVectors,
       zIndex: 100
     });
 
-    this.map = new ol.Map({
+    this.map = new Map({
       target: 'map',
       layers: [
-        new ol.layer.Tile({
-          source: new ol.source.XYZ({
-            url: 'https://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia3V1dG9iaW5lIiwiYSI6ImNpZWlxdXAzcjAwM2Nzd204enJvN2NieXYifQ.tp6-mmPsr95hfIWu3ASz2w'
-          })
+
+        new LayerGroup({
+          'title': 'Base maps',
+          layers: [
+            new LayerTile({
+              title: 'Mapbox light',
+              type: 'base',
+              visible: true,
+              source: new SourceXYZ({
+                url: 'https://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia3V1dG9iaW5lIiwiYSI6ImNpZWlxdXAzcjAwM2Nzd204enJvN2NieXYifQ.tp6-mmPsr95hfIWu3ASz2w'
+              })
+            }),
+            new LayerTile({
+              title: 'Stamen dark',
+              type: 'base',
+              visible: false,
+              source: new SourceStamen({
+                layer: 'toner'
+              })
+            }),
+            new LayerTile({
+              title: 'Stamen terrain',
+              type: 'base',
+              group: 'group-name',
+              visible: false,
+              source: new SourceStamen({
+                layer: 'terrain'
+              })
+            }),
+            new LayerTile({
+              title: 'OpenStreetMap',
+              type: 'base',
+              visible: false,
+              source: new SourceOSM()
+            }),
+
+          ]
+        }),
+
+        new LayerGroup({
+          title: 'Overlays',
+          layers: [
+            new LayerTile({
+              /* extent: [-13884991, 2870341, -7455066, 6338219],*/              
+              title: 'Bedrock age <br /><img src="http://gis.geokogud.info/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=IGME5000:EuroGeology&legend_options=fontName:DejaVu%20Sans%20ExtraLight;fontAntiAliasing:true;fontColor:0x333333;fontSize:10;bgColor:0xFFFFff;dpi:96" /> ',
+              visible: true,
+              source: new TileWMS({
+                url: 'http://gis.geokogud.info/geoserver/wms',
+                params: { 'LAYERS': 'IGME5000:EuroGeology', 'TILED': true },
+                serverType: 'geoserver',
+                // Countries have transparency, so do not fade tiles:
+                // transition: 0,
+                projection: ''
+              }),
+              opacity: 0.5,
+            })
+          ]
         }),
         allVectorsLayer,
         //vectorLayer
       ],
-      view: new ol.View({
-        center: ol.proj.fromLonLat([29.34424401655, 62.856645860855]),
+      view: new View({
+        center: Proj.fromLonLat([29.34424401655, 62.856645860855]),
         zoom: 4
       })
     });
 
     this.map.addLayer(vectorLayer);
 
+    var layerSwitcher = new LayerSwitcher();
+    this.map.addControl(new LayerSwitcher());
+
   }
+
 
 
   addBedrockAgeLayer() {
     var bedrockAge;
-    bedrockAge = new ol.layer.Tile({
+    bedrockAge = new LayerTile({
       /* extent: [-13884991, 2870341, -7455066, 6338219],*/
-      source: new ol.source.TileWMS({
+      source: new TileWMS({
         url: 'http://gis.geokogud.info/geoserver/wms',
         params: { 'LAYERS': 'IGME5000:EuroGeology', 'TILED': true },
         serverType: 'geoserver',
@@ -87,26 +171,26 @@ export class OlMapService {
     this.vectorSource.clear();
 
     if (longitude != undefined) {
-      var pointWithName = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([longitude, latitude]))
+      var pointWithName = new Feature({
+        geometry: new GeomPoint(Proj.fromLonLat([longitude, latitude]))
       });
-      pointWithName.setStyle(new ol.style.Style({
-        image: new ol.style.Circle({
+      pointWithName.setStyle(new Style({
+        image: new Circle({
           radius: 7,
-          fill: new ol.style.Fill({ color: '#CD154F' }),
-          stroke: new ol.style.Stroke({
+          fill: new Fill({ color: '#CD154F' }),
+          stroke: new Stroke({
             color: 'black',
             width: 1
           })
         }),
-        text: new ol.style.Text({
+        text: new Text({
           scale: 1.4,
           text: name,
           offsetY: -25,
-          fill: new ol.style.Fill({
+          fill: new Fill({
             color: 'black'
           }),
-          stroke: new ol.style.Stroke({
+          stroke: new Stroke({
             color: 'white',
             width: 3.5
           })
@@ -115,14 +199,14 @@ export class OlMapService {
 
       this.vectorSource.addFeature(pointWithName);
       this.map.getView().setZoom(5);
-      this.map.getView().setCenter(ol.proj.fromLonLat([longitude, latitude]));
+      this.map.getView().setCenter(Proj.fromLonLat([longitude, latitude]));
 
     }
   }
 
   addPointeMoveInteraction() {
-    var selectPointerMove = new ol.interaction.Select({
-      condition: ol.events.condition.pointerMove
+    var selectPointerMove = new Select({
+      condition: Condition.pointerMove
     });
     this.map.addInteraction(selectPointerMove);
 
@@ -139,7 +223,7 @@ export class OlMapService {
 
   addSelectInteraction(siteSearchComponent?: SiteSearchComponent) {
 
-    var select = new ol.interaction.Select({
+    var select = new Select({
       multi: true,
       /* toggleCondition: function (layer) {
          return true;
@@ -161,7 +245,7 @@ export class OlMapService {
       siteSearchComponent.searchSites();
     })
 
-    var dragBox = new ol.interaction.DragBox({
+    var dragBox = new DragBoxInteraction({ 
       //condition: ol.events.condition.platformModifierKeyOnly
     });
     this.map.addInteraction(dragBox);
@@ -198,30 +282,30 @@ export class OlMapService {
 
     for (var i = 0; i < Object.keys(sites).length; i++) {
       if (sites[i].longitude != undefined) {
-        var point = new ol.Feature({
+        var point = new Feature({
           name: sites[i].name,
           id: sites[i].id,
-          geometry: new ol.geom.Point(ol.proj.fromLonLat([sites[i].longitude, sites[i].latitude]))
+          geometry: new GeomPoint(Proj.fromLonLat([sites[i].longitude, sites[i].latitude]))
         });
         point.setId(sites[i].id);
-        point.setStyle(new ol.style.Style({
-          image: new ol.style.Circle({
+        point.setStyle(new Style({
+          image: new Circle({
             radius: 7,
-            fill: new ol.style.Fill({ color: '#6BB745' }),
-            stroke: new ol.style.Stroke({
+            fill: new Fill({ color: '#6BB745' }),
+            stroke: new Stroke({
               color: 'black',
               width: 1
             })
           }),
           zIndex: 100,
-          text: new ol.style.Text({
+          text: new Text({
             scale: 0,
             text: sites[i].name,
             offsetY: -25,
-            fill: new ol.style.Fill({
+            fill: new Fill({
               color: 'black'
             }),
-            stroke: new ol.style.Stroke({
+            stroke: new Stroke({
               color: 'white',
               width: 3.5
             })
@@ -238,24 +322,24 @@ export class OlMapService {
   addPoints(sites: Site[]): void {
 
     for (var k = 0; k < this.allVectors.getFeatures().length; k++) {
-      this.allVectors.getFeatures()[k].setStyle(new ol.style.Style({
-        image: new ol.style.Circle({
+      this.allVectors.getFeatures()[k].setStyle(new Style({
+        image: new Circle({
           radius: 7,
-          fill: new ol.style.Fill({ color: '#6BB745' }),
-          stroke: new ol.style.Stroke({
+          fill: new Fill({ color: '#6BB745' }),
+          stroke: new Stroke({
             color: 'black',
             width: 1
           }),
         }),
         //zIndex : 150,
-        text: new ol.style.Text({
+        text: new Text({
           scale: 0,
           text: this.allVectors.getFeatures()[k].get('name'),
           offsetY: -25,
-          fill: new ol.style.Fill({
+          fill: new Fill({
             color: 'black'
           }),
-          stroke: new ol.style.Stroke({
+          stroke: new Stroke({
             color: 'white',
             width: 3.5
           })
@@ -267,24 +351,24 @@ export class OlMapService {
 
     if (sites && Object.keys(sites).length < this.allVectors.getFeatures().length) {
       for (var i = 0; i < Object.keys(sites).length; i++) {
-        this.allVectors.getFeatureById(sites[i].id).setStyle(new ol.style.Style({
-          image: new ol.style.Circle({
+        this.allVectors.getFeatureById(sites[i].id).setStyle(new Style({
+          image: new Circle({
             radius: 7,
-            fill: new ol.style.Fill({ color: '#CD154F' }),
-            stroke: new ol.style.Stroke({
+            fill: new Fill({ color: '#CD154F' }),
+            stroke: new Stroke({
               color: 'black',
               width: 1
             }),
           }),
           zIndex: 100,
-          text: new ol.style.Text({
+          text: new Text({
             scale: 0,
             text: this.allVectors.getFeatureById(sites[i].id).get('name'),
             offsetY: -25,
-            fill: new ol.style.Fill({
+            fill: new Fill({
               color: 'black'
             }),
-            stroke: new ol.style.Stroke({
+            stroke: new Stroke({
               color: 'white',
               width: 3.5
             })
