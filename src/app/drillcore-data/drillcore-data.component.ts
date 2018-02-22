@@ -15,7 +15,7 @@ import { TableExport } from 'tableexport';
 })
 export class DrillcoreDataComponent implements OnInit {
 
-  siteParameters: String[];
+  siteParameters: String[] = [];
   analysisResults: AnalysisSummary[];
   analysisSummaryData: AnalysisSummary[];
 
@@ -54,7 +54,9 @@ export class DrillcoreDataComponent implements OnInit {
 
   getAllParametersByDrillcoreId(id: string): void {
     this.siteService.searchAllParametersByDrillcoreId(id).subscribe(parameters => {
-      this.siteParameters = parameters['results'];
+      for (var k = 0; k < parameters['results'].length; k++)
+        if (parameters['results'][k]['analysis__analysisresult__parameter__parameter']!= null && parameters['results'][k]['analysis__analysisresult__unit__unit']!= null)
+          this.siteParameters.push(parameters['results'][k]);
     });
   }
 
@@ -103,7 +105,7 @@ export class DrillcoreDataComponent implements OnInit {
           y,
           type: 'scattergl',
           //mode: 'markers',
-           mode: 'lines+markers',
+          mode: 'lines+markers',
           //mode: 'lines',
           name: name
         })
@@ -130,7 +132,7 @@ export class DrillcoreDataComponent implements OnInit {
         domain: [0.05, 0.95],
         linecolor: 'black',
         linewidth: 1,
-       // mirror: true,
+        // mirror: true,
         autotick: true,
         ticks: "outside",
         ticklen: 5,
@@ -140,9 +142,9 @@ export class DrillcoreDataComponent implements OnInit {
       yaxis: {
         side: 'left',
         title: '%',
-         linecolor: 'black',
-         linewidth: 1,
-         mirror: true,
+        linecolor: 'black',
+        linewidth: 1,
+        mirror: true,
         autotick: true,
         ticks: "outside",
         ticklen: 5,
@@ -156,14 +158,14 @@ export class DrillcoreDataComponent implements OnInit {
         overlaying: 'y',
         side: 'right',
         linecolor: 'black',
-         linewidth: 1,
-         mirror: true,
+        linewidth: 1,
+        mirror: true,
         autotick: true,
         ticks: "outside",
         ticklen: 5,
         tickwidth: 1,
         tickcolor: 'black',
-        showgrid:false,
+        showgrid: false,
       }
     };
     let fName = this.siteParameters[0]['name'];
@@ -186,7 +188,7 @@ export class DrillcoreDataComponent implements OnInit {
     var gd = gd3.node();
 
     var start = window.performance.now();
-   console.log("start new plot");
+    console.log("start new plot");
     Plotly.newPlot(gd, data, layout,
       {
         modeBarButtonsToRemove: ['toImage'],
@@ -201,9 +203,9 @@ export class DrillcoreDataComponent implements OnInit {
         displaylogo: false
       }
     );
-      var end = window.performance.now();
-      console.log(end - start + 'ms');
-      
+    var end = window.performance.now();
+    console.log(end - start + 'ms');
+
     window.onresize = function () {
       Plotly.Plots.resize(gd);
     };
@@ -242,8 +244,8 @@ export class DrillcoreDataComponent implements OnInit {
       }
       addRow = false;
     }
-    console.log("end..."); 
-    this.tableData=this.filteredResults.slice(0,100);
+    console.log("end...");
+    this.tableData = this.filteredResults.slice(0, 100);
     console.log(this.tableData);
   }
 

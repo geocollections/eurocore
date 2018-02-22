@@ -21,8 +21,6 @@
       "styles": [ 
         "styles.css",
         "../node_modules/ol/ol.css",
-        "./assets/flog2.css", 
-        "./assets/flog2_form.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ol-layerswitcher/src/ol-layerswitcher.css"
       ],

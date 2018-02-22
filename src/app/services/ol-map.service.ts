@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Site } from '../site';
 import { SiteSearchComponent } from '../site-search/site-search.component';
-//import * as ol from "openlayers";
 import * as $ from 'jquery';
 
 import LayerSwitcher from "ol-layerswitcher/dist/ol-layerswitcher"; 
@@ -33,7 +32,7 @@ import SourceStamen from 'ol/source/stamen';
 import TileWMS from "ol/source/tilewms";
 
 @Injectable()
-export class OlMapService {
+export class OlMapService {  
 
   vectorSource: SourceVector;
   map: Map;
@@ -119,7 +118,21 @@ export class OlMapService {
                 projection: ''
               }),
               opacity: 0.5,
-            })
+            }),
+            /*new LayerTile({
+              visible: false, 
+              title: 'Boreholes',
+              source: new TileWMS({
+                url: 'http://gis.geokogud.info:80/geoserver/sarv/wms',
+                params: {
+                         'VERSION': '1.1.1',
+                         tiled: true,
+                      STYLES: '',
+                      LAYERS: 'sarv:locality_summary',
+                   tilesOrigin: -180 + "," + -90
+                }
+              }) 
+             })*/
           ]
         }),
         allVectorsLayer,
