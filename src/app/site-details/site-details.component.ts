@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Title } from '@angular/platform-browser';
-import {PlatformLocation } from '@angular/common';
+import { PlatformLocation } from '@angular/common';
 
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
@@ -20,8 +20,7 @@ import { Dip } from '../dip';
 
 import * as $ from 'jquery'; 
 import 'popper.js';
-//import  'bootstrap/dist/js/bootstrap.min';
-import  'bootstrap/js/src/tab';
+import  'bootstrap/js/src/tab'; 
 import { RqdService } from '../services/rqd.service';
 import { Rqd } from '../rqd';
 import { OlMapService } from '../services/ol-map.service';
@@ -55,42 +54,33 @@ export class SiteDetailsComponent implements OnInit {
     private lithologyService: LithologyService, private drillcoreBoxService: DrillcoreBoxService, private titleService: Title, 
     private sampleService: SampleService, private analysisService: AnalysisService, private platformLocation: PlatformLocation,
     private dipService: DipService, private rqdService: RqdService, private olMapService: OlMapService) { 
-      console.log("Path: " +JSON.stringify((this.platformLocation as any).location.href));
       window.scrollTo(0, 0);
     }
 
   ngOnInit() {    
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
-    //this.mapService.drawDetailsViewMap();
-    this.olMapService.drawDetailsViewMap();
-    //this.olMapService.addBedrockAgeLayer();
-    this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
+    this.olMapService.drawDetailsViewMap();   
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
   }
 
   getSiteById(id: string): void {
     this.siteService.searchSiteById(id).subscribe(site => { this.site = site['results'][0]; console.log(this.site);
-     //this.mapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude); 
      this.olMapService.addPointWithName(this.site.name, this.site.longitude,this.site.latitude);
+     this.getDrillcoreSummary(this.route.snapshot.paramMap.get('id'));
      });   
   }
 
-  getDrillcoreBoxesByDrillcoreId(id: string): void {
-    
+  getDrillcoreBoxesByDrillcoreId(id: string): void {   
     if (this.pageNr <= this.pageCount || this.pageCount == undefined) {
       this.drillcoreBoxService.getDrillcoreBoxesByDrillcoreId(id, this.paginateBy, this.pageNr).subscribe(drillcoreBoxes => {
         if(drillcoreBoxes['results']){
         for (let i = 0; i < drillcoreBoxes['results'].length; i++) {
           this.drillcoreBoxes.push(drillcoreBoxes['results'][i]);
-          console.log("boxespush" + drillcoreBoxes['results'][i].number)
         }
         if (drillcoreBoxes['page'])
           this.pageCount = Number(String(drillcoreBoxes['page']).split("of ")[1])
         else
           this.pageCount = 1;
-
-        console.log(this.pageCount);
-        console.log(this.pageNr);
         this.pageNr++;
       }
     }
@@ -101,6 +91,7 @@ export class SiteDetailsComponent implements OnInit {
   onScroll() {
     this.getDrillcoreBoxesByDrillcoreId(this.route.snapshot.paramMap.get("id"));
   }
+  
   getLithologyByDrillcoreId(drillcoreId:string):void{
     this.lithologyService.getLithologyByDrillcoreId(drillcoreId).subscribe(lithologies => { this.lithologies = lithologies['results']; console.log(this.lithologies); });
   }
@@ -157,14 +148,13 @@ export class SiteDetailsComponent implements OnInit {
     }
     if(!(this.drillcoreSummary.dips==0  || this.drillcoreSummary.dips==null)){
       console.log("dip"); 
-      //this.getLithologyByDrillcoreId(this.site.id.toString());
       this.getDipByDrillcoreId(this.site.id.toString());
       this.activateTab("dipTab");
       return;   
     }
     if(!(this.drillcoreSummary.rqds==0  || this.drillcoreSummary.rqds==null)){
       console.log("rqds"); 
-      //this.getLithologyByDrillcoreId(this.site.id.toString());
+      this.getRqdByDrillcoreId(this.site.id.toString());
       this.activateTab("rqdTab");
       return;   
     }

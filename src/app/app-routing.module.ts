@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SitesComponent }      from './sites/sites.component';
 import { OresComponent }   from './ores/ores.component';
 import { DataComponent }   from './data/data.component';
 import { SiteDetailsComponent }   from './site-details/site-details.component';
@@ -12,10 +11,11 @@ import { DrillcoreBoxesComponent} from "./drillcore-boxes/drillcore-boxes.compon
 import { FrontpageComponent} from "./frontpage/frontpage.component";
 import { DrillcoreDataComponent } from './drillcore-data/drillcore-data.component';
 import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.component';
+import { SiteSearchComponent } from './site-search/site-search.component';
 
 
 const routes: Routes = [
-  { path: 'drillcore', component: SitesComponent },
+  { path: 'drillcore', component: SiteSearchComponent },
   { path: 'teaching_aids', component: OresComponent },
   { path: 'data_search', component: DataComponent },
   { path: 'drillcore/:id', component: SiteDetailsComponent },

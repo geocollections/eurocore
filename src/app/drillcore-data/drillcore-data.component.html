@@ -17,54 +17,51 @@
           {{getParameterName(siteParameter)}}
         </span>
       </label>
-    </div> 
+    </div>
   </div>
 </div>
 <div class="row ">
   <div class="col">
     <ul class="nav nav-tabs">
-      <li class="nav-item" >
+      <li class="nav-item">
         <a class="nav-link" href="#data" data-toggle="tab">Data</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#chart" data-toggle="tab"  id="chartTabLink">Chart</a>
+        <a class="nav-link active" href="#chart" data-toggle="tab" id="chartTabLink">Chart</a>
       </li>
     </ul>
-
     <div class="tab-content">
       <div class="tab-pane table-responsive" id="data">
         <div *ngIf="filteredResults.length>0" class="exportButtons">
           <button class="btn btn-primary" (click)="exportTable('xlsx','analysisResults')">Export as .xlsx</button>
           <button class="btn btn-primary" (click)="exportTable('csv','analysisResults')">Export as .csv</button>
-          </div>
-         
-         <table *ngIf="filteredResults.length>0" class="table table-hover table-bordered " id="analysisResults">
-            <thead class="thead-light">
-              <tr>
-                <th>Depth from</th>
-                <th>Depth to (m)</th>
-                <th>Sample</th>
-                <th>Analysis</th>
-                <th *ngFor="let selectedParameter of selectedParameters">
-                  {{getParameterName(selectedParameter)}}
-                </th>
-              </tr>
-            </thead>
-  
-            <tr *ngFor="let filteredResult of tableData">
-              <td>{{filteredResult.depth}}</td>
-              <td>{{filteredResult.end_depth}}</td>
-              <td>
-                <a routerLink="/sample/{{filteredResult.sample_id}}">{{filteredResult.sample_number}}</a>
-              </td>
-              <td>
-                <a routerLink="/analysis/{{filteredResult.analysis_id}}">{{filteredResult.analysis_id}}</a>
-              </td>
-              <td *ngFor="let selectedParameter of selectedParameters">{{filteredResult[getParameterColumnName(selectedParameter,filteredResult)]}}</td>
+        </div>
+        <table *ngIf="filteredResults.length>0" class="table table-hover table-bordered " id="analysisResults">
+          <thead class="thead-light">
+            <tr>
+              <th>Depth from</th>
+              <th>Depth to (m)</th>
+              <th>Sample</th>
+              <th>Analysis</th>
+              <th *ngFor="let selectedParameter of selectedParameters">
+                {{getParameterName(selectedParameter)}}
+              </th>
             </tr>
-          </table>
+          </thead>
+          <tr *ngFor="let filteredResult of tableData">
+            <td>{{filteredResult.depth}}</td>
+            <td>{{filteredResult.end_depth}}</td>
+            <td>
+              <a routerLink="/sample/{{filteredResult.sample_id}}">{{filteredResult.sample_number}}</a>
+            </td>
+            <td>
+              <a routerLink="/analysis/{{filteredResult.analysis_id}}">{{filteredResult.analysis_id}}</a>
+            </td>
+            <td *ngFor="let selectedParameter of selectedParameters">{{filteredResult[getParameterColumnName(selectedParameter,filteredResult)]}}</td>
+          </tr>
+        </table>
       </div>
-      <div class="tab-pane active" id="chart" >
+      <div class="tab-pane active" id="chart">
         <div id="plotlyChart">
           <!-- Plotly chart will be drawn inside this DIV -->
         </div>

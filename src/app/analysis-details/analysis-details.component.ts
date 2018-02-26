@@ -4,10 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Analysis } from '../analysis';
 import { AnalysisService } from '../services/analysis.service';
 import { AnalysisResult } from '../analysis-result';
-
 import { PlatformLocation } from '@angular/common';
-//import * as $ from 'jquery';;
-
 
 @Component({
   selector: 'app-analysis-details',

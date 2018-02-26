@@ -20,8 +20,7 @@ export class SpectrumDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.analysisId = this.route.snapshot.paramMap.get('id');
-    //this.getAnalysisSepectrumEnergyRanges("20000"); 
-    this.getAnalysisSpectrumData(this.route.snapshot.paramMap.get('id'));
+    this.getAnalysisSpectrumData(this.analysisId);
   }
 
   getAnalysisSepectrumEnergyRanges(id: string): void {

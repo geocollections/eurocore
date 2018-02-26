@@ -6,13 +6,6 @@
 
 <div class="row align-items-center">
 	<div class="col alignCenter">
-
-		<!--<div class="form-group">
-			<label for="name">Drillcore name</label>
-			<input id="drillcoreName" class="form-control" [(ngModel)]="searchDrillcoreName" typeaheadOptionField="name" [typeahead]="drillcoreAutocompleteValues"
-			 [typeaheadWaitMs]="200" autocomplete="off" (input)="getDrillcoreByName()" />
-		</div>-->
-
 		<div class="form-group">
 				<label for="name">Drillcore name(s)</label>
 				<ng-select class="form-control2" [items]="drillcoreAutocompleteValues"  bindLabel="name" bindValue="id"
@@ -20,23 +13,18 @@
 				 [multiple]="true" >
 				</ng-select>
 		</div>
-
-
 		<div class="form-group">
 			<label for="name">Analytical method(s)</label>
 			<ng-select class="form-control2" [items]="methodAutocompleteValues" bindLabel="analysis_method" bindValue="analysis_method"
 			 [multiple]="true" [(ngModel)]="searchAnalysesMethods">
 			</ng-select>
 		</div>
-
 		<div class="form-group">
 				<label for="name">Show Parameter(s)</label>
 				<ng-select class="form-control2" [items]="measuredParameters"  bindLabel="label" 
 				 [multiple]="true" [(ngModel)]="searchParameters" (change)="onChange($event)">
 				</ng-select>
-		</div>
-
-		
+		</div>		
 		<div class="form-group">
 			<label for="name">
 				Parameter filter
@@ -47,7 +35,6 @@
 					<option value="" *ngFor="let parameter of measuredParameters" value="{{getParameterColumnName(parameter.analysisresult__parameter__parameter,parameter.analysisresult__unit__unit)}}">
 						{{parameter.analysisresult__parameter__parameter}} {{parameter.analysisresult__unit__unit}}</option>
 				</select>
-
 				<select class="form-control" [(ngModel)]="searchComparisonOperator" name="size">
 					<option value=""> </option>
 					<option value="iexact" >Equals</option>
@@ -79,7 +66,6 @@
 			</li>
 		</ul>
 		<br>
-
 		<div class="tab-content">
 			<!--<div class="tab-pane fade" id="drillcores">
 				<table class="table table-hover table-bordered ">

@@ -40,14 +40,14 @@ export class AnalysisService {
   getAnalysisSummary(id: string): Observable<AnalysisSummary[]> {
     //return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?format=jsonp&drillcore_id='+id+'&or_search=analysis_method:ICP-OES;analysis_method:FA-AAS&fields=au_ppm,cu_pct,co_pct,zn_pct,depth,end_depth,analysis_id,sample_id,sample_number,analysis_method&order_by=depth', 'callback').pipe();
     //return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?paginate_by=400&drillcore_id='+id+'&analysis_method__iexact=FA-AAS&fields=au_ppm,cu_pct,co_pct,zn_pct,depth,end_depth,analysis_id,sample_id,sample_number,analysis_method&order_by=depth&format=jsonp', 'callback').pipe();
-    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?paginate_by=400&drillcore_id=' + id + '&analysis_method__iexact=ICP-OES&fields=s_pct,ni_pct,fe_pct,au_ppm,cu_pct,co_pct,zn_pct,depth,end_depth,analysis_id,sample_id,sample_number,analysis_method&order_by=depth&format=jsonp', 'callback').pipe();
+    return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id=' + id + '&analysis_method__iexact=ICP-OES&fields=s_pct,ni_pct,fe_pct,au_ppm,cu_pct,co_pct,zn_pct,depth,end_depth,analysis_id,sample_id,sample_number,analysis_method&order_by=depth&format=jsonp', 'callback').pipe();
   }
 
   getAnalysisSummaryData(id: string): Observable<AnalysisSummary[]> {
     return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?drillcore_id=' + id + '&order_by=depth&format=jsonp', 'callback').pipe();
   }
 
-  getAnalysesByDepth(startDepth: string, endDepth: string, drillcoreId: string): Observable<Analysis[]> {  //analysis/?drillcore__id=17&or_search=depth__range:102.7,108.1;end_depth__range:102.7,108.1
+  getAnalysesByDepth(startDepth: string, endDepth: string, drillcoreId: string): Observable<Analysis[]> { 
     return this.http.jsonp<Analysis[]>('http://api.eurocore.rocks/analysis/?drillcore__id=' + drillcoreId + '&or_search=depth__range:' + startDepth + ',' + endDepth + ';end_depth__range:' + startDepth + ',' + endDepth + '&format=jsonp&order_by=depth&paginate_by=1000', "callback").pipe();
   }
 
@@ -75,7 +75,6 @@ export class AnalysisService {
       else
         idCriteria = '&drillcore_id=' + ids.toString();
     if (methods.length != 0)
-      //for(var k=0;k<methods.length;k++)
       if (methods.length > 1)
         methodCriteria = '&analysis_method__in=' + methods.toString();
       else

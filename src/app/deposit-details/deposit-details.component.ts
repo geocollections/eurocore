@@ -8,12 +8,6 @@ import { Site } from '../site';
 import { Title } from '@angular/platform-browser';
 import { OlMapService } from '../services/ol-map.service';
 
-//import * as $ from 'jquery';
-/*var $=require('jquery');
-import 'popper.js';
-import 'bootstrap'; */
-
-
 @Component({
   selector: 'app-deposit-details',
   templateUrl: './deposit-details.component.html',
@@ -24,7 +18,6 @@ export class DepositDetailsComponent implements OnInit {
 
   deposit: Deposit;
   sites: Site[];
-  //id: string; 
 
   constructor(private route: ActivatedRoute, private depositService: DepositService, private siteService: SiteService,
     private titleService: Title, private olMapService: OlMapService) {
@@ -33,17 +26,13 @@ export class DepositDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDepositById(this.route.snapshot.paramMap.get('id'));
-    //this.mapService.drawDetailsViewMap();
     this.olMapService.drawDetailsViewMap();
-    //this.olMapService.addBedrockAgeLayer();
-    this.getDrillcoresByDepositId(this.route.snapshot.paramMap.get('id'));
-    
+    this.getDrillcoresByDepositId(this.route.snapshot.paramMap.get('id'));  
   }
 
   getDepositById(id: string): void {
     this.depositService.searchDepositById(id).subscribe(deposit => { this.deposit = deposit['results'][0]; 
     console.log(this.deposit); 
-    //this.mapService.addPointWithName(this.deposit.name, this.deposit.longitude, this.deposit.latitude); 
     this.olMapService.addPointWithName(this.deposit.name, this.deposit.longitude, this.deposit.latitude);
   });
   }
@@ -55,6 +44,5 @@ export class DepositDetailsComponent implements OnInit {
     });
     }
   }
-
 
 }

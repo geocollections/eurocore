@@ -4,77 +4,40 @@
       <h3>Drillcore search</h3>
     </div>
   </div>
-
   <div class="row align-items-center">
     <div class="col">
-
       <div class="form-group">
-        <!--<label for="name">Drillcore name</label>
-        <input [(ngModel)]="searchDrillcoreName" id="drillcoreName" list="drillcoreList" class="form-control" (input)="searchDrillcoreByName()"
-          (keypress)="enterKeyPress($event)" placeholder="Drillcore name" data-role="tagsinput" >
-          
-        <datalist *ngIf="drillcoreAutocompleteValues" id='drillcoreList'>
-          <option *ngFor="let drillcoreValue of drillcoreAutocompleteValues" value='{{drillcoreValue.name}}'> 
-        </datalist>-->
-        <input [(ngModel)]="searchDrillcoreName" id="drillcoreName"  class="form-control" (input)="searchDrillcoreByName()"
-          (keypress)="enterKeyPress($event)" placeholder="Drillcore name" [typeahead]="drillcoreAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name" autocomplete="off">
+        <input [(ngModel)]="searchDrillcoreName" id="drillcoreName" class="form-control" (input)="searchDrillcoreByName()" (keypress)="enterKeyPress($event)"
+          placeholder="Drillcore name" [typeahead]="drillcoreAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name"
+          autocomplete="off">
       </div>
       <div class="form-group">
-        <!--<label for="name">Deposit name</label>
-        <input [(ngModel)]="searchDepositName" id="depositName" list="depositList" class="form-control" (input)="searchDepositByName(searchDepositName)"
-          (keypress)="enterKeyPress($event)" placeholder="Deposit name" />
-        <datalist *ngIf="depositAutocompleteValues" id='depositList'>
-          <option *ngFor="let depositValue of depositAutocompleteValues" value='{{depositValue}}'>
-        </datalist>-->
         <input [(ngModel)]="searchDepositName" id="depositName" class="form-control" (input)="searchDepositByName(searchDepositName)"
-          (keypress)="enterKeyPress($event)" placeholder="Deposit name" [typeahead]="depositAutocompleteValues" [typeaheadWaitMs]="200" autocomplete="off"/>
+          (keypress)="enterKeyPress($event)" placeholder="Deposit name" [typeahead]="depositAutocompleteValues" [typeaheadWaitMs]="200"
+          autocomplete="off" />
       </div>
       <div class="form-group">
-        <!--<label for="name">Ore type</label>
-        <input [(ngModel)]="searchOreType" id="OreType" list="oreTypeList" class="form-control" (input)="searchOreTypeByName(searchOreType)"
-          (keypress)="enterKeyPress($event)" placeholder="Ore type" />
-        <datalist *ngIf="oreTypeAutocompleteValues" id='oreTypeList'>
-          <option *ngFor="let oreTypeValue of oreTypeAutocompleteValues" value='{{oreTypeValue.name}}'>
-        </datalist>-->
-        <input [(ngModel)]="searchOreType" id="OreType" class="form-control" (input)="searchOreTypeByName(searchOreType)"
-          (keypress)="enterKeyPress($event)" placeholder="Ore type" [typeahead]="oreTypeAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name" autocomplete="off"/>
+        <input [(ngModel)]="searchOreType" id="OreType" class="form-control" (input)="searchOreTypeByName(searchOreType)" (keypress)="enterKeyPress($event)"
+          placeholder="Ore type" [typeahead]="oreTypeAutocompleteValues" [typeaheadWaitMs]="200" typeaheadOptionField="name"
+          autocomplete="off" />
       </div>
       <div class="form-group">
-        <!--<label for="name">Commodity</label>-->
-        <input [(ngModel)]="searchCommodity" id="commodity" class="form-control" (keypress)="enterKeyPress($event)" placeholder="Main commodity" autocomplete="off"
-        />
+        <input [(ngModel)]="searchCommodity" id="commodity" class="form-control" (keypress)="enterKeyPress($event)" placeholder="Main commodity"
+          autocomplete="off" />
       </div>
       <div class="form-group">
-        <!--<label for="name">Core depositor</label>
-        <input [(ngModel)]="searchInstitution" id="coreDepositorName" list="coreDepositorList" class="form-control" (input)="searchCoreDepositorByName(searchInstitution)"
-          (keypress)="enterKeyPress($event)" placeholder="Core depositor" />
-        <datalist *ngIf="coreDepositorAutocompleteValues" id="coreDepositorList">
-          <option *ngFor="let coreDepositorValue of coreDepositorAutocompleteValues" value='{{coreDepositorValue}}'>
-        </datalist>-->
         <input [(ngModel)]="searchInstitution" id="coreDepositorName" class="form-control" (input)="searchCoreDepositorByName(searchInstitution)"
-          (keypress)="enterKeyPress($event)" placeholder="Core depositor" [typeahead]="coreDepositorAutocompleteValues" [typeaheadWaitMs]="200" autocomplete="off"/>
+          (keypress)="enterKeyPress($event)" placeholder="Core depositor" [typeahead]="coreDepositorAutocompleteValues" [typeaheadWaitMs]="200"
+          autocomplete="off" />
       </div>
       <div class="form-group">
         <input [(ngModel)]="searchDrillcoreId" type="hidden" id="drillcoreId" class="form-control" placeholder="ID" />
       </div>
       <button (click)="searchSites()" class="btn btn-primary">SEARCH DRILLCORES</button>
       <button (click)="resetFormValues()" class="btn btn-primary">RESET FORM</button>
-
     </div>
     <div class="col">
       <div id="map" class="map"></div>
-      <!--<div id="search" style="position: absolute; top: 10px; right: 20px; padding: 5px; background-color: rgba(255,255,255,0.5);">
-      <!--  Bedrock age:
-        <input type="checkbox" id="bedrockAge" checked="checked">
-        <!-- Another layer: <input type="checkbox" id="anotherLayer">
-        <button type="button" class="btn btn-outline-secondary" placement="bottom" [ngbPopover]="popContent" popoverTitle="Legend:">
-            Show legend
-        </button>
-      </div>
-      <ng-template #popContent >
-          <img src='http://gis.geokogud.info/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=IGME5000:EuroGeology&legend_options=fontName:DejaVu%20Sans%20ExtraLight;fontAntiAliasing:true;fontColor:0x333333;fontSize:10;bgColor:0xFFFFff;dpi:96'
-          />
-      </ng-template>-->
     </div>
   </div>
   <div class="row align-items-center pagination-row">
@@ -82,8 +45,6 @@
       <p *ngIf="sites">Found {{siteCount}} result(s). </p>
       <p *ngIf="!sites">No results found. Please try again. </p>
     </div>
-
-
     <div class="col">
       <nav aria-label="Page navigation example" class="float-right">
         <ul class="pagination " *ngIf="siteCount>10">
@@ -100,55 +61,49 @@
         </ul>
       </nav>
     </div>
-
   </div>
-
-
   <div *ngIf="sites" class="row">
     <div class="col">
-    <div class="table-responsive">
-      <table class="table table-hover table-bordered ">
-        <thead class="thead-light">
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Deposit</th>
-            <th>Commodity</th>
-           <!-- <th>Year</th>-->
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>Elevation</th>
-            <th>Length</th>
-            <th>Dip</th>
-            <th>Azimuth</th>
-            <th></th>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered ">
+          <thead class="thead-light">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Deposit</th>
+              <th>Commodity</th>
+              <!-- <th>Year</th>-->
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>Elevation</th>
+              <th>Length</th>
+              <th>Dip</th>
+              <th>Azimuth</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tr *ngFor="let site of sites">
+            <td>{{site.id}}</td>
+            <td>
+              <a routerLink="/drillcore/{{site.id}}">{{site.name}}</a>
+            </td>
+            <td>
+              <a routerLink="/deposit/{{site.deposit__id}}">{{site.deposit__name}}</a>
+            </td>
+            <td>{{site.deposit__main_commodity}}</td>
+            <!-- <td>{{site.drilling_year}}</td>-->
+            <td>{{site.latitude}}</td>
+            <td>{{site.longitude}}</td>
+            <td> </td>
+            <td>{{site.hole_length}}</td>
+            <td>{{site.hole_dip}}</td>
+            <td>{{site.hole_azimuth}}</td>
+            <td>
+              <a routerLink="/drillcore_data/{{site.id}}">Show data</a>
+            </td>
           </tr>
-        </thead>
-        <tr *ngFor="let site of sites">
-          <td>{{site.id}}</td>
-          <td>
-            <a routerLink="/drillcore/{{site.id}}">{{site.name}}</a>
-          </td>
-          <td>
-            <a routerLink="/deposit/{{site.deposit__id}}">{{site.deposit__name}}</a>
-          </td>
-          <td>{{site.deposit__main_commodity}}</td>
-         <!-- <td>{{site.drilling_year}}</td>-->
-          <td>{{site.latitude}}</td>
-          <td>{{site.longitude}}</td>
-          <td> </td>
-          <td>{{site.hole_length}}</td>
-          <td>{{site.hole_dip}}</td>
-          <td>{{site.hole_azimuth}}</td>
-          <td>
-            <a routerLink="/drillcore_data/{{site.id}}">Show data</a>
-          </td>
-        </tr>
-        <!--  </li>-->
-      </table>
+        </table>
+      </div>
     </div>
   </div>
-  </div>
-
-
 </div>

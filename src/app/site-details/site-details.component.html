@@ -64,26 +64,11 @@
     </table>
   </div>
   <div class="col">
-
     <div id="map" class="map"></div>
-  <!--  <div id="search" style="position: absolute; top: 10px; right: 20px; padding: 5px; background-color: rgba(255,255,255,0.5);">
-      <!--Bedrock age:
-      <input type="checkbox" id="bedrockAge" checked="checked">
-       Another layer: <input type="checkbox" id="anotherLayer">
-      <button type="button" class="btn btn-outline-secondary" placement="bottom" [ngbPopover]="popContent" popoverTitle="Legend:">
-          Show legend
-      </button>
-    </div>
-    <ng-template #popContent >
-        <img src='http://gis.geokogud.info/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=IGME5000:EuroGeology&legend_options=fontName:DejaVu%20Sans%20ExtraLight;fontAntiAliasing:true;fontColor:0x333333;fontSize:10;bgColor:0xFFFFff;dpi:96'
-        />
-    </ng-template>-->
     <br>
-    <a class="btn btn-primary" routerLink="/drillcore_data/{{site.id}}">Show analytical data</a>
+    <a *ngIf="site" class="btn btn-primary" routerLink="/drillcore_data/{{site.id}}">Show analytical data</a> 
   </div>
 </div>
-
-
 <div class="row ">
   <div class="col">
     <ul *ngIf="drillcoreSummary" class="nav nav-tabs" id="drillcoreTabs" role="tablist">
@@ -121,7 +106,6 @@
         <a class="nav-link" href="#references" data-toggle="tab" id="refernecesTab">References ({{drillcoreSummary.references}})</a>
       </li>
     </ul>
-
     <div class="tab-content table-responsive">
       <div class="tab-pane fade" id="lithology">
         <table *ngIf="lithologies" class="table table-hover table-bordered ">
@@ -206,14 +190,14 @@
             </tr>
           </thead>
           <tr>
-            <td>123</td>
-            <td>223</td>
-            <td>Name</td>
-            <td>Abcde</td>
-            <td>.......</td>
-            <td>-------</td>
-            <td>......</td>
-            <td>.....</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
       </div>
@@ -228,10 +212,10 @@
             </tr>
           </thead>
           <tr>
-            <td>123</td>
-            <td>223</td>
-            <td>Name</td>
-            <td>Abcde</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
       </div>
@@ -252,12 +236,10 @@
             </table>
           </div>
           <div class="col-8">
-            <!--<a target="_blank" href="{{pathName}}#/corebox/{{drillcoreBox.id}}" target="_blank"> -->
             <a href="javascript:void(0);" (click)="openNewWindow(drillcoreBox.id)">
               <img src="http://www.eurocore.rocks{{getImagePreviewLink('1000',drillcoreBox.attachmentlink__attachment__url)}}" width="100%">
             </a>
           </div>
-
         </div>
         <br>
         <div *ngIf="drillcoreBoxes">
@@ -290,7 +272,6 @@
             <td></td>
           </tr>
         </table>
-
       </div>
       <div class="tab-pane fade" id="analyses">
         <table *ngIf="analyzes" class="table table-hover table-bordered ">
@@ -355,12 +336,12 @@
             </tr>
           </thead>
           <tr>
-            <td>123</td>
-            <td>223</td>
-            <td>Name</td>
-            <td>Abcde</td>
-            <td>Name</td>
-            <td>Abcde</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
       </div>
@@ -373,12 +354,11 @@
             </tr>
           </thead>
           <tr>
-            <td>123</td>
-            <td>remarks....</td>
+            <td></td>
+            <td></td>
           </tr>
         </table>
       </div>
     </div>
-
   </div>
 </div>

@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SiteService } from '../services/site.service';
 import { Site } from '../site';
-import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { OlMapService } from '../services/ol-map.service';
-//import * as $ from 'jquery';
-//import 'jquery-ui/ui/widgets/autocomplete';
 
 
 @Component({
@@ -15,7 +13,6 @@ import { OlMapService } from '../services/ol-map.service';
 })
 export class SiteSearchComponent implements OnInit {
 
-  selectedSite: Site; 
   sites: Site[];
   mapSites: Site[];
   siteCount: number;
@@ -26,50 +23,44 @@ export class SiteSearchComponent implements OnInit {
   pageNumber: number = 1;
   pageCount;
 
-
-  searchDrillcoreName: string = ""; 
+  searchDrillcoreName: string = "";
   searchDepositName: string = "";
   searchOreType: string = "";
   searchCommodity: string = "";
   searchInstitution: string = "";
   searchDrillcoreId: string = "";
-
-  drillcoreIdArray: string[]=[];
-
+  drillcoreIdArray: string[] = [];
 
   constructor(private siteService: SiteService, private route: ActivatedRoute, private router: Router,
-  private olMapService: OlMapService) {
+    private olMapService: OlMapService) {
     window.scrollTo(0, 0);
   }
 
   ngOnInit() {
     this.getSessionData();
     this.getQueryParams();
-    //this.mapService.drawDrillcoreSearchMap(this);
     this.olMapService.drawDetailsViewMap();
-    //this.olMapService.addBedrockAgeLayer();
     this.olMapService.addPointeMoveInteraction();
     this.olMapService.addSelectInteraction(this);
     this.getMapSites();
     this.searchSites(1);
   }
 
-  getQueryParams(){
-    if(this.route.snapshot.queryParams['drillcoreName']!=undefined)
-    this.searchDrillcoreName=this.route.snapshot.queryParams['drillcoreName'];
-    if(this.route.snapshot.queryParams['depositName']!=undefined)
-    this.searchDepositName=this.route.snapshot.queryParams['depositName'];
-    if(this.route.snapshot.queryParams['oreType']!=undefined)
-    this.searchOreType=this.route.snapshot.queryParams['oreType'];
-    if(this.route.snapshot.queryParams['commodity']!=undefined)
-    this.searchCommodity=this.route.snapshot.queryParams['commodity'];
-    if(this.route.snapshot.queryParams['institution']!=undefined)
-    this.searchInstitution=this.route.snapshot.queryParams['institution'];
-    if(this.route.snapshot.queryParams['id']!=undefined)
-    this.searchDrillcoreId=this.route.snapshot.queryParams['id'];
-    this.pageNumber=this.route.snapshot.queryParams['pageNr'];
+  getQueryParams() {
+    if (this.route.snapshot.queryParams['drillcoreName'] != undefined)
+      this.searchDrillcoreName = this.route.snapshot.queryParams['drillcoreName'];
+    if (this.route.snapshot.queryParams['depositName'] != undefined)
+      this.searchDepositName = this.route.snapshot.queryParams['depositName'];
+    if (this.route.snapshot.queryParams['oreType'] != undefined)
+      this.searchOreType = this.route.snapshot.queryParams['oreType'];
+    if (this.route.snapshot.queryParams['commodity'] != undefined)
+      this.searchCommodity = this.route.snapshot.queryParams['commodity'];
+    if (this.route.snapshot.queryParams['institution'] != undefined)
+      this.searchInstitution = this.route.snapshot.queryParams['institution'];
+    if (this.route.snapshot.queryParams['id'] != undefined)
+      this.searchDrillcoreId = this.route.snapshot.queryParams['id'];
+    this.pageNumber = this.route.snapshot.queryParams['pageNr'];
   }
-
 
   searchDrillcoreByName(): void {
     if (this.searchDrillcoreName.length > 1)
@@ -82,6 +73,7 @@ export class SiteSearchComponent implements OnInit {
     else
       this.drillcoreAutocompleteValues = [];
   }
+
   searchDepositByName(name: string): void {
     if (name.length > 1)
       this.siteService.searchDepositByName(name).subscribe(depositValues => { this.sortDeposits(depositValues['results'], name); console.log(this.depositAutocompleteValues); });
@@ -138,45 +130,26 @@ export class SiteSearchComponent implements OnInit {
   }
 
   searchSites(page: number = 1): void {
-    console.log(this.searchDrillcoreId + "-" + this.searchDrillcoreName + " -" + this.searchDepositName + " -" + this.searchOreType + " -" + this.searchCommodity + " -" + this.searchInstitution + " -" + this.pageNumber);
-
-    this.drillcoreIdArray = String(this.searchDrillcoreId).split(",");
-
-
+    //console.log(this.searchDrillcoreId + "-" + this.searchDrillcoreName + " -" + this.searchDepositName + " -" + this.searchOreType + " -" + this.searchCommodity + " -" + this.searchInstitution + " -" + this.pageNumber);
+    this.drillcoreIdArray = String(this.searchDrillcoreId).split(","); 
     this.siteService.searchSites(this.drillcoreIdArray, this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution, page).subscribe(sites => {
       this.sites = sites['results']; this.siteCount = sites['count'];
       if (sites['page'])
         this.pageCount = new Array(Number(String(sites['page']).split("of ")[1]))
       else
         this.pageCount = new Array(1);
-
     });
-    this.siteService.searchMapSites(this.drillcoreIdArray, this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites =>
-       { this.mapSites = sites['results'];
 
-       var showAllSites=false;
-       if(this.searchDrillcoreId=="" && this.searchDrillcoreName=="" && this.searchDepositName=="" && this.searchOreType=="" && this.searchCommodity=="" && this.searchInstitution=="" )
-       {
-       var showAllSites=true;
-       }
-       console.log("show all boolean "+ showAllSites);
-       this.olMapService.addPoints(this.mapSites);
-       //this.mapService.addPoints(this.mapSites, showAllSites); 
-        //this.mapService.addAllPoints(this.mapSites, showAllSites); 
-       console.log("mapsites" + this.mapSites.length); });
-    this.selectedSite = undefined;
-    this.setPageNumber(page);
-    this.setSessionData();
+    this.siteService.searchMapSites(this.drillcoreIdArray, this.searchDrillcoreName, this.searchDepositName, this.searchOreType, this.searchCommodity, this.searchInstitution).subscribe(sites => {
+      this.mapSites = sites['results'];
+      this.olMapService.addPoints(this.mapSites);
+    });
+    this.setPageNumber(page); 
+    this.setSessionData(); 
     let navigationExtras: NavigationExtras = {
-      queryParams: { "drillcoreName": this.searchDrillcoreName, 'depositName': this.searchDepositName, "oreType":this.searchOreType,"commodity":this.searchCommodity,"institution":this.searchInstitution,"id":this.searchDrillcoreId, "pageNr":this.pageNumber},
+      queryParams: { "drillcoreName": this.searchDrillcoreName, 'depositName': this.searchDepositName, "oreType": this.searchOreType, "commodity": this.searchCommodity, "institution": this.searchInstitution, "id": this.searchDrillcoreId, "pageNr": this.pageNumber },
     };
     this.router.navigate(['/drillcore'], navigationExtras);
-  }
-
-  onSelect(site: Site): void {
-    this.selectedSite = site;
-    //this.mapService.addPointWithName(site.name, site.longitude, site.latitude);
-
   }
 
   searchSitesByNames(names: string[]): void {
@@ -184,17 +157,14 @@ export class SiteSearchComponent implements OnInit {
   }
 
   getMapSites(): void {
-    this.siteService.getSites().subscribe(sites => { this.mapSites = sites['results']; 
-    //this.mapService.addAllPoints(this.mapSites)
-    this.olMapService.addAllPoints(this.mapSites);
-    //this.mapService.addPoints(this.mapSites, true);
-   });
-    //console.log("getsites" + this.sites.length);
+    this.siteService.getSites().subscribe(sites => {
+      this.mapSites = sites['results'];
+      this.olMapService.addAllPoints(this.mapSites);
+    });
   }
 
   setPageNumber(pageNumber: number): void {
     this.pageNumber = pageNumber;
-    //this.searchSites();
   }
 
   enterKeyPress(keyEvent): void {
@@ -221,6 +191,7 @@ export class SiteSearchComponent implements OnInit {
     window.sessionStorage.setItem("commodity", this.searchCommodity);
     window.sessionStorage.setItem("institution", this.searchInstitution);
   }
+
   getSessionData(): void {
     if (window.sessionStorage.getItem("drillcoreID"))
       this.searchDrillcoreId = window.sessionStorage.getItem("drillcoreID");

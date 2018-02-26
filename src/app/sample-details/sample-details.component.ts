@@ -22,7 +22,6 @@ export class SampleDetailsComponent implements OnInit {
   ngOnInit() {
     this.getSampleById(this.route.snapshot.paramMap.get('id'));
     this.getAnalyzesBySampleId(this.route.snapshot.paramMap.get('id'));
-
   }
 
   getSampleById(id: string): void{

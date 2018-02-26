@@ -51,7 +51,6 @@ export class OlMapService {
       zIndex: 100
     });
 
-
     var allVectors = new SourceVector({});
     this.allVectors = allVectors;
 
@@ -63,7 +62,6 @@ export class OlMapService {
     this.map = new Map({
       target: 'map',
       layers: [
-
         new LayerGroup({
           'title': 'Base maps',
           layers: [
@@ -136,7 +134,6 @@ export class OlMapService {
           ]
         }),
         allVectorsLayer,
-        //vectorLayer
       ],
       view: new View({
         center: Proj.fromLonLat([29.34424401655, 62.856645860855]),
@@ -182,7 +179,6 @@ export class OlMapService {
 
   addPointWithName(name: string, longitude: number, latitude: number): void {
     this.vectorSource.clear();
-
     if (longitude != undefined) {
       var pointWithName = new Feature({
         geometry: new GeomPoint(Proj.fromLonLat([longitude, latitude]))
@@ -213,7 +209,6 @@ export class OlMapService {
       this.vectorSource.addFeature(pointWithName);
       this.map.getView().setZoom(5);
       this.map.getView().setCenter(Proj.fromLonLat([longitude, latitude]));
-
     }
   }
 
@@ -224,7 +219,6 @@ export class OlMapService {
     this.map.addInteraction(selectPointerMove);
 
     selectPointerMove.on('select', function (e) {
-      console.log("feature " + e);
       if (e.selected.length != 0) {
         e.selected[0].getStyle().getText().setScale(1.4);
       }
@@ -235,10 +229,9 @@ export class OlMapService {
   }
 
   addSelectInteraction(siteSearchComponent?: SiteSearchComponent) {
-
     var select = new Select({
       multi: true,
-      /* toggleCondition: function (layer) {
+      /* toggleCondition: function (feature) {
          return true;
        }*/
     });
@@ -253,7 +246,7 @@ export class OlMapService {
       selectedFeatures.getArray().map(function (feature) {
         siteIds.push(feature.getId().toString());
       })
-      console.log("select " + siteIds);
+      //console.log("select " + siteIds);
       siteSearchComponent.searchDrillcoreId = siteIds.toString();
       siteSearchComponent.searchSites();
     })
@@ -271,28 +264,21 @@ export class OlMapService {
       // selected features
       selectedFeatures.clear();
       var extent = dragBox.getGeometry().getExtent();
-
       allSites.forEachFeatureIntersectingExtent(extent, function (feature) {
         selectedFeatures.push(feature);
         siteIds.push(feature.getId().toString());
-
       });
-      //console.log("end box");
       siteSearchComponent.searchDrillcoreId = siteIds.toString();
       siteSearchComponent.searchSites();
     });
-
   }
 
-  clean() {
+  clearFeatures() {
     if (this.select.getFeatures())
       this.select.getFeatures().clear();
   }
 
-
-
   addAllPoints(sites: Site[]): void {
-
     for (var i = 0; i < Object.keys(sites).length; i++) {
       if (sites[i].longitude != undefined) {
         var point = new Feature({
@@ -328,12 +314,9 @@ export class OlMapService {
         this.allVectors.addFeature(point);
       }
     }
-
   }
 
-
   addPoints(sites: Site[]): void {
-
     for (var k = 0; k < this.allVectors.getFeatures().length; k++) {
       this.allVectors.getFeatures()[k].setStyle(new Style({
         image: new Circle({
@@ -357,10 +340,8 @@ export class OlMapService {
             width: 3.5
           })
         })
-
       }));
     }
-
 
     if (sites && Object.keys(sites).length < this.allVectors.getFeatures().length) {
       for (var i = 0; i < Object.keys(sites).length; i++) {
@@ -390,6 +371,5 @@ export class OlMapService {
         }));
       }
     }
-
   }
 }

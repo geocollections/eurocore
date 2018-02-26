@@ -13,7 +13,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AppComponent } from './app.component';
-import { SitesComponent } from './sites/sites.component';
 import { SiteDetailsComponent } from './site-details/site-details.component';
 import { SiteService } from './services/site.service';
 import { AppRoutingModule } from './/app-routing.module';
@@ -41,7 +40,6 @@ import { OlMapService } from './services/ol-map.service';
 @NgModule({
   declarations: [
     AppComponent,
-    SitesComponent,
     SiteDetailsComponent,
     OresComponent,
     DataComponent,

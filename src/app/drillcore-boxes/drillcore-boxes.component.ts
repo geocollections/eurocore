@@ -27,13 +27,13 @@ export class DrillcoreBoxesComponent implements OnInit {
 
   ngOnInit() {
     this.getDepositById(this.route.snapshot.paramMap.get('id'));
-    //document.getElementById("overlay").style.backgroundImage='url(http://www.eurocore.rocks/files/53/2000/53e20a8e-2bfc-4bc1-b2b4-bed900c8625c.jpg.JPG)'; 
     this.zoomOut();
   }
 
   getDepositById(id: string): void {
     this.drillcoreBoxService.getDrillcoreBoxById(id).subscribe(corebox => {
-    this.corebox = corebox['results'][0]; console.log(this.corebox);
+    this.corebox = corebox['results'][0];
+    //console.log(this.corebox);
     this.getSamplesByDepth(this.corebox.start_depth, this.corebox.end_depth,this.corebox.drillcore__id.toString());
     this.getAnalysesByDepth(this.corebox.start_depth, this.corebox.end_depth, this.corebox.drillcore__id.toString());
       document.getElementById("overlay").style.backgroundImage = 'url(http://www.eurocore.rocks' + this.getImagePreviewLink("2000", this.corebox.attachmentlink__attachment__url) + ')';
@@ -67,8 +67,7 @@ export class DrillcoreBoxesComponent implements OnInit {
     element.style.display = "inline-block";
     var img = document.getElementById("imgZoom");
     var posX = event.offsetX ? (event.offsetX) : event.pageX - img.offsetLeft;
-    var posY = event.offsetY ? (event.offsetY) : event.pageY - img.offsetTop;
-    
+    var posY = event.offsetY ? (event.offsetY) : event.pageY - img.offsetTop;   
     element.style.backgroundPosition = (-posX * 2000/width*0.8) + "px " + (-posY * 710/height*0.8) + "px";
   }
 

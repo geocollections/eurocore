@@ -33,7 +33,6 @@ export class DrillcoreDataComponent implements OnInit {
   }
 
   updateSelectedParameters(parameter) {
-    console.log(this.selectedParameters);
     let deleteIndex = this.selectedParameters.indexOf(parameter);
     if (deleteIndex == -1)
       this.selectedParameters.push(parameter);
@@ -41,6 +40,7 @@ export class DrillcoreDataComponent implements OnInit {
       this.selectedParameters.splice(deleteIndex, 1)
     this.getTabsData();
   }
+
   getTabsData() {
     this.filterData(this.analysisSummaryData);
     this.filterChartData();
@@ -55,13 +55,16 @@ export class DrillcoreDataComponent implements OnInit {
   getAllParametersByDrillcoreId(id: string): void {
     this.siteService.searchAllParametersByDrillcoreId(id).subscribe(parameters => {
       for (var k = 0; k < parameters['results'].length; k++)
-        if (parameters['results'][k]['analysis__analysisresult__parameter__parameter']!= null && parameters['results'][k]['analysis__analysisresult__unit__unit']!= null)
+        if (parameters['results'][k]['analysis__analysisresult__parameter__parameter'] != null && parameters['results'][k]['analysis__analysisresult__unit__unit'] != null)
           this.siteParameters.push(parameters['results'][k]);
     });
   }
 
   getAnalysisSummaryByDrillcoreId(id: string): void {
-    this.analysisService.getAnalysisSummary(id).subscribe(analysisSummary => { this.analysisResults = analysisSummary['results']; console.log(this.analysisResults) });
+    this.analysisService.getAnalysisSummary(id).subscribe(analysisSummary => {
+      this.analysisResults = analysisSummary['results'];
+      console.log(this.analysisResults)
+    });
   }
 
   getAllAnalysisSummaryData(id: string): void {
@@ -73,14 +76,13 @@ export class DrillcoreDataComponent implements OnInit {
   filterChartData(): void {
     var results = this.filteredResults;
     var data = [];
-    console.log("start data push");
+    var fName = this.siteParameters[0]['name'];
     for (let l = 0; l < this.selectedParameters.length; l++) {
       let x = [];
       let y = [];
       let name = this.getParameterName(this.selectedParameters[l]);
       for (let k = 0; k < results.length; k++) {
         let name = this.getParameterColumnName(this.selectedParameters[l], results[k]);
-        //console.log("depth " + results[k].depth+" value "+results[k][name]);
         if (results[k][name]) {
           x.push(results[k].depth);
           y.push(results[k][name]);
@@ -111,7 +113,8 @@ export class DrillcoreDataComponent implements OnInit {
         })
       }
     }
-    console.log("end push");
+
+
     var layout = {
       showlegend: true,
       margin: {
@@ -121,7 +124,7 @@ export class DrillcoreDataComponent implements OnInit {
         t: 120,
         pad: 4
       },
-      title: this.siteParameters[0]['name'],
+      title: fName,
       legend: {
         x: 0,
         y: 1.1,
@@ -168,13 +171,13 @@ export class DrillcoreDataComponent implements OnInit {
         showgrid: false,
       }
     };
-    let fName = this.siteParameters[0]['name'];
+
 
     var d3 = Plotly.d3;
 
     var WIDTH_IN_PERCENT_OF_PARENT = 90,
       HEIGHT_IN_PERCENT_OF_PARENT = WIDTH_IN_PERCENT_OF_PARENT / 3 * 2;
-    //console.log(d3.select("div[id='plotlyChart']"));
+
     var gd3 = d3.select("div[id='plotlyChart']")
       //.append('div')
       .style({
@@ -187,8 +190,7 @@ export class DrillcoreDataComponent implements OnInit {
 
     var gd = gd3.node();
 
-    var start = window.performance.now();
-    console.log("start new plot");
+    //var start = window.performance.now();
     Plotly.newPlot(gd, data, layout,
       {
         modeBarButtonsToRemove: ['toImage'],
@@ -203,8 +205,8 @@ export class DrillcoreDataComponent implements OnInit {
         displaylogo: false
       }
     );
-    var end = window.performance.now();
-    console.log(end - start + 'ms');
+    //var end = window.performance.now();
+    //console.log(end - start + 'ms');
 
     window.onresize = function () {
       Plotly.Plots.resize(gd);
@@ -216,15 +218,10 @@ export class DrillcoreDataComponent implements OnInit {
   }
 
 
-
-
-
   filterData(results: AnalysisSummary[]): void {
     this.filteredResults = [];
-    console.log("start...");
     for (var k = 0; k < results.length; k++) {
       let addRow: boolean = false;
-      //console.log("length" + this.selectedParameters.length);
       for (var i = 0; i < this.selectedParameters.length; i++) {
         let parameter = this.selectedParameters[i]['analysis__analysisresult__parameter__parameter'].toLowerCase();
         let unit;
@@ -233,20 +230,17 @@ export class DrillcoreDataComponent implements OnInit {
         else
           unit = this.selectedParameters[i]['analysis__analysisresult__unit__unit'];
         let columnName = parameter + "_" + unit;
-
         if (results[k][columnName] != null && results[k].analysis_method == this.selectedParameters[i]['analysis__analysis_method__method']) {
           addRow = true;
         }
       }
       if (addRow == true) {
-
         this.filteredResults.push(results[k])
       }
       addRow = false;
     }
-    console.log("end...");
-    this.tableData = this.filteredResults.slice(0, 100);
-    console.log(this.tableData);
+    //this.tableData = this.filteredResults.slice(0, 100);
+    this.tableData = this.filteredResults;
   }
 
   getParameterColumnName(parameter, analysisSummary: AnalysisSummary): string {
