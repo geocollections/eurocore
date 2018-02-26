@@ -50,8 +50,8 @@
                 <td>{{deposit.other_commodities}}</td>
             </tr>
         </table>
-        <ngb-accordion #acc="ngbAccordion">
-            <ngb-panel id="toggle-1" title="Show mining data">
+        <ngb-accordion #acc="ngbAccordion"> 
+            <ngb-panel id="toggle-1" title="Mining data" ng-class="{'glyphicon-chevron-down': menuStatus[1].isOpen , 'glyphicon-chevron-right': !menuStatus[1].isOpen }">
                 <ng-template ngbPanelContent>
                     <table *ngIf="deposit" class="table">
                         <colgroup>
@@ -108,7 +108,7 @@
                     </table>
                 </ng-template>
             </ngb-panel>
-            <ngb-panel id="toggle-2" title="Show geological data">
+            <ngb-panel id="toggle-2" title="Geological data">
                 <ng-template ngbPanelContent>
                     <table *ngIf="deposit" class="table">
                         <colgroup>

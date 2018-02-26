@@ -22,14 +22,17 @@ export class DrillcoreDataComponent implements OnInit {
   filteredResults: AnalysisSummary[] = [];
   selectedParameters: String[] = [];
   tableData: AnalysisSummary[];
+  drillcoreID: string;
+  site: Site;
 
   constructor(private siteService: SiteService, private route: ActivatedRoute, private analysisService: AnalysisService) {
   }
 
   ngOnInit() {
-    this.getAllParametersByDrillcoreId(this.route.snapshot.paramMap.get('id'));
+    this.drillcoreID = this.route.snapshot.paramMap.get('id');
+    this.getAllParametersByDrillcoreId(this.drillcoreID);
     //this.getAnalysisSummaryByDrillcoreId(this.route.snapshot.paramMap.get('id'));
-    this.getAllAnalysisSummaryData(this.route.snapshot.paramMap.get('id'));
+    this.getAllAnalysisSummaryData(this.drillcoreID);
   }
 
   updateSelectedParameters(parameter) {
@@ -46,6 +49,19 @@ export class DrillcoreDataComponent implements OnInit {
     this.filterChartData();
   }
 
+  activateMainCommodities(id: string) {
+    this.siteService.searchSiteById(id).subscribe(site => {
+      this.site = site['results'][0];
+      for (var k = 0; k < this.siteParameters.length; k++) {
+        if (this.site.deposit__main_commodity.indexOf(this.siteParameters[k]['analysis__analysisresult__parameter__parameter']) != -1) {
+          this.updateSelectedParameters(this.siteParameters[k])
+          var paramCheckbox = document.getElementsByName("parameter[]");
+          (<HTMLInputElement>paramCheckbox[k]).checked = true;
+        }
+      }
+    });
+  }
+
   exportTable(fileExtension: string, tableId: string) {
     let tabledata = new TableExport(document.getElementById(tableId), { formats: ['xlsx', 'xls', 'csv', 'txt'], exportButtons: false });
     let exportData = tabledata.getExportData()[tableId][fileExtension];
@@ -57,6 +73,7 @@ export class DrillcoreDataComponent implements OnInit {
       for (var k = 0; k < parameters['results'].length; k++)
         if (parameters['results'][k]['analysis__analysisresult__parameter__parameter'] != null && parameters['results'][k]['analysis__analysisresult__unit__unit'] != null)
           this.siteParameters.push(parameters['results'][k]);
+      this.activateMainCommodities(this.drillcoreID);
     });
   }
 
@@ -113,7 +130,6 @@ export class DrillcoreDataComponent implements OnInit {
         })
       }
     }
-
 
     var layout = {
       showlegend: true,
@@ -259,8 +275,9 @@ export class DrillcoreDataComponent implements OnInit {
 
   getParameterName(parameter): string {
     let name = parameter['analysis__analysisresult__parameter__parameter'] + " " +
-      parameter['analysis__analysisresult__unit__unit'] + " (" +
-      parameter['analysis__analysis_method__method'] + ")";
+      parameter['analysis__analysisresult__unit__unit'];
+    if (parameter['analysis__analysis_method__method'] != null)
+      name += " (" + parameter['analysis__analysis_method__method'] + ")";
     return name;
   }
 

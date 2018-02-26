@@ -24,7 +24,7 @@ export class DataComponent implements OnInit {
   searchDrillcoreName: string[] = [];
   searchAnalysesMethods: string[] = [];
   searchParameters: Object[] = [];
-  searchComparisonOperator: string = "";
+  searchComparisonOperator: string = "gt"; //default value
   searchComparisonValue: string = "";
   searchComparisonParameter: string = "";
   drillcoreAutocompleteValues: string[];

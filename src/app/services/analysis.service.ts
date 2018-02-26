@@ -52,7 +52,7 @@ export class AnalysisService {
   }
 
   getAllAnalysesMethods(): Observable<String[]> {
-    return this.http.jsonp<String[]>('http://api.eurocore.rocks/analysis_summary/?fields=analysis_method&distinct=true&format=jsonp', 'callback').pipe();
+    return this.http.jsonp<String[]>('http://api.eurocore.rocks/analysis_summary/?fields=analysis_method&distinct=true&analysis_method__isnull=false&format=jsonp', 'callback').pipe();
   }
 
   getMeasuredParameters(name: string, methods: string[]) {

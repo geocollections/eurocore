@@ -234,4 +234,16 @@ h2, h4, h5{
   border-color: #004393!important;
 }
 
+.card-header:before {
+  content: '\002B';
+  color: #004393;
+  font-weight: 600;
+}
+
+.card-header.active:before{
+  content: "\2212";
+  color: #004393;
+  font-weight: 600;
+}
+
   

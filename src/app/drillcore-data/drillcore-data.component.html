@@ -1,6 +1,6 @@
 <div class="row">
   <div *ngIf="siteParameters[0]" class="col">
-    <h3>{{siteParameters[0].name}} drillcore</h3>
+    <a routerLink="/drillcore/{{drillcoreID}}"><h3>{{siteParameters[0].name}} drillcore</h3></a>
   </div>
 </div>
 <div class="row align-items-center">
@@ -24,14 +24,14 @@
   <div class="col">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="#data" data-toggle="tab">Data</a>
+        <a class="nav-link active" href="#data" data-toggle="tab">Data</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#chart" data-toggle="tab" id="chartTabLink">Chart</a>
+        <a class="nav-link" href="#chart" data-toggle="tab" id="chartTabLink">Chart</a>
       </li>
     </ul>
     <div class="tab-content">
-      <div class="tab-pane table-responsive" id="data">
+      <div class="tab-pane table-responsive active" id="data">
         <div *ngIf="filteredResults.length>0" class="exportButtons">
           <button class="btn btn-primary" (click)="exportTable('xlsx','analysisResults')">Export as .xlsx</button>
           <button class="btn btn-primary" (click)="exportTable('csv','analysisResults')">Export as .csv</button>
@@ -61,7 +61,7 @@
           </tr>
         </table>
       </div>
-      <div class="tab-pane active" id="chart">
+      <div class="tab-pane" id="chart">
         <div id="plotlyChart">
           <!-- Plotly chart will be drawn inside this DIV -->
         </div>
