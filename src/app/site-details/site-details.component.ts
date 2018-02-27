@@ -60,7 +60,6 @@ export class SiteDetailsComponent implements OnInit {
   ngOnInit() {    
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.olMapService.drawDetailsViewMap();   
-    this.getCTscansByDrillcoreId(this.route.snapshot.paramMap.get('id'));
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
   }
 

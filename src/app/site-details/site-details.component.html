@@ -96,8 +96,8 @@
       <li *ngIf=" !(drillcoreSummary.analyses==0  || drillcoreSummary.analyses==null)" class="nav-item">
         <a class="nav-link" href="#analyses" data-toggle="tab" (click)="getAnalyzesByDrillcoreId(site.id)" id="analysesTab">Analyses ({{drillcoreSummary.analyses}})</a>
       </li>
-      <li *ngIf=" !(CTscans==null)" class="nav-item">
-        <a class="nav-link" href="#CTscans" data-toggle="tab" id="CTscansTab">CT scans ({{CTscans.length}})</a>
+      <li *ngIf=" !(drillcoreSummary.ctscans==0  || drillcoreSummary.ctscans==null)" class="nav-item">
+        <a class="nav-link" href="#CTscans" data-toggle="tab" (click)="getCTscansByDrillcoreId(site.id)" id="CTscansTab">CT scans ({{drillcoreSummary.ctscans}})</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.attachments==0  || drillcoreSummary.attachments==null)" class="nav-item">
         <a class="nav-link" href="#linkedFiles" data-toggle="tab" id="attachmentsTab">Linked files ({{drillcoreSummary.attachments}})</a>

@@ -5,7 +5,7 @@ import { SiteService } from '../services/site.service';
 import { Site } from '../site';
 import { AnalysisService } from '../services/analysis.service';
 import { AnalysisSummary } from '../analysis-summary';
-import Plotly from 'plotly.js/dist/plotly.min';
+import Plotly from 'plotly.js/dist/plotly-gl2d.min';
 import { TableExport } from 'tableexport';
 import { PlatformLocation } from '@angular/common';
 

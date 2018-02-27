@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnalysisService } from '../services/analysis.service';
-import Plotly from 'plotly.js/dist/plotly-basic.min';
+import Plotly from 'plotly.js/dist/plotly-gl2d.min';
 
 @Component({
   selector: 'app-spectrum-details',

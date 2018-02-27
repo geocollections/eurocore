@@ -11,4 +11,5 @@ export class DrillcoreSummary {
     samples: number;
     analyses: number;
     stratigraphies: number;
+    ctscans: number;
   }
