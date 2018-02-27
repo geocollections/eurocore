@@ -60,6 +60,7 @@ export class SiteDetailsComponent implements OnInit {
   ngOnInit() {    
     this.getSiteById(this.route.snapshot.paramMap.get('id'));
     this.olMapService.drawDetailsViewMap();   
+    this.getCTscansByDrillcoreId(this.route.snapshot.paramMap.get('id'));
     //this.titleService.setTitle("EUROCORE Data Portal: "+ this.site.name+ " drillcore");
   }
 
@@ -116,21 +117,16 @@ export class SiteDetailsComponent implements OnInit {
     this.analysisService.getAnalyzesByDrillcoreId(drillcoreId).subscribe(analyzes=>{this.analyzes=analyzes['results']; console.log(this.analyzes)});
   }
 
-  openNewWindow(id:string):void{    
-    window.open((this.platformLocation as any).location.pathname +'#/corebox/'+id, '', 'width=800,height=800') ;
+  openNewWin(subUrl: string, id: string): void {
+    window.open((this.platformLocation as any).location.pathname + '#/' + subUrl + '/' + id, '', 'width=800,height=800');
+  }
+
+  open3DView(id:string):void{
+    window.open('http://eurocore.rocks/3D/', '', 'width=800,height=800');
   }
 
   getDrillcoreSummary(drillcoreId:string):void{
     this.siteService.searchDrillcoreSummaryById(drillcoreId).subscribe(drillcoreSummary =>{this.drillcoreSummary=drillcoreSummary['results'][0];this.findFirstTab();console.log(this.drillcoreSummary);});
-  }
-
-  openAnalysisView(id:number):void{   
-    var ID=id.toString(); 
-    window.open((this.platformLocation as any).location.pathname +'#/analysis/'+ID, '', 'width=800,height=800') ;
-  }
-  openSampleView(id:number):void{   
-    var ID=id.toString(); 
-    window.open((this.platformLocation as any).location.pathname +'#/sample/'+ID, '', 'width=800,height=800') ;
   }
 
   findFirstTab(){

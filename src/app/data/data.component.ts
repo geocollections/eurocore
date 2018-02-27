@@ -155,7 +155,7 @@ export class DataComponent implements OnInit {
       console.log("sample ids " + this.sampleIds.length);
       console.log("analysis ids" + data['count']);
       this.dataCount = data['count'];
-      this.getDrillcoresByIds();
+      //this.getDrillcoresByIds();
     })
   }
 
@@ -207,11 +207,16 @@ export class DataComponent implements OnInit {
 
   getDrillcoreName(id: string): string {
 
-    for (var i = 0; i < this.sites.length; i++) {
+    /*for (var i = 0; i < this.sites.length; i++) {
 
       if (this.sites[i].id.toString() == id) return this.sites[i].name;
-    }
+    }*/
 
+    for (var i = 0; i < this.drillcoreAutocompleteValues.length; i++) {
+
+      if (this.drillcoreAutocompleteValues[i]['id'] == id) 
+      return this.drillcoreAutocompleteValues[i]['name'];
+    }
   }
 
   onChange($event){

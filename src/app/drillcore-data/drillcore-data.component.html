@@ -52,10 +52,10 @@
             <td>{{filteredResult.depth}}</td>
             <td>{{filteredResult.end_depth}}</td>
             <td>
-              <a routerLink="/sample/{{filteredResult.sample_id}}">{{filteredResult.sample_number}}</a>
+              <a href="javascript:void(0);" (click)="openNewWin('sample',filteredResult.sample_id)">{{filteredResult.sample_number}}</a>
             </td>
             <td>
-              <a routerLink="/analysis/{{filteredResult.analysis_id}}">{{filteredResult.analysis_id}}</a>
+              <a href="javascript:void(0);" (click)="openNewWin('analysis',filteredResult.analysis_id)">{{filteredResult.analysis_id}}</a>
             </td>
             <td *ngFor="let selectedParameter of selectedParameters">{{filteredResult[getParameterColumnName(selectedParameter,filteredResult)]}}</td>
           </tr>

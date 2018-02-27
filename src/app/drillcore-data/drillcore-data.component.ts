@@ -7,6 +7,7 @@ import { AnalysisService } from '../services/analysis.service';
 import { AnalysisSummary } from '../analysis-summary';
 import Plotly from 'plotly.js/dist/plotly.min';
 import { TableExport } from 'tableexport';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-drillcore-data',
@@ -25,7 +26,9 @@ export class DrillcoreDataComponent implements OnInit {
   drillcoreID: string;
   site: Site;
 
-  constructor(private siteService: SiteService, private route: ActivatedRoute, private analysisService: AnalysisService) {
+  constructor(private siteService: SiteService, private route: ActivatedRoute, private analysisService: AnalysisService,
+    private platformLocation: PlatformLocation) {
+    window.scrollTo(0, 0);
   }
 
   ngOnInit() {
@@ -54,11 +57,12 @@ export class DrillcoreDataComponent implements OnInit {
       this.site = site['results'][0];
       for (var k = 0; k < this.siteParameters.length; k++) {
         if (this.site.deposit__main_commodity.indexOf(this.siteParameters[k]['analysis__analysisresult__parameter__parameter']) != -1) {
-          this.updateSelectedParameters(this.siteParameters[k])
+          this.selectedParameters.push(this.siteParameters[k]);
           var paramCheckbox = document.getElementsByName("parameter[]");
           (<HTMLInputElement>paramCheckbox[k]).checked = true;
         }
       }
+      this.getTabsData();
     });
   }
 
@@ -223,9 +227,9 @@ export class DrillcoreDataComponent implements OnInit {
     );
     //var end = window.performance.now();
     //console.log(end - start + 'ms');
-
+    var x=this.route.routeConfig.path;
     window.onresize = function () {
-      Plotly.Plots.resize(gd);
+      Plotly.Plots.resize(gd);   
     };
 
     document.getElementById("chartTabLink").addEventListener("click", function () {
@@ -299,6 +303,10 @@ export class DrillcoreDataComponent implements OnInit {
     }
     this.selectedParameters = [];
     this.getTabsData();
+  }
+
+  openNewWin(subUrl: string, id: string): void {
+    window.open((this.platformLocation as any).location.pathname + '#/' + subUrl + '/' + id, '', 'width=800,height=800');
   }
 
 }

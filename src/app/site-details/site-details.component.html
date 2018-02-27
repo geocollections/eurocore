@@ -66,7 +66,7 @@
   <div class="col">
     <div id="map" class="map"></div>
     <br>
-    <a *ngIf="site" class="btn btn-primary" routerLink="/drillcore_data/{{site.id}}">Show analytical data</a> 
+    <a *ngIf="site" class="btn btn-primary" routerLink="/drillcore_data/{{site.id}}">Show analytical data</a>
   </div>
 </div>
 <div class="row ">
@@ -96,8 +96,8 @@
       <li *ngIf=" !(drillcoreSummary.analyses==0  || drillcoreSummary.analyses==null)" class="nav-item">
         <a class="nav-link" href="#analyses" data-toggle="tab" (click)="getAnalyzesByDrillcoreId(site.id)" id="analysesTab">Analyses ({{drillcoreSummary.analyses}})</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#CTscans" data-toggle="tab" (click)="getCTscansByDrillcoreId(site.id)" id="CTscansTab">CT scans ()</a>
+      <li *ngIf=" !(CTscans==null)" class="nav-item">
+        <a class="nav-link" href="#CTscans" data-toggle="tab" id="CTscansTab">CT scans ({{CTscans.length}})</a>
       </li>
       <li *ngIf=" !(drillcoreSummary.attachments==0  || drillcoreSummary.attachments==null)" class="nav-item">
         <a class="nav-link" href="#linkedFiles" data-toggle="tab" id="attachmentsTab">Linked files ({{drillcoreSummary.attachments}})</a>
@@ -121,6 +121,7 @@
               <th>Minerals</th>
               <th>Remarks</th>
               <th>Person/Institution</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tr *ngFor="let lithology of lithologies">
@@ -130,8 +131,9 @@
             <td>{{lithology.rock_name__name}}</td>
             <td>{{lithology.field_name}}</td>
             <td>{{lithology.color_attribute__attribute}} {{lithology.color__color}}</td>
-            <td>{{lithology.remarks}}</td>
+            <td>{{lithology.description}}</td>
             <td></td>
+            <td>{{lithology.remarks}}</td>
             <td></td>
             <td></td>
           </tr>
@@ -222,7 +224,7 @@
       <div class="tab-pane fade" id="images">
         <div *ngFor="let drillcoreBox of drillcoreBoxes" class="row align-items-center">
           <div class="col-4">
-            <a href="javascript:void(0);" (click)="openNewWindow(drillcoreBox.id)">
+            <a href="javascript:void(0);" (click)="openNewWin('corebox',drillcoreBox.id)">
               <h5>{{drillcoreBox.number}}</h5>
             </a>
             <table class="table">
@@ -236,7 +238,7 @@
             </table>
           </div>
           <div class="col-8">
-            <a href="javascript:void(0);" (click)="openNewWindow(drillcoreBox.id)">
+            <a href="javascript:void(0);" (click)="openNewWin('corebox',drillcoreBox.id)">
               <img src="http://www.eurocore.rocks{{getImagePreviewLink('1000',drillcoreBox.attachmentlink__attachment__url)}}" width="100%">
             </a>
           </div>
@@ -251,22 +253,22 @@
         <table *ngIf="samples" class="table table-hover table-bordered ">
           <thead class="thead-light">
             <tr>
+              <th>ID</th>
+              <th>Number</th>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
-              <th>Sample ID</th>
-              <th>Sample number</th>
               <th>Purpose</th>
               <th>Person/Institution</th>
               <th>Date</th>
             </tr>
           </thead>
           <tr *ngFor="let sample of samples">
-            <td>{{sample.depth}}</td>
-            <td>{{sample.end_depth}}</td>
             <td>
-              <a href="javascript:void(0);" (click)="openSampleView(sample.id)">{{sample.id}}</a>
+              <a href="javascript:void(0);" (click)="openNewWin('sample',sample.id)">{{sample.id}}</a>
             </td>
             <td>{{sample.sample_number}}</td>
+            <td>{{sample.depth}}</td>
+            <td>{{sample.end_depth}}</td>
             <td></td>
             <td></td>
             <td></td>
@@ -277,23 +279,25 @@
         <table *ngIf="analyzes" class="table table-hover table-bordered ">
           <thead class="thead-light">
             <tr>
+              <th>ID</th>
+              <th>Number</th>
               <th>Depth from (m)</th>
               <th>Depth (m, interval)</th>
-              <th>Analysis ID</th>
-              <th>Analysis number</th>
+              <th>Method</th>
               <th>Person/Institution</th>
               <th>Date</th>
             </tr>
           </thead>
           <tr *ngFor="let analysis of analyzes">
+            <td>
+              <a href="javascript:void(0);" (click)="openNewWin('analysis',analysis.id)">{{analysis.id}}</a>
+            </td>
+            <td>{{analysis.number}}</td>
             <td>{{analysis.depth}}</td>
             <td>{{analysis.end_depth}}</td>
-            <td>
-              <a href="javascript:void(0);" (click)="openAnalysisView(analysis.id)">{{analysis.id}}</a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{analysis.analysis_method__method}}</td>
+            <td>{{analysis.agent__name}}</td>
+            <td>{{analysis.date}}</td>
           </tr>
         </table>
       </div>
@@ -318,7 +322,7 @@
             <td>{{CTscan.agent__name}}</td>
             <td>{{CTscan.date}}</td>
             <td>
-              <a href="http://eurocore.rocks/3D/" target="_blank">Show 3D data</a>
+              <a href="javascript:void(0);" (click)="open3DView(site.id)" >Show 3D data</a>
             </td>
           </tr>
         </table>
