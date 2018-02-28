@@ -7,11 +7,10 @@
 <div class="row align-items-center">
 	<div class="col alignCenter">
 		<div class="form-group">
-				<label for="name">Drillcore name(s)</label>
-				<ng-select class="form-control2" [items]="drillcoreAutocompleteValues"  bindLabel="name" bindValue="id"
-				 [(ngModel)]="searchDrillcoreName"  		
-				 [multiple]="true" >
-				</ng-select>
+			<label for="name">Drillcore name(s)</label>
+			<ng-select class="form-control2" [items]="drillcoreAutocompleteValues" bindLabel="name" bindValue="id" [(ngModel)]="searchDrillcoreName"
+			 [multiple]="true">
+			</ng-select>
 		</div>
 		<div class="form-group">
 			<label for="name">Analytical method(s)</label>
@@ -20,11 +19,11 @@
 			</ng-select>
 		</div>
 		<div class="form-group">
-				<label for="name">Show Parameter(s)</label>
-				<ng-select class="form-control2" [items]="measuredParameters"  bindLabel="label" 
-				 [multiple]="true" [(ngModel)]="searchParameters" (change)="onChange($event)">
-				</ng-select>
-		</div>		
+			<label for="name">Show Parameter(s)</label>
+			<ng-select class="form-control2" [items]="measuredParameters" bindLabel="label" [multiple]="true" [(ngModel)]="searchParameters"
+			 (change)="onChange($event)">
+			</ng-select>
+		</div>
 		<div class="form-group">
 			<label for="name">
 				Parameter filter
@@ -37,7 +36,7 @@
 				</select>
 				<select class="form-control" [(ngModel)]="searchComparisonOperator" name="size">
 					<option value=""> </option>
-					<option value="iexact" >Equals</option>
+					<option value="iexact">Equals</option>
 					<option value="gt">Greater than</option>
 					<option value="lt">Smaller than</option>
 				</select>
@@ -49,7 +48,7 @@
 		<button class="btn btn-primary" (click)="resetFormValues()">RESET FORM</button>
 
 	</div>
-	
+
 </div>
 <div class="row ">
 	<div class="col">

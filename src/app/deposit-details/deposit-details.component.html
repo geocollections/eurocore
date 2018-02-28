@@ -206,11 +206,11 @@
                 <a class="nav-link active" href="#drillcores" data-toggle="tab">Drillcores ({{sites.length}})</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#references" data-toggle="tab">References</a>
+                <a class="nav-link" href="#references" data-toggle="tab">References ({{references.length}})</a>
             </li>
-            <li class="nav-item">
+           <!-- <li class="nav-item">
                 <a class="nav-link" href="#linkedFIles" data-toggle="tab">Linked files</a>
-            </li>
+            </li>-->
         </ul>
         <br>
         <div class="tab-content">
@@ -245,28 +245,26 @@
                 </table>
             </div>
             <div class="tab-pane fade table-responsive " id="references">
-                <!--<table class="table table-hover table-bordered ">
+                <table class="table table-hover table-bordered ">
                     <thead class="thead-light">
                         <tr>
-                            <th>Depth from (m)</th>
-                            <th>Depth (m, interval)</th>
-                            <th>Sample ID</th>
-                            <th>Sample number</th>
-                            <th>Purpose</th>
-                            <th>Person/Institution</th>
-                            <th>Date</th>
+                            <th>ID</th>
+                            <th>Reference</th>
+                            <th>Author</th>
+                            <th>Title</th>
+                            <th>Year</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr *ngFor="let reference of references">
+                        <td>{{reference.id}}</td>
+                        <td>{{reference.reference}}</td>
+                        <td>{{reference.author}}</td>
+                        <td>{{reference.title}}</td>
+                        <td>{{reference.year}}</td>
+                        <td><a href="{{reference.url}}" target="blank">Download</a></td> 
                     </tr>
-                </table>-->
+                </table>
             </div>
             <div class="tab-pane fade table-responsive " id="linkedFIles">
                 <!--<table class="table table-hover table-bordered ">

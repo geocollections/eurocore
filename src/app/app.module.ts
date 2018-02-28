@@ -34,6 +34,7 @@ import { SpectrumDetailsComponent } from './spectrum-details/spectrum-details.co
 import { DipService } from './services/dip.service';
 import { RqdService } from './services/rqd.service';
 import { OlMapService } from './services/ol-map.service';
+import { ReferenceService } from './services/reference.service';
 
  
 
@@ -65,7 +66,7 @@ import { OlMapService } from './services/ol-map.service';
     NgSelectModule,   
     //SelectModule,
   ],
-  providers: [SiteService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService, DipService, RqdService, OlMapService],
+  providers: [SiteService, LithologyService, DepositService, SampleService, AnalysisService, DrillcoreBoxService, DipService, RqdService, OlMapService, ReferenceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

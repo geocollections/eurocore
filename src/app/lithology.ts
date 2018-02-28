@@ -1,5 +1,4 @@
 export class Lithology {
-
     id: number;
     drillcore__id: string;
     drillcore__name: string;

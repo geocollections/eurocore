@@ -31,8 +31,13 @@ export class DataComponent implements OnInit {
   methodAutocompleteValues: string[];
   measuredParameters: Object[];
 
-  parameterKeys: Object[]=[];
- 
+  searchComparisonParameter2:string[]=[''];
+  searchComparisonOperator2:string[]=[''];
+  searchComparisonValue2:string[]=[''];
+
+
+  parameterKeys: Object[] = [];
+
   drillcoreIds = [];
   sampleIds = [];
   analysisIds = [];
@@ -50,6 +55,7 @@ export class DataComponent implements OnInit {
     this.getAnalyticalMehtods();
     this.getMeasuredParameters();
     this.getDrillcoreByName();
+    //this.getData();
     //this.searchParameters=this.measuredParameters
   }
 
@@ -98,13 +104,13 @@ export class DataComponent implements OnInit {
           measuredParameters['results'][k]['analysisresult__unit__unit'])
         });
       }*/
-      for(var k = 0; k < this.measuredParameters.length; k++){
-        this.measuredParameters[k]['label']= this.measuredParameters[k]['analysisresult__parameter__parameter'] +" "+this.measuredParameters[k]['analysisresult__unit__unit']
-        this.measuredParameters[k]['value']= this.getParameterColumnName(this.measuredParameters[k]['analysisresult__parameter__parameter'],
-        this.measuredParameters[k]['analysisresult__unit__unit'])
+      for (var k = 0; k < this.measuredParameters.length; k++) {
+        this.measuredParameters[k]['label'] = this.measuredParameters[k]['analysisresult__parameter__parameter'] + " " + this.measuredParameters[k]['analysisresult__unit__unit']
+        this.measuredParameters[k]['value'] = this.getParameterColumnName(this.measuredParameters[k]['analysisresult__parameter__parameter'],
+          this.measuredParameters[k]['analysisresult__unit__unit'])
       }
       this.onChange(this.searchParameters);
-      
+
     })
   }
 
@@ -143,7 +149,7 @@ export class DataComponent implements OnInit {
 
       //this.parameterKeys=Object.keys(this.analysisSummary[0]);
       for (var k = 0; k < this.analysisSummary.length; k++) {
-        
+
         if (!this.drillcoreIds.includes(this.analysisSummary[k]['drillcore_id']) && this.analysisSummary[k]['drillcore_id'] != null)
           this.drillcoreIds.push(this.analysisSummary[k]['drillcore_id']);
         if (!this.sampleIds.includes(this.analysisSummary[k]['sample_id']) && this.analysisSummary[k]['sample_id'] != null)
@@ -190,7 +196,7 @@ export class DataComponent implements OnInit {
   resetFormValues(): void {
     this.searchDrillcoreName = [];
     this.searchAnalysesMethods = [];
-    this.searchParameters=[];
+    this.searchParameters = [];
     //this.parameterKeys=[];
     this.onChange(this.searchParameters);
     this.searchComparisonOperator = "";
@@ -206,25 +212,18 @@ export class DataComponent implements OnInit {
 
 
   getDrillcoreName(id: string): string {
-
-    /*for (var i = 0; i < this.sites.length; i++) {
-
-      if (this.sites[i].id.toString() == id) return this.sites[i].name;
-    }*/
-
     for (var i = 0; i < this.drillcoreAutocompleteValues.length; i++) {
-
-      if (this.drillcoreAutocompleteValues[i]['id'] == id) 
-      return this.drillcoreAutocompleteValues[i]['name'];
+      if (this.drillcoreAutocompleteValues[i]['id'] == id)
+        return this.drillcoreAutocompleteValues[i]['name'];
     }
   }
 
-  onChange($event){
-    if($event.length==0)
-    //this.searchParameters=this.measuredParameters;
-    this.parameterKeys=this.measuredParameters
+  onChange($event) {
+    if ($event.length == 0)
+      //this.searchParameters=this.measuredParameters;
+      this.parameterKeys = this.measuredParameters
     else
-    this.parameterKeys=this.searchParameters;
+      this.parameterKeys = this.searchParameters;
     console.log($event);
   }
 
