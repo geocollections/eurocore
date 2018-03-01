@@ -65,7 +65,7 @@ export class AnalysisService {
     return this.http.jsonp<String[]>('http://api.eurocore.rocks/analysis/?fields=analysisresult__parameter__parameter,analysisresult__unit__unit&order_by=analysisresult__parameter__parameter&distinct=true&format=jsonp&analysisresult__unit__unit__isnull=false', 'callback').pipe();
   }
 
-  getAnalysesData(ids: string[], methods: string[], parameters: string): Observable<AnalysisSummary[]> {
+  getAnalysesData(ids: string[], methods: string[], parameters: string[]): Observable<AnalysisSummary[]> {
     let idCriteria = "";
     let methodCriteria = "";
     let parameterCriteria = "";
@@ -79,8 +79,9 @@ export class AnalysisService {
         methodCriteria = '&analysis_method__in=' + methods.toString();
       else
         methodCriteria = '&analysis_method__iexact=' + methods.toString();
-    if (parameters != "")
-      parameterCriteria = "&" + parameters;
+    if (parameters.length != 0)
+      for(var i=0;i<parameters.length;i++)
+         parameterCriteria+= "&" + parameters[i];
     return this.http.jsonp<AnalysisSummary[]>('http://api.eurocore.rocks/analysis_summary/?format=jsonp' + idCriteria + methodCriteria + parameterCriteria + '&paginate_by=1000', 'callback').pipe();
   }
 

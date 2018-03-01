@@ -17,24 +17,21 @@ import { PlatformLocation } from '@angular/common';
   templateUrl: './data.component.html',
   styleUrls: ['./data.component.css'],
   encapsulation: ViewEncapsulation.None
-})
+}) 
 export class DataComponent implements OnInit {
 
 
   searchDrillcoreName: string[] = [];
   searchAnalysesMethods: string[] = [];
   searchParameters: Object[] = [];
-  searchComparisonOperator: string = "gt"; //default value
-  searchComparisonValue: string = "";
-  searchComparisonParameter: string = "";
   drillcoreAutocompleteValues: string[];
   methodAutocompleteValues: string[];
   measuredParameters: Object[];
 
-  searchComparisonParameter2:string[]=[''];
-  searchComparisonOperator2:string[]=[''];
-  searchComparisonValue2:string[]=[''];
-
+  searchComparisonParameter2: string[] = ['', ''];
+  searchComparisonOperator2: string[] = ['gt', 'gt'];
+  searchComparisonValue2: string[] = ['', ''];
+  parameterRowsCount: number[] = [1, 1];
 
   parameterKeys: Object[] = [];
 
@@ -55,8 +52,21 @@ export class DataComponent implements OnInit {
     this.getAnalyticalMehtods();
     this.getMeasuredParameters();
     this.getDrillcoreByName();
-    //this.getData();
-    //this.searchParameters=this.measuredParameters
+  }
+
+
+  addRow() {
+    this.parameterRowsCount.push(1);
+    this.searchComparisonParameter2.push('');
+    this.searchComparisonOperator2.push('gt');
+    this.searchComparisonValue2.push('');
+  }
+
+  deleteRow(num: number) {
+    this.parameterRowsCount.splice(num, 1);
+    this.searchComparisonParameter2.splice(num, 1);
+    this.searchComparisonOperator2.splice(num, 1);
+    this.searchComparisonValue2.splice(num, 1);
   }
 
 
@@ -71,46 +81,23 @@ export class DataComponent implements OnInit {
   }
 
   getAnalyticalMehtods(): void {
-    console.log(this.searchDrillcoreName);
     this.methodAutocompleteValues = [];
-    console.log("get methods");
-    // if (this.searchDrillcoreName == "") {
     this.analysisService.getAllAnalysesMethods().subscribe(analysesMethods => {
-      /*for (var k = 0; k < analysesMethods['results'].length; k++)
-        this.methodAutocompleteValues.push(analysesMethods['results'][k]);
-      //this.analysesMethods=analysesMethods['results'];*/
       this.methodAutocompleteValues = analysesMethods['results'];
       console.log(this.methodAutocompleteValues);
     });
-    /*}
-    /*else {
-      this.siteService.searchAnalysesMethods(this.searchDrillcoreName).subscribe(analysesMethods => {
-        for (var k = 0; k < analysesMethods['results'].length; k++)
-          this.methodAutocompleteValues.push(analysesMethods['results'][k].analysis__analysis_method__method);
-        // this.analysesMethods=analysesMethods['results'];
-        console.log(this.methodAutocompleteValues);
-      });
-    }*/
   }
 
   getMeasuredParameters(): void {
     this.measuredParameters = [];
     this.analysisService.getMeasuredParameters("", []).subscribe(measuredParameters => {
       this.measuredParameters = measuredParameters['results'];
-      /*for (var k = 0; k < measuredParameters['results'].length; k++) {
-        this.measuredParameters.push(         
-          { label: measuredParameters['results'][k]['analysisresult__parameter__parameter'] +" "+measuredParameters['results'][k]['analysisresult__unit__unit'], 
-          value: this.getParameterColumnName(measuredParameters['results'][k]['analysisresult__parameter__parameter'], 
-          measuredParameters['results'][k]['analysisresult__unit__unit'])
-        });
-      }*/
       for (var k = 0; k < this.measuredParameters.length; k++) {
         this.measuredParameters[k]['label'] = this.measuredParameters[k]['analysisresult__parameter__parameter'] + " " + this.measuredParameters[k]['analysisresult__unit__unit']
         this.measuredParameters[k]['value'] = this.getParameterColumnName(this.measuredParameters[k]['analysisresult__parameter__parameter'],
           this.measuredParameters[k]['analysisresult__unit__unit'])
       }
       this.onChange(this.searchParameters);
-
     })
   }
 
@@ -135,21 +122,17 @@ export class DataComponent implements OnInit {
     this.sampleIds = [];
     this.dataCount = "";
     var id = "";
-    var parameterComparison = "";
-    if (this.searchComparisonParameter != "" && this.searchComparisonOperator != "" && this.searchComparisonValue != "")
-      parameterComparison = this.searchComparisonParameter + "__" + this.searchComparisonOperator + "=" + this.searchComparisonValue;
+    var parameterComparison = [];
 
-    /*if (this.drillcoreAutocompleteValues)
-      id = this.getDrillcoreId(this.searchDrillcoreName);*/
-
+    for (var i = 0; i < this.searchComparisonParameter2.length; i++) {
+      if (this.searchComparisonParameter2[i] != "" && this.searchComparisonOperator2[i] != "" && this.searchComparisonValue2[i] != "")
+        parameterComparison.push(this.searchComparisonParameter2[i] + "__" + this.searchComparisonOperator2[i] + "=" + this.searchComparisonValue2[i]);
+    }
 
     console.log("id " + id);
     this.analysisService.getAnalysesData(this.searchDrillcoreName, this.searchAnalysesMethods, parameterComparison).subscribe(data => {
       this.analysisSummary = data['results'];
-
-      //this.parameterKeys=Object.keys(this.analysisSummary[0]);
       for (var k = 0; k < this.analysisSummary.length; k++) {
-
         if (!this.drillcoreIds.includes(this.analysisSummary[k]['drillcore_id']) && this.analysisSummary[k]['drillcore_id'] != null)
           this.drillcoreIds.push(this.analysisSummary[k]['drillcore_id']);
         if (!this.sampleIds.includes(this.analysisSummary[k]['sample_id']) && this.analysisSummary[k]['sample_id'] != null)
@@ -161,7 +144,6 @@ export class DataComponent implements OnInit {
       console.log("sample ids " + this.sampleIds.length);
       console.log("analysis ids" + data['count']);
       this.dataCount = data['count'];
-      //this.getDrillcoresByIds();
     })
   }
 
@@ -181,7 +163,6 @@ export class DataComponent implements OnInit {
     if (unit == "%")
       unit = "pct";
     columnName = parameter.toLowerCase() + "_" + unit;
-
     return columnName;
   }
 
@@ -199,9 +180,11 @@ export class DataComponent implements OnInit {
     this.searchParameters = [];
     //this.parameterKeys=[];
     this.onChange(this.searchParameters);
-    this.searchComparisonOperator = "";
-    this.searchComparisonValue = "";
-    this.searchComparisonParameter = "";
+    for (var i = 0; i < this.searchComparisonParameter2.length; i++) {
+      this.searchComparisonParameter2[i] = "";
+      this.searchComparisonOperator2[i] = "gt";
+      this.searchComparisonValue2[i] = "";
+    }
     //this.analysisSummary=null;
     //this.getData();
   }
